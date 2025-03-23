@@ -9,7 +9,7 @@
 # Basic Site Settings
 locale                   : "pt-BR"
 site_theme               : "default"
-title                    : "Your Name / Site Title"
+title                    : "Prof. Igor Costa"
 title_separator          : "-"
 name                     : &name "Your Name"
 description              : &description "personal description"
@@ -23,11 +23,11 @@ repository               : "academicpages/academicpages.github.io"
 author:
   # Biographic information
   avatar           : "profile.png"
-  name             : "Prof. Igor"
+  name             : "Igor Barbosa da Costa"
   pronouns         : # example: "she/her"  
   bio              : "Short biography for the left-hand sidebar"
-  location         : "Earth"
-  employer         : "Federal Institute of Education, Science and Technology of Paraíba - Brazil"
+  location         : "Campina Grande - Brazil"
+  employer         : "IFPB - Campina Grande"
   uri              : # URL
   email            : "igor.costa@ifpb.edu.br" 
 
