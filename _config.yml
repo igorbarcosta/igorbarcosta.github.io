@@ -7,7 +7,7 @@
 # server process.
 
 # Basic Site Settings
-locale                   : "en-US"
+locale                   : "pt-BR"
 site_theme               : "default"
 title                    : "Your Name / Site Title"
 title_separator          : "-"
@@ -59,7 +59,7 @@ author:
   keybase          : # Username
   instagram        : # Username
   lastfm           : # Username
-  linkedin         : # Username
+  linkedin         : "igorbarcosta"
   mastodon         : # URL
   medium           : # URL
   pinterest        : # Username
