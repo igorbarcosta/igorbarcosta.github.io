@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets'
 import {profile} from '../../settings'
 import SocialIcons from './SocialIcons.astro'
-import ProfilePictures from '@/assets/profile_pictures.jpg'
+import ProfilePictures from '@/assets/profile_pictures.png'
 import { getCollection } from 'astro:content'
 import { template } from '@/settings'
 
@@ -21,7 +21,7 @@ const {fullName, title} = profile
 					src={ProfilePictures}
 					alt={`Profile picture of ${fullName}`}
 				/>
-				<h1 class="text-lg font-black mt-8 hidden lg:block">{title} <span>{fullName}</span></h1>
+				<h1 class="text-lg font-black mt-8 hidden lg:block"><span>{fullName}</span>, {title}</h1>
 			</div>
 			<div class='mx-4 mt-16'>
 				<ul class='space-y-4 menu grow shrink menu-md overflow-y-auto'>
@@ -29,10 +29,7 @@ const {fullName, title} = profile
                         <a href=`${template.base}/` class='text-lg'>Home</a>
 					</li>
 					<li>
-                        <a href=`${template.base}/research` class='text-lg'>Research</a>
-					</li>
-					<li>
-                        <a href=`${template.base}/papers` class='text-lg'>Papers</a>
+                        <a href=`${template.base}/courses` class='text-lg'>Courses</a>
 					</li>
 					<li>
                         <a href=`${template.base}/cv` class='text-lg'>CV</a>
