@@ -1,0 +1,47 @@
+---
+import { site } from '@/data/site';
+import { withBase } from '@/lib/site';
+import ThemeToggle from '@/components/ThemeToggle.astro';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const normalizedPath = currentPath.replace(base, '') || '/';
+const navigation = site.mainNavigation.filter((item) => item.href !== '/');
+const isCurrent = (href: string) => normalizedPath === href || (href !== '/' && normalizedPath.startsWith(href));
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="wordmark" href={withBase('/')} aria-label={`Página inicial de ${site.name}`}>
+      <span>{site.shortName}</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Navegação principal">
+      <ul class="nav-list">
+        {navigation.map((item) => (
+          <li>
+            <a class:list={{ 'list-active': isCurrent(item.href) }} href={withBase(item.href)}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <ThemeToggle />
+      <details class="mobile-menu">
+        <summary>Menu</summary>
+        <nav aria-label="Navegação principal no celular">
+          <ul class="mobile-nav-list">
+            {navigation.map((item) => (
+              <li><a aria-current={isCurrent(item.href) ? 'page' : undefined} href={withBase(item.href)}>{item.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>

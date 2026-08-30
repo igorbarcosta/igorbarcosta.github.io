@@ -1,0 +1,50 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import { site } from '@/data/site';
+import { formatProjectType } from '@/lib/site';
+import { withBase } from '@/lib/site';
+
+const projects = (await getCollection('projects')).filter((entry) => entry.data.status === 'active');
+const teaching = (await getCollection('teaching')).filter((entry) => entry.data.status === 'current');
+const supervisions = (await getCollection('supervision')).filter((entry) => entry.data.status === 'current');
+const currentActivities = site.currentActivities.filter((activity) => activity.status === 'active');
+const publicField = (value: string) => value.startsWith('TODO:') ? undefined : value;
+---
+
+<BaseLayout title="Agora" description="Snapshot das atividades atuais de Ígor Barbosa da Costa.">
+  <section class="page-intro container">
+    <h1>Agora</h1>
+    <p class="snapshot-date">Atualizado em {new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric' }).format(new Date())}</p>
+  </section>
+
+  <section class="section section-rule">
+    <div class="container">
+      <SectionHeading title="Atuação atual" />
+      <div class="now-layout">
+        <div>
+          <h2 class="subsection-title">Ensino</h2>
+          <div class="now-list">
+            {teaching.map((entry) => <a class="now-item" href={withBase('/ensino/')}><strong>{entry.data.title}</strong><small>{[publicField(entry.data.course), publicField(entry.data.institution), entry.data.semester].filter(Boolean).join(' · ')}</small></a>)}
+          </div>
+        </div>
+        <div>
+          <h2 class="subsection-title">Projetos</h2>
+          <div class="now-list">
+            {projects.map((entry) => <a class="now-item" href={withBase(`/projetos/${entry.id}/`)}><strong>{entry.data.title}</strong><small>{entry.data.description} · {formatProjectType(entry.data.type)}</small></a>)}
+          </div>
+        </div>
+        <div>
+          <h2 class="subsection-title">Orientações</h2>
+          <div class="now-list">
+            {supervisions.map((entry) => <a class="now-item" href={withBase('/orientacoes/')}><strong>{entry.data.title}</strong><small>{entry.data.students.join(' · ')} · {entry.data.end?.getFullYear() ?? entry.data.start.getFullYear()}</small></a>)}
+          </div>
+        </div>
+      </div>
+      {currentActivities.length > 0 && <div class="activity-list">
+        {currentActivities.map((activity) => <div class="activity-item"><span>{activity.kind}</span><div><strong>{activity.title}</strong><p>{activity.description}</p></div><em>Ativa</em></div>)}
+      </div>}
+    </div>
+  </section>
+</BaseLayout>

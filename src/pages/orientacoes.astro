@@ -1,0 +1,89 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import SupervisionItem from '@/components/SupervisionItem.astro';
+
+const supervisions = await getCollection('supervision');
+const byMostRecent = (a: typeof supervisions[number], b: typeof supervisions[number]) =>
+  (b.data.end ?? b.data.start).getTime() - (a.data.end ?? a.data.start).getTime() || a.data.title.localeCompare(b.data.title, 'pt-BR');
+const current = supervisions.filter((entry) => entry.data.status === 'current' || entry.data.status === 'planned').sort(byMostRecent);
+const completed = supervisions.filter((entry) => entry.data.status === 'completed' || entry.data.status === 'archived').sort(byMostRecent);
+const categoryFor = (entry: typeof supervisions[number]) => {
+  const title = entry.data.title.toLocaleLowerCase('pt-BR');
+  if (title.includes('estágio')) return 'Estágio';
+  if (entry.data.type === 'mestrado') return 'Mestrado';
+  if (entry.data.type === 'TCC') return 'TCC (Superior)';
+  if (entry.data.type === 'outro' && entry.data.course === 'Informática') return 'TCC (Técnico)';
+  return 'Pesquisa';
+};
+const categoryOrder = ['Mestrado', 'TCC (Superior)', 'TCC (Técnico)', 'Pesquisa', 'Estágio'];
+const toGroups = (entries: typeof supervisions, prefix: string) => categoryOrder
+  .map((label) => ({ label, id: `${prefix}-${label.toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-')}`, entries: entries.filter((entry) => categoryFor(entry) === label) }))
+  .filter((group) => group.entries.length > 0);
+const currentGroups = toGroups(current, 'atual');
+const completedGroups = toGroups(completed, 'concluida');
+---
+
+<BaseLayout title="Orientações" description="Orientações acadêmicas e projetos acompanhados por Ígor Barbosa da Costa.">
+  <section class="page-intro container">
+    <h1>Orientações</h1>
+  </section>
+
+  <section class="section container">
+    <SectionHeading title="Em andamento" />
+    {currentGroups.length ? <div class="supervision-tabs" data-supervision-tabs>
+      <div class="tab-list" role="tablist" aria-label="Categorias de orientações em andamento">
+        {currentGroups.map((group, index) => <button type="button" role="tab" id={`tab-${group.id}`} aria-controls={`panel-${group.id}`} aria-selected={index === 0} tabindex={index === 0 ? 0 : -1} data-supervision-tab={group.id}>{group.label}<span>{group.entries.length}</span></button>)}
+      </div>
+      <div class="tab-panels">
+        {currentGroups.map((group, index) => <section class="supervision-panel" id={`panel-${group.id}`} role="tabpanel" aria-labelledby={`tab-${group.id}`} data-supervision-panel={group.id} hidden={index !== 0}>
+          <ul class="supervision-list">{group.entries.map((entry) => <SupervisionItem supervision={entry} />)}</ul>
+        </section>)}
+      </div>
+    </div> : <div class="empty-state"><p>Nenhuma orientação atual publicada.</p></div>}
+  </section>
+
+  <section class="section section-soft">
+    <div class="container">
+      <SectionHeading title="Concluídas" />
+      {completedGroups.length ? <div class="supervision-tabs" data-supervision-tabs>
+        <div class="tab-list" role="tablist" aria-label="Categorias de orientações concluídas">
+          {completedGroups.map((group, index) => <button type="button" role="tab" id={`tab-${group.id}`} aria-controls={`panel-${group.id}`} aria-selected={index === 0} tabindex={index === 0 ? 0 : -1} data-supervision-tab={group.id}>{group.label}<span>{group.entries.length}</span></button>)}
+        </div>
+        <div class="tab-panels">
+          {completedGroups.map((group, index) => <section class="supervision-panel" id={`panel-${group.id}`} role="tabpanel" aria-labelledby={`tab-${group.id}`} data-supervision-panel={group.id} hidden={index !== 0}>
+            <ul class="supervision-list">{group.entries.map((entry) => <SupervisionItem supervision={entry} />)}</ul>
+          </section>)}
+        </div>
+      </div> : <div class="empty-state"><p>O histórico será adicionado com dados autorizados para publicação.</p></div>}
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-supervision-tabs]').forEach((tabsRoot) => {
+    const tabs = [...tabsRoot.querySelectorAll<HTMLButtonElement>('[data-supervision-tab]')];
+    const panels = [...tabsRoot.querySelectorAll<HTMLElement>('[data-supervision-panel]')];
+    const activate = (id: string) => {
+      tabs.forEach((tab) => {
+        const active = tab.dataset.supervisionTab === id;
+        tab.setAttribute('aria-selected', String(active));
+        tab.tabIndex = active ? 0 : -1;
+      });
+      panels.forEach((panel) => { panel.hidden = panel.dataset.supervisionPanel !== id; });
+    };
+    const initial = location.hash.slice(1);
+    activate(tabs.some((tab) => tab.dataset.supervisionTab === initial) ? initial : tabs[0]?.dataset.supervisionTab ?? '');
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => { activate(tab.dataset.supervisionTab ?? ''); history.replaceState(null, '', `#${tab.dataset.supervisionTab}`); });
+      tab.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+        event.preventDefault();
+        const next = (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+        tabs[next]?.focus();
+        tabs[next]?.click();
+      });
+    });
+  });
+</script>

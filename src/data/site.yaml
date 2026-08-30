@@ -1,0 +1,23 @@
+shortName: '@igorbarcosta'
+intro: Uma central viva para ensino, pesquisa, inovação e os projetos que conectam essas frentes.
+profilePhoto: /igor-bio4.jpg
+mainNavigation:
+  - label: Início
+    href: /
+  - label: Ensino
+    href: /ensino/
+  - label: Projetos
+    href: /projetos/
+  - label: Publicações
+    href: /publicacoes/
+  - label: Orientações
+    href: /orientacoes/
+  - label: Atuação
+    href: /portarias/
+  - label: Sobre
+    href: /sobre/
+currentActivities:
+  - title: "TODO: atividade institucional ou de pesquisa"
+    description: Preencher quando houver uma atividade atual que deva aparecer no snapshot.
+    kind: pesquisa
+    status: pending

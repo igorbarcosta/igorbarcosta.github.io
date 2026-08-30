@@ -1,0 +1,14 @@
+---
+interface Props { teaching: any; }
+const { teaching } = Astro.props;
+const data = teaching.data;
+const course = data.course.startsWith('TODO:') ? undefined : data.course;
+const institution = data.institution.startsWith('TODO:') ? undefined : data.institution;
+const context = [course, institution].filter(Boolean).join(' · ');
+---
+<article class="teaching-item">
+  <div class="item-heading"><h3>{data.title}</h3><span>{data.semester}</span></div>
+  {context && <p>{context}</p>}
+  <p class="item-meta">{data.areas.join(' · ')}</p>
+  {data.site && <a href={data.site} target="_blank" rel="noreferrer">Site da disciplina</a>}
+</article>

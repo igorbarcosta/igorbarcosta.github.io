@@ -1,0 +1,12 @@
+---
+interface Props {
+  src?: string;
+  alt?: string;
+}
+
+const { src, alt = 'Retrato profissional de Ígor Barbosa da Costa' } = Astro.props;
+---
+
+<figure class:list={['profile-photo', { 'profile-photo-placeholder': !src }]}>
+  {src ? <img src={src} alt={alt} width="320" height="360" loading="eager" decoding="async" /> : <div role="img" aria-label="Espaço reservado para a foto profissional"><span>Foto profissional<br />a adicionar</span></div>}
+</figure>

@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+
+const projects = await getCollection('projects');
+const byLatest = (a: (typeof projects)[number], b: (typeof projects)[number]) =>
+  (b.data.end ?? b.data.start).getTime() - (a.data.end ?? a.data.start).getTime();
+const current = projects.filter((entry) => entry.data.status === 'active' || entry.data.status === 'planned').sort(byLatest);
+const completed = projects.filter((entry) => entry.data.status === 'completed' || entry.data.status === 'archived').sort(byLatest);
+---
+
+<BaseLayout title="Projetos" description="Projetos de pesquisa, inovação e desenvolvimento de Ígor Barbosa da Costa.">
+  <section class="page-intro container">
+    <h1>Projetos</h1>
+  </section>
+
+  <section class="section container">
+    <SectionHeading title="Em andamento" />
+    <div class="editorial-list project-list">
+      {current.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container">
+      <SectionHeading title="Concluídos" />
+      <div class="editorial-list project-list">
+        {completed.length ? completed.map((project) => <ProjectCard project={project} />) : <div class="empty-state"><p>Ainda não há projetos concluídos publicados.</p></div>}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

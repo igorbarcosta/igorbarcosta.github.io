@@ -1,0 +1,14 @@
+---
+import { formatProjectPeriod, formatProjectType, withBase } from '@/lib/site';
+interface Props { project: any; }
+const { project } = Astro.props;
+const data = project.data;
+---
+<article class="project-item">
+  <p class="project-period-side">{formatProjectPeriod(data.start, data.end)}</p>
+  <div class="project-summary">
+    <h3><a href={withBase(`/projetos/${project.id}/`)}>{data.title}</a></h3>
+    <p>{data.description}</p>
+    <p class="item-meta">{data.role} · {formatProjectType(data.type)}</p>
+  </div>
+</article>

@@ -1,0 +1,57 @@
+name: Ígor Barbosa da Costa
+role: Professor
+headline: Professor e pesquisador
+description: Professor e pesquisador nas áreas de Inteligência Artificial,
+  Ciência de Dados e Engenharia de Software.
+summary: Sou professor do Ensino Básico, Técnico e Tecnológico no Instituto
+  Federal da Paraíba, Campus Campina Grande, desde 2012. Trabalho na interseção
+  entre Inteligência Artificial, Ciência de Dados e Engenharia de Software,
+  buscando transformar pesquisa em sistemas que possam ser usados, avaliados e
+  aprimorados em contextos reais.
+affiliation:
+  institution: Instituto Federal de Educação, Ciência e Tecnologia da Paraíba
+  campus: Campus Campina Grande
+  since: 2012
+education:
+  - id: doctorate-computer-science
+    degree: Doutorado em Ciência da Computação
+    institution: Universidade Federal de Campina Grande
+    period: 2016–2021
+    detail: Período sanduíche na Universität Hildesheim, Alemanha, em 2019.
+  - id: professional-masters-computer-science
+    degree: Mestrado profissional em Ciência da Computação
+    institution: Universidade Federal de Pernambuco
+    period: 2007–2010
+  - id: bachelor-computer-science
+    degree: Bacharelado em Ciência da Computação
+    institution: Universidade Federal de Campina Grande
+    period: 2001–2006
+areas:
+  - Inteligência Artificial
+  - Ciência de Dados
+  - Engenharia de Software
+languages:
+  - language: Inglês
+    level: Compreende, fala, lê e escreve bem
+  - language: Alemão
+    level: Conhecimento básico
+  - language: Espanhol
+    level: Conhecimento básico
+recognition:
+  - year: 2017
+    title: 1º lugar no “3 Minutes Thesis” da V SACC, Computação — UFCG
+  - year: 2016
+    title: Melhor palestra do ciclo “Conversas LSD” — UFCG
+links:
+  lattes: http://lattes.cnpq.br/2851866994953797
+  orcid: https://orcid.org/0000-0001-7392-6988
+  linkedin: https://br.linkedin.com/in/igorbarcosta
+  github: https://github.com/igorbarcosta
+  email: mailto:igor.costa@ifpb.edu.br
+lattesUpdatedAt: 2026-03-20
+groups:
+  - id: ide-ia
+    name: Laboratório ide.ia
+    type: laboratory
+    links:
+      instagram: https://www.instagram.com/ide.ia_/

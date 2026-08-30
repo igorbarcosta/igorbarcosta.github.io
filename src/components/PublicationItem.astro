@@ -1,0 +1,15 @@
+---
+import type { Publication } from '@/lib/bibtex';
+interface Props { publication: Publication; }
+const { publication } = Astro.props;
+const typeLabels = { article: 'Artigo', conference: 'Conferência', chapter: 'Capítulo', book: 'Livro', software: 'Software', dataset: 'Dataset', preprint: 'Preprint', other: 'Outro' };
+---
+<li class="publication-item">
+  <h3>{publication.title}</h3>
+  <p>{publication.authors}</p>
+  <p class="item-meta">{publication.venue ? `${publication.venue} · ` : ''}{publication.year ?? '—'} · {typeLabels[publication.type]}</p>
+  {(publication.doi || publication.url) && <div class="publication-links">
+    {publication.doi && <a href={`https://doi.org/${publication.doi}`} target="_blank" rel="noreferrer">DOI</a>}
+    {publication.url && <a href={publication.url} target="_blank" rel="noreferrer">Abrir</a>}
+  </div>}
+</li>

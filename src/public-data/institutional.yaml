@@ -1,0 +1,129 @@
+activities:
+  - id: institutional-reformulacao-do-ppc-do-bacharelado-em-engenharia-de-computacao
+    title: Reformulação do PPC do Bacharelado em Engenharia de Computação
+    category: Desenvolvimento curricular
+    role: Membro de comissão
+    start: 2026-04-29
+    end: 2026-08-27
+    evidenceVerified: true
+  - id: institutional-elaboracao-dos-calendarios-academicos-de-2025
+    title: Elaboração dos calendários acadêmicos de 2025
+    category: Gestão acadêmica
+    role: Membro de comissão
+    start: 2024-11-27
+    end: 2025-02-25
+    evidenceVerified: true
+  - id: institutional-regulamento-sobre-ausencias-docentes-em-viagens-de-campo-e-eventos-de-curta-duracao
+    title: Regulamento sobre ausências docentes em viagens de campo e eventos de
+      curta duração
+    category: Gestão acadêmica
+    role: Membro de comissão
+    start: 2024-11-28
+    end: 2025-01-27
+    evidenceVerified: true
+  - id: institutional-organizacao-da-segunda-etapa-do-ifpb-ict-competition
+    title: Organização da segunda etapa do IFPB ICT Competition
+    category: Evento tecnológico
+    role: Membro de comissão organizadora
+    start: 2024-08-22
+    end: 2024-10-06
+    evidenceVerified: true
+  - id: institutional-elaboracao-dos-calendarios-academicos-de-2024
+    title: Elaboração dos calendários acadêmicos de 2024
+    category: Gestão acadêmica
+    role: Membro de comissão
+    start: 2023-10-06
+    end: 2023-12-05
+    evidenceVerified: true
+  - id: institutional-coordenacao-da-area-de-informatica-do-campus-campina-grande
+    title: Coordenação da Área de Informática do Campus Campina Grande
+    category: Gestão acadêmica
+    role: Coordenador da Área de Informática
+    start: 2022-11-23
+    end: 2025-03-24
+    evidenceVerified: true
+  - id: institutional-comissao-de-processos-seletivos-de-estudantes-do-ppgti
+    title: Comissão de Processos Seletivos de Estudantes do PPGTI
+    category: Pós-graduação
+    role: Membro de comissão
+    start: 2025-07-01
+    end: 2026-06-30
+    evidenceVerified: true
+  - id: institutional-reformulacao-do-ppc-do-bacharelado-em-engenharia-de-computacao
+    title: Reformulação do PPC do Bacharelado em Engenharia de Computação
+    category: Desenvolvimento curricular
+    role: Membro de comissão
+    start: 2022-09-14
+    end: 2023-01-12
+    evidenceVerified: true
+  - id: institutional-elaboracao-do-ppc-de-desenvolvimento-de-sistemas-e-extincao-do-curso-tecnico-em-informatica
+    title: Elaboração do PPC de Desenvolvimento de Sistemas e extinção do Curso
+      Técnico em Informática
+    category: Desenvolvimento curricular
+    role: Membro de comissão
+    start: 2020-10-19
+    end: 2021-04-17
+    evidenceVerified: true
+  - id: institutional-reformulacao-do-ppc-de-manutencao-e-suporte-em-informatica
+    title: Reformulação do PPC de Manutenção e Suporte em Informática
+    category: Desenvolvimento curricular
+    role: Membro de comissão
+    start: 2020-10-19
+    end: 2021-03-18
+    evidenceVerified: true
+  - id: institutional-doutorado-em-ciencia-da-computacao-na-ufcg
+    title: Doutorado em Ciência da Computação na UFCG
+    category: Formação acadêmica
+    role: Doutorando afastado para capacitação
+    start: 2016-10-03
+    end: 2019-10-03
+    evidenceVerified: true
+  - id: institutional-doutorado-sanduiche-na-universidade-de-hildesheim
+    title: Doutorado sanduíche na Universidade de Hildesheim
+    category: Formação acadêmica
+    role: Doutorando em estágio no exterior
+    start: 2018-09-12
+    end: 2019-09-30
+    evidenceVerified: true
+  - id: institutional-atuacao-no-colegiado-do-curso-superior-de-tecnologia-em-telematica
+    title: Atuação no Colegiado do Curso Superior de Tecnologia em Telemática
+    category: Colegiado de curso
+    role: Membro e, posteriormente, presidente
+    start: 2013-04-05
+    end: 2017-07-10
+    evidenceVerified: true
+  - id: institutional-comissao-de-recredenciamento-do-campus-campina-grande
+    title: Comissão de recredenciamento do Campus Campina Grande
+    category: Avaliação institucional
+    role: Membro de comissão
+    start: 2016-03-02
+    end: 2016-05-31
+    evidenceVerified: true
+  - id: institutional-elaboracao-do-edital-da-2-competicao-de-robotica-do-ifpb
+    title: Elaboração do edital da 2ª Competição de Robótica do IFPB
+    category: Evento tecnológico
+    role: Membro de comissão
+    start: 2015-12-22
+    end: 2016-03-21
+    evidenceVerified: true
+  - id: institutional-representacao-institucional-do-ifpb-na-expotec
+    title: Representação institucional do IFPB na EXPOTEC
+    category: Eventos institucionais
+    role: Membro de comissão
+    start: 2015-05-27
+    end: 2015-05-30
+    evidenceVerified: true
+  - id: institutional-estudo-de-projeto-pedagogico-no-eixo-de-producao-alimenticia
+    title: Estudo de projeto pedagógico no eixo de Produção Alimentícia
+    category: Desenvolvimento curricular
+    role: Membro de comissão
+    start: 2013-11-13
+    end: 2014-02-11
+    evidenceVerified: true
+  - id: institutional-lotacao-na-unidade-academica-de-informacao-e-comunicacao
+    title: Lotação na Unidade Acadêmica de Informação e Comunicação
+    category: Atuação profissional
+    role: Professor EBTT
+    start: 2012-12-07
+    end: 2017-02-15
+    evidenceVerified: true

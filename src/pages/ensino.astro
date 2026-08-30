@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import TeachingCard from '@/components/TeachingCard.astro';
+
+const teaching = await getCollection('teaching');
+const current = teaching.filter((entry) => entry.data.status === 'current' || entry.data.status === 'planned');
+const history = teaching.filter((entry) => entry.data.status === 'completed' || entry.data.status === 'archived');
+const groupedHistory = history.reduce<Record<string, typeof history>>((groups, entry) => {
+  const year = entry.data.semester.split('.')[0];
+  groups[year] ??= [];
+  groups[year].push(entry);
+  return groups;
+}, {});
+---
+
+<BaseLayout title="Ensino" description="Disciplinas atuais e histórico docente de Ígor Barbosa da Costa.">
+  <section class="page-intro container">
+    <h1>Ensino</h1>
+  </section>
+
+  <section class="section container">
+    <SectionHeading title="Ofertas atuais" />
+    <div class="teaching-list">
+      {current.length ? current.map((entry) => <TeachingCard teaching={entry} />) : <div class="empty-state"><p>Nenhuma oferta atual cadastrada.</p></div>}
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container">
+      <SectionHeading title="Histórico por período" />
+      {Object.keys(groupedHistory).length ? Object.entries(groupedHistory).sort(([a], [b]) => b.localeCompare(a)).map(([year, entries]) => (
+        <section class="timeline-group">
+          <h3>{year}</h3>
+          <div class="teaching-list">{entries.map((entry) => <TeachingCard teaching={entry} />)}</div>
+        </section>
+      )) : <div class="empty-state"><p>O histórico docente será adicionado conforme as ofertas forem documentadas.</p></div>}
+    </div>
+  </section>
+</BaseLayout>

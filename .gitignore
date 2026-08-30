@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+.DS_Store
+cv-lattes.pdf
+
+# Material privado temporário nunca pertence ao repositório público.
+.private/
+
+# Evidências privadas são versionadas para verificação, mas ficam fora de
+# public/ e não são copiadas pelo build do Astro.

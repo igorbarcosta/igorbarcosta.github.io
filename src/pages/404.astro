@@ -1,0 +1,13 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { withBase } from '@/lib/site';
+---
+
+<BaseLayout title="Página não encontrada">
+  <section class="page-intro container not-found">
+    <p class="eyebrow">404</p>
+    <h1>Este caminho ainda não existe.</h1>
+    <p>Talvez a página esteja em construção — ou o endereço tenha mudado.</p>
+    <a class="button button-primary" href={withBase('/')}>Voltar ao início</a>
+  </section>
+</BaseLayout>

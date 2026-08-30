@@ -1,0 +1,80 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ProfilePhoto from '@/components/ProfilePhoto.astro';
+import SocialLinks from '@/components/SocialLinks.astro';
+import { site } from '@/data/site';
+import { getPublications } from '@/lib/bibtex';
+import { withBase } from '@/lib/site';
+
+const projects = await getCollection('projects');
+const teaching = await getCollection('teaching');
+const currentTeaching = teaching.filter((entry) => entry.data.status === 'current');
+const currentProjects = projects.filter((entry) => entry.data.status === 'active').sort((a, b) => Number(b.data.featured) - Number(a.data.featured));
+const publications = getPublications();
+const recentPublicationCutoff = new Date().getFullYear() - 1;
+const recentPublications = publications
+  .filter((publication) => publication.year && Number(publication.year) >= recentPublicationCutoff)
+  .slice(0, 2);
+const areas = site.description
+  .replace(/^Professor e pesquisador nas áreas de /, '')
+  .replace(/, /g, ' · ')
+  .replace(/ e /, ' · ')
+  .replace(/\.$/, '');
+const publicField = (value: string) => value.startsWith('TODO:') ? undefined : value;
+---
+
+<BaseLayout title="Início">
+  <div class="container home">
+    <section class="home-intro">
+      <div class="home-copy">
+        <h1>{site.name}</h1>
+        <p class="home-role">Professor @ IFPB - Campus Campina Grande</p>
+        <p class="home-context">Doutor em Ciência da Computação · Pesquisador do <a href={site.profile.laboratory.url} rel="me">{site.profile.laboratory.name}</a></p>
+        <p class="home-areas">{areas}</p>
+        <SocialLinks />
+      </div>
+      <ProfilePhoto src={withBase(site.profile.photo)} />
+    </section>
+
+    <section class="home-section" aria-labelledby="atuacao-title">
+      <h2 id="atuacao-title">Atuação atual</h2>
+      <div class="current-grid">
+        <div class="current-column">
+          <h3>Projetos</h3>
+          <div class="current-list">
+            {currentProjects.map((project) => (
+              <article class="current-item">
+                <h4><a href={withBase(`/projetos/${project.id}/`)}>{project.data.title}</a></h4>
+                <p>{project.data.description}</p>
+              </article>
+            ))}
+          </div>
+          <a class="more-link" href={withBase('/projetos/')}>Ver projetos</a>
+        </div>
+
+        <div class="current-column">
+          <h3>Ensino</h3>
+          <div class="current-list">
+            {currentTeaching.map((entry) => (
+              <article class="current-item">
+                <h4><a href={withBase('/ensino/')}>{entry.data.title}</a></h4>
+                <p>{[publicField(entry.data.course), entry.data.semester].filter(Boolean).join(' · ')}</p>
+              </article>
+            ))}
+          </div>
+          <a class="more-link" href={withBase('/ensino/')}>Ver ensino</a>
+        </div>
+      </div>
+      <a class="snapshot-link" href={withBase('/agora/')}>Ver atuação atual completa</a>
+    </section>
+
+    {recentPublications.length > 0 && <div class="home-secondary">
+      <section class="summary-block" aria-labelledby="publicacoes-resumo">
+        <h2 id="publicacoes-resumo">Publicações recentes</h2>
+        <ul>{recentPublications.map((publication) => <li class="publication-summary"><span>{publication.year ?? '—'}</span><div><span class="summary-title">{publication.title}</span>{publication.venue && <span>{publication.venue}</span>}</div></li>)}</ul>
+        <a class="more-link" href={withBase('/publicacoes/')}>Ver publicações</a>
+      </section>
+    </div>}
+  </div>
+</BaseLayout>

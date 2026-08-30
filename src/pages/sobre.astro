@@ -1,0 +1,54 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import SocialLinks from '@/components/SocialLinks.astro';
+import { site } from '@/data/site';
+---
+
+<BaseLayout title="Sobre" description="Apresentação e áreas de atuação de Ígor Barbosa da Costa.">
+  <section class="page-intro container">
+    <h1>Sobre</h1>
+  </section>
+
+  <section class="section container about-layout">
+    <div>
+      <SectionHeading title="Professor e pesquisador" />
+      <div class="prose">
+        <p>{site.profile.summary}</p>
+      </div>
+    </div>
+    <aside class="about-aside">
+      <h2>Áreas de atuação</h2>
+      <ul class="plain-list">{site.profile.areas.map((area) => <li>{area}</li>)}</ul>
+    </aside>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container">
+      <SectionHeading title="Formação" />
+      <ol class="profile-timeline">
+        {site.profile.education.map((item) => <li><span>{item.period}</span><div><h3>{item.degree}</h3><p>{item.institution}</p>{item.detail && <p class="muted">{item.detail}</p>}</div></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section container profile-grid">
+    <div>
+      <SectionHeading title="Atuação profissional" />
+      <p><strong>{site.profile.affiliation.institution}</strong><br />{site.profile.affiliation.campus} · desde {site.profile.affiliation.since}</p>
+    </div>
+    <div>
+      <SectionHeading title="Idiomas" />
+      <ul class="plain-list">{site.profile.languages.map((item) => <li><strong>{item.language}</strong><br /><span>{item.level}</span></li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container about-footer">
+      <SectionHeading title="Prêmios e links" />
+      <ul class="plain-list recognition-list">{site.profile.recognition.map((item) => <li><span>{item.year}</span> {item.title}</li>)}</ul>
+      <SocialLinks />
+      <p class="muted">Dados acadêmicos conferidos no Currículo Lattes, atualizado em 20 de março de 2026.</p>
+    </div>
+  </section>
+</BaseLayout>
