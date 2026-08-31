@@ -155,10 +155,10 @@ h4 { margin-bottom: var(--space-xs); font-size: var(--text-base); font-weight: 6
 .repository-link { display: inline-flex !important; align-items: center; gap: .35rem; }
 .repository-link svg { width: .85rem; height: .85rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .publication-list, .supervision-list, .plain-list, .profile-timeline { display: grid; gap: var(--space-lg); padding: 0; margin: 0; list-style: none; }
-.institutional-content { max-width: 900px; }
 .activity-proof-list { display: grid; gap: var(--space-lg); padding: 0; margin: 0; list-style: none; }
-.activity-proof-list li { display: grid; grid-template-columns: 13rem minmax(0, 1fr); gap: var(--space-lg); padding-bottom: var(--space-lg); border-bottom: 1px solid var(--color-border); }
-.activity-proof-period { display: flex; gap: .45rem; color: var(--color-muted); font-size: var(--text-sm); }
+.activity-proof-list li { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: var(--space-xl); padding-bottom: var(--space-lg); border-bottom: 1px solid var(--color-border); }
+.committee-list li { display: block; padding-bottom: 0; border-bottom: 0; }
+.activity-proof-period { display: flex; gap: .45rem; color: var(--color-accent); font-size: var(--text-sm); }
 .activity-proof-list h3 { margin-bottom: var(--space-xs); font-size: var(--text-lg); }
 .activity-proof-list p { margin-bottom: var(--space-xs); color: var(--color-muted); }
 .verified-record { color: var(--color-muted); }

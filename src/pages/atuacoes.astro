@@ -2,9 +2,13 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import { institutional } from '@/data/institutional';
+import { formatSupervisionCourse } from '@/lib/site';
+import { getCollection } from 'astro:content';
 
 const activities = institutional.activities.sort((a, b) => b.start.getTime() - a.start.getTime());
 const committees = institutional.committees.sort((a, b) => (b.date?.getTime() ?? 0) - (a.date?.getTime() ?? 0));
+const supervisions = await getCollection('supervision');
+const courseFor = (committee: typeof committees[number]) => supervisions.find((entry) => committee.students.some((student) => entry.data.students.includes(student)))?.data.course;
 const formatDate = (date: Date) => new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(date);
 ---
 
@@ -14,23 +18,29 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('pt-BR', { timeZone: 
     <p>Participações em atividades institucionais e acadêmicas.</p>
   </section>
 
-  <section class="section container institutional-content">
+  <section class="section container">
     <SectionHeading title="Participações em Bancas" description="Participações em bancas de avaliação de trabalhos acadêmicos." />
-    <ol class="activity-proof-list">
-      {committees.map((committee) => <li>
-        <div class="activity-proof-period">{committee.date ? <time datetime={committee.date.toISOString()}>{formatDate(committee.date)}</time> : <span>Data não informada</span>}</div>
-        <div>
-          <h3>{committee.title}</h3>
-          <p>{committee.role} · {committee.category}</p>
-          {committee.students.length > 0 && <p>Estudantes: {committee.students.join(' · ')}</p>}
-          {committee.evidenceVerified && <small class="verified-record">Registro verificado documentalmente</small>}
-        </div>
-      </li>)}
+    <ol class="activity-proof-list committee-list">
+      {committees.map((committee) => {
+        const course = courseFor(committee);
+        const students = [...committee.students].sort((a, b) => a.localeCompare(b, 'pt-BR'));
+        return <li>
+          <div>
+            <h3>{committee.title}</h3>
+            <p class:list={{ 'student-list': true, 'student-list-many': students.length > 2 }}>{students.map((student) => <span>{student}</span>)}</p>
+            <p class="item-meta">
+              {course ? formatSupervisionCourse(course) : 'Curso não informado'}
+              {' - '}
+              {committee.date ? <time datetime={committee.date.toISOString()}>{formatDate(committee.date)}</time> : 'Data não informada'}
+            </p>
+          </div>
+        </li>;
+      })}
     </ol>
   </section>
 
   <section class="section section-soft">
-    <div class="container institutional-content">
+    <div class="container">
     <SectionHeading title="Atuação institucional" description="Comissões, colegiados, gestão acadêmica e desenvolvimento institucional." />
     <ol class="activity-proof-list">
       {activities.map((activity) => <li>
@@ -38,7 +48,6 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('pt-BR', { timeZone: 
         <div>
           <h3>{activity.title}</h3>
           <p>{activity.role} · {activity.category}</p>
-          {activity.evidenceVerified && <small class="verified-record">Registro verificado documentalmente</small>}
         </div>
       </li>)}
     </ol>
