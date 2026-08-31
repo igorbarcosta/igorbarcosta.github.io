@@ -9,6 +9,6 @@ studentIds:
 type: outro
 course: Informática
 institution: Instituto Federal da Paraíba
-start: 2026-02-26
+start: 2026-04-23
 status: current
 ---

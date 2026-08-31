@@ -6,7 +6,8 @@ students:
 type: TCC
 course: Telemática
 institution: Instituto Federal da Paraíba
-start: 2021-01-01
-end: 2021-12-31
+start: 2021-06-30
+end: 2021-11-12
 status: completed
+evidenceVerified: true
 ---

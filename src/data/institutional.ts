@@ -12,6 +12,15 @@ const institutionalSchema = z.object({
     end: z.coerce.date(),
     evidenceVerified: z.boolean(),
   })),
+  committees: z.array(z.object({
+    id: z.string().min(1),
+    title: z.string().min(1),
+    category: z.string().min(1),
+    role: z.string().min(1),
+    date: z.coerce.date().optional(),
+    students: z.array(z.string().min(1)).default([]),
+    evidenceVerified: z.boolean(),
+  })).default([]),
 });
 
 export const institutional = institutionalSchema.parse(parse(institutionalYaml));

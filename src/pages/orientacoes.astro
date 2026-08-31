@@ -5,8 +5,9 @@ import SectionHeading from '@/components/SectionHeading.astro';
 import SupervisionItem from '@/components/SupervisionItem.astro';
 
 const supervisions = await getCollection('supervision');
+const mostRecentTime = (entry: typeof supervisions[number]) => (entry.data.end ?? entry.data.start)?.getTime() ?? 0;
 const byMostRecent = (a: typeof supervisions[number], b: typeof supervisions[number]) =>
-  (b.data.end ?? b.data.start).getTime() - (a.data.end ?? a.data.start).getTime() || a.data.title.localeCompare(b.data.title, 'pt-BR');
+  mostRecentTime(b) - mostRecentTime(a) || a.data.title.localeCompare(b.data.title, 'pt-BR');
 const current = supervisions.filter((entry) => entry.data.status === 'current' || entry.data.status === 'planned').sort(byMostRecent);
 const completed = supervisions.filter((entry) => entry.data.status === 'completed' || entry.data.status === 'archived').sort(byMostRecent);
 const categoryFor = (entry: typeof supervisions[number]) => {

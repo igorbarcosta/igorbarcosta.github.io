@@ -127,3 +127,346 @@ activities:
     start: 2012-12-07
     end: 2017-02-15
     evidenceVerified: true
+committees:
+  - id: committee-sistema-ranqueamento-automoveis-2022
+    title: Sistema de ranqueamento de automóveis com base na tabela FIPE
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2022-03-18
+    students:
+      - William Adriano Ullmann Klein
+    evidenceVerified: true
+  - id: committee-siaae-2022
+    title: SIAAE — Sistema Integrado de Apoio à Aprendizagem e Estágios
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2022-08-18
+    students:
+      - Almir de Oliveira Pereira
+      - Gabriel Faustino da Silva
+      - Jhonata Vinicius da Silva Negreiros
+    evidenceVerified: true
+  - id: committee-orienta-ifpb-2022
+    title: OrientaIFPB — um sistema web para gestão das atividades de orientação
+      acadêmica
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2022-08-30
+    students:
+      - Diego Martins Duarte
+    evidenceVerified: true
+  - id: committee-central-care-2022
+    title: Central Care — digitalização de serviços para clínicas médicas
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2022-08-26
+    students:
+      - João Carlos Guerra de Abreu
+      - Marcelo Alves da Silva Filho
+    evidenceVerified: true
+  - id: committee-capitas-2022
+    title: CAPITAS — um protótipo de plataforma para auxílio em doações
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2022-08-26
+    students:
+      - Hevlla Oliveira Souza
+    evidenceVerified: true
+  - id: committee-politica-eleitoral-twitter-2022
+    title: Análise de engajamento de usuários em publicações sobre política
+      eleitoral contendo discurso de ódio na rede social Twitter
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2022-12-15
+    students:
+      - José Aurélio Espaminondas de Carvalho
+    evidenceVerified: true
+  - id: committee-aprendizado-maquina-discurso-odio-twitter-2022
+    title: Um estudo comparativo de algoritmos de aprendizado de máquina na detecção
+      de discurso de ódio na rede social Twitter
+    category: Banca de TCC
+    role: Membro avaliador
+    students:
+      - Wesley Weverton de Azevedo Palmeira
+    evidenceVerified: true
+  - id: committee-rede-apoio-professores-2021
+    title: Em tempos de ensino remoto — uma rede de apoio e colaboração entre
+      professores
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2021-10-13
+    students:
+      - Alberto da Silva Felix
+      - Filipe Fernandes Ribeiro
+      - Marlon Renan Melo da Costa
+    evidenceVerified: true
+  - id: committee-sentimento-sinal-voz-mlp-2021
+    title: Análise da relevância dos recursos de sinal de voz para classificação de
+      sentimento usando Redes Neurais Multilayer Perceptron
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2021-10-15
+    students:
+      - Lury Anderson Fernandes Coelho
+    evidenceVerified: true
+  - id: committee-indicadores-ativos-financeiros-2023
+    title: Análise de indicadores técnicos para ativos financeiros — acurácia dos
+      sinais de compra e venda
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2023-05-26
+    students:
+      - João Henrique Andrade da Silva
+    evidenceVerified: true
+  - id: committee-sidmed-2023
+    title: SIDMED — sistema de dispensação de medicamentos excepcionais
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2023-05-24
+    students:
+      - Allan dos Santos Batista Bastos
+      - José Ramon da Silva Bezerra
+      - Érica Clementino de Carvalho
+    evidenceVerified: true
+  - id: committee-irrigacao-hortalicas-iot-2023
+    title: Automação de irrigação de hortaliças com sistema programável IoT
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2023-05-26
+    students:
+      - Adriano Soares da Silva
+      - João Igor Barros Rocha
+      - José Domingos de Oliveira Neto
+    evidenceVerified: true
+  - id: committee-seguranca-iot-ambientes-residenciais-2023
+    title: Visão geral sobre segurança em soluções IoT para ambientes residenciais
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2023-06-29
+    students:
+      - Guilherme Vidal de Negreiros Lima
+    evidenceVerified: true
+  - id: committee-monitoramento-qualidade-agua-2023
+    title: Monitoramento de parâmetros da qualidade da água com plataforma
+      desenvolvida com Arduino
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2023-06-30
+    students:
+      - Matheus Pereira Braz da Silva
+    evidenceVerified: true
+  - id: committee-monitoramento-vacinas-2023
+    title: Aplicação para o monitoramento de vacinas utilizando Flutter e Firebase
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2023-12-06
+    students:
+      - Antonio Silveira
+      - Gabriel Araujo Silva
+      - João Edinaldo Gomes dos Santos Junior
+    evidenceVerified: true
+  - id: committee-avaliacao-heuristica-magazine-luiza-2023
+    title: Avaliação heurística do marketplace Magazine Luiza — identificação de
+      aspectos de usabilidade que influenciam no negócio
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2023-12-12
+    students:
+      - Beatriz de Araujo Farias
+    evidenceVerified: true
+  - id: committee-telemetria-lego-mindstorms-2023
+    title: Sistema de telemetria de sensores LEGO MINDSTORMS EV3
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2023-12-13
+    students:
+      - Douglas Hudson Silveira
+      - Antonio Carlos Albuquerque
+    evidenceVerified: true
+  - id: committee-sistema-integrado-chaves-2023
+    title: Concepção e desenvolvimento do Sistema Interno Integrado de Chaves
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2023-12-14
+    students:
+      - Pedro Henrique Guerra
+      - Lucas Dantas de Araujo
+    evidenceVerified: true
+  - id: committee-questoespro-2023
+    title: QuestoEsPro — uma plataforma de elaboração e correção de avaliações
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2023-12-15
+    students:
+      - Jonas Henriques Nascimento
+      - Jorge Victor Leite Damasceno
+    evidenceVerified: true
+  - id: committee-questoespro-web-mobile-2023
+    title: QuestõesPro Web para o ambiente mobile — uma análise focada nas vantagens
+      para professores e alunos
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2023-12-19
+    students:
+      - Rodrigo Cunha França
+    evidenceVerified: true
+  - id: committee-democracia-descomplicada-pln-2024
+    title: Democracia descomplicada — utilizando processamento de linguagem natural
+      para classificar propostas de parlamentares na Câmara dos Deputados
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2024-09-17
+    students:
+      - Arthur Maurício Thomaz Soares
+    evidenceVerified: true
+  - id: committee-futes-analise-dados-futebol-2024
+    title: FUTeS — uma plataforma para análise de dados de jogadores de futebol
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2024-09-19
+    students:
+      - Luiz Medeiros Neto
+    evidenceVerified: true
+  - id: committee-topologia-redes-mobilidade-urbana-2024
+    title: Medidas de topologia de redes de rua como indicadores complementares para
+      análise de mobilidade urbana — um estudo aplicado
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2024-09-20
+    students:
+      - Lilian Honorio Teixeira
+    evidenceVerified: true
+  - id: committee-reconhecimento-facial-presenca-2024
+    title: Desenvolvimento de software de reconhecimento facial para contabilizar
+      presença de aluno em sala de aula
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2024-09-18
+    students:
+      - Isaac Antônio Silva Barbosa
+      - João Pedro de Sousa Correia
+    evidenceVerified: true
+  - id: committee-reserva-olho-dagua-oncas-2024
+    title: Uma abordagem móvel para a conscientização ambiental — o aplicativo da
+      Reserva Olho d’Água das Onças
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2024-09-20
+    students:
+      - Eduardo dos Reis Souza
+      - Mateus Penna Albuquerque
+    evidenceVerified: true
+  - id: committee-analise-visual-dados-educacionais-2024
+    title: Análise visual de dados educacionais — um estudo de caso sobre o
+      relatório de desempenho dos alunos dos cursos de Informática do IFPB-CG
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2024-09-20
+    students:
+      - Daniel Victor Lemos de Morais
+      - Jonatas da Silva Duarte
+    evidenceVerified: true
+  - id: committee-seguranca-nfce-2025
+    title: Avaliação da segurança de acesso à Nota Fiscal de Consumidor Eletrônica —
+      um estudo de caso em empresas no município de Campina Grande-PB
+    category: Banca de projeto
+    role: Membro avaliador
+    date: 2025-02-26
+    students:
+      - Estevão Holanda Lima Junior
+      - Jonathan Saturnino Pontes de Souto
+    evidenceVerified: true
+  - id: committee-plataforma-visao-computacional-2025
+    title: Desenvolvimento de uma plataforma automatizada baseada em visão
+      computacional
+    category: Banca de projeto
+    role: Membro avaliador
+    date: 2025-02-26
+    students:
+      - Luís Henrique Lima Santos
+      - Lucas Bivar Fonsêca Tavares
+    evidenceVerified: true
+  - id: committee-automacao-monitoramento-aquarios-2025
+    title: Sistema de automação e monitoramento para aquários
+    category: Banca de projeto
+    role: Membro avaliador
+    date: 2025-02-25
+    students:
+      - Gabriel Albino de Oliveira
+    evidenceVerified: true
+  - id: committee-e-collect-2025
+    title: E-Collect — uma plataforma educativa para o descarte consciente de
+      resíduos eletrônicos
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2025-08-06
+    students:
+      - Artur Dantas Fernandes
+    evidenceVerified: true
+  - id: committee-dockeryzer-2025
+    title: Dockeryzer — desenvolvimento de uma aplicação de linha de comando para
+      geração inteligente de Dockerfiles utilizando arquitetura multiagentes
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2025-12-04
+    students:
+      - João Marcos Amorim de Almeida
+    evidenceVerified: true
+  - id: committee-geracao-testes-llm-2025
+    title: Geração automática de testes de unidade com LLMs em projetos de larga
+      escala
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2025-12-04
+    students:
+      - Maria Eduarda Pereira de Souza Melo
+    evidenceVerified: true
+  - id: committee-nadia-visao-computacional-2025
+    title: Nad.IA — sistema inteligente de monitoramento e correção de exercícios
+      físicos em tempo real via visão computacional
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2025-12-11
+    students:
+      - Marília de Araujo Santos Oliveira
+      - Francisco Bezerra da Silva Neto
+    evidenceVerified: true
+  - id: committee-geracao-questoes-matematica-llm-2025
+    title: Uso de modelos de linguagem de larga escala na geração automática de
+      questões de matemática — uma abordagem baseada em Design Science Research
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2025-12-11
+    students:
+      - Mateus Braga de Melo
+    evidenceVerified: true
+  - id: committee-analise-dados-2025
+    title: Análise de dados climáticos da Paraíba para identificação de padrões e
+      mudanças climáticas
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2025-12-12
+    students:
+      - Anderson Lucas Cordeiro Braz
+    evidenceVerified: true
+  - id: committee-controle-semaforico-redes-neurais-2026
+    title: Controle semafórico adaptativo baseado em redes neurais convolucionais
+      para predição de tempo de esvaziamento de filas veiculares em ambiente
+      simulado
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2026-06-19
+    students:
+      - Liedson Augusto Maciel Costa
+    evidenceVerified: true
+  - id: committee-questbook-2026
+    title: QuestBook — aplicação de processamento de linguagem natural para
+      recuperação contextual de questões
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2026-06-18
+    students:
+      - Alisson Brener da Silva
+      - Caio Livio Leite Muniz Dantas
+      - Vinicius Gonzaga Cavalcante Rodrigues
+    evidenceVerified: true

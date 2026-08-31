@@ -38,7 +38,7 @@ const publicField = (value: string) => value.startsWith('TODO:') ? undefined : v
         <div>
           <h2 class="subsection-title">Orientações</h2>
           <div class="now-list">
-            {supervisions.map((entry) => <a class="now-item" href={withBase('/orientacoes/')}><strong>{entry.data.title}</strong><small>{entry.data.students.join(' · ')} · {entry.data.end?.getFullYear() ?? entry.data.start.getFullYear()}</small></a>)}
+            {supervisions.map((entry) => <a class="now-item" href={withBase('/orientacoes/')}><strong>{entry.data.title}</strong><small>{entry.data.students.join(' · ')} · {entry.data.end?.getFullYear() ?? entry.data.start?.getFullYear()}</small></a>)}
           </div>
         </div>
       </div>

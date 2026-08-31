@@ -5,7 +5,7 @@ students:
 type: outro
 course: Informática
 institution: Instituto Federal da Paraíba
-start: 2021-01-01
-end: 2021-12-31
+start: 2020-09-01
+end: 2021-05-18
 status: completed
 ---

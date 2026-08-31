@@ -6,7 +6,7 @@ students:
 type: outro
 course: Informática
 institution: Instituto Federal da Paraíba
-start: 2023-01-01
-end: 2023-12-31
+start: 2022-05-10
+end: 2023-02-16
 status: completed
 ---

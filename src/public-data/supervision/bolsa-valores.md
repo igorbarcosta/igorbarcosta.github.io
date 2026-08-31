@@ -5,8 +5,8 @@ students:
 type: TCC
 course: Engenharia de Computação
 institution: Instituto Federal da Paraíba
-start: 2022-01-01
-end: 2022-12-31
+start: 2021-11-01
+end: 2022-09-23
 status: completed
 repository: https://repositorio.ifpb.edu.br/handle/177683/2481
 ---

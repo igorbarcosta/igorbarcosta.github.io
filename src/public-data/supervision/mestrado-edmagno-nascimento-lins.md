@@ -7,7 +7,7 @@ studentIds:
 type: mestrado
 course: Mestrado Profissional em Tecnologia da Informação · PPGTI/IFPB
 institution: Instituto Federal da Paraíba
-start: 2026-02-26
+start: 2025-09-02
 status: current
 advisor: Paulo Ribeiro Lins Júnior
 role: Coorientador

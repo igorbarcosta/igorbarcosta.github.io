@@ -81,7 +81,7 @@ const supervisionCollection = defineCollection({
     type: z.enum(['TCC', 'iniciacao-cientifica', 'projeto-tecnologico', 'mestrado', 'outro']),
     course: z.string().min(1),
     institution: z.string().min(1),
-    start: z.coerce.date(),
+    start: z.coerce.date().optional(),
     end: z.coerce.date().optional(),
     status: z.enum(['current', 'planned', 'completed', 'archived']),
     project: z.string().optional(),

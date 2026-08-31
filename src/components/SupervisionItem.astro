@@ -17,6 +17,6 @@ const students = [...data.students].sort((a: string, b: string) => a.localeCompa
     {data.advisor} (Orientador)
     {data.role === 'Coorientador' && <> · Ígor Barbosa da Costa (Coorientador)</>}
   </p>}
-  <p class="item-meta">{formatSupervisionCourse(data.course)} · {data.end?.getFullYear() ?? data.start.getFullYear()} · {formatStatus(data.status)}</p>
+  <p class="item-meta">{formatSupervisionCourse(data.course)} · {data.end?.getFullYear() ?? data.start?.getFullYear()} · {formatStatus(data.status)}</p>
   {data.repository && <a class="repository-link" href={data.repository} target="_blank" rel="noreferrer" aria-label={`Abrir trabalho: ${data.title}`}>Abrir trabalho <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6m-1-5-8 8M19 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5" /></svg></a>}
 </li>
