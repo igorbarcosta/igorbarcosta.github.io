@@ -19,6 +19,15 @@ const institutionalSchema = z.object({
     role: z.string().min(1),
     date: z.coerce.date().optional(),
     students: z.array(z.string().min(1)).default([]),
+    course: z.string().min(1).optional(),
+    institution: z.string().min(1).optional(),
+    campus: z.string().min(1).optional(),
+    committee: z.array(z.object({
+      name: z.string().min(1),
+      role: z.string().min(1),
+      institution: z.string().min(1).optional(),
+    })).default([]),
+    outcome: z.string().min(1).optional(),
     evidenceVerified: z.boolean(),
   })).default([]),
 });

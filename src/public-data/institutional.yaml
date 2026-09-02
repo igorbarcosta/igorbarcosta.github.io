@@ -135,6 +135,20 @@ committees:
     date: 2022-03-18
     students:
       - William Adriano Ullmann Klein
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Paulo Ribeiro Lins Júnior
+        role: orientador
+        institution: IFPB
+      - name: Anderson Fabiano Batista Ferreira da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-siaae-2022
     title: SIAAE — Sistema Integrado de Apoio à Aprendizagem e Estágios
@@ -145,6 +159,20 @@ committees:
       - Almir de Oliveira Pereira
       - Gabriel Faustino da Silva
       - Jhonata Vinicius da Silva Negreiros
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Danyllo Wagner Albuquerque
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Mirna Carelli Oliveira Maia
+        role: avaliadora
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-orienta-ifpb-2022
     title: OrientaIFPB — um sistema web para gestão das atividades de orientação
@@ -154,6 +182,20 @@ committees:
     date: 2022-08-30
     students:
       - Diego Martins Duarte
+    course: Tecnologia em Telemática
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Anderson Fabiano Batista Ferreira da Costa
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Jerônimo Silva Rocha
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-central-care-2022
     title: Central Care — digitalização de serviços para clínicas médicas
@@ -163,6 +205,20 @@ committees:
     students:
       - João Carlos Guerra de Abreu
       - Marcelo Alves da Silva Filho
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Bruno Jácome Cavalcanti
+        role: orientador
+        institution: IFPB
+      - name: Anderson Fabiano Batista Ferreira da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-capitas-2022
     title: CAPITAS — um protótipo de plataforma para auxílio em doações
@@ -171,6 +227,23 @@ committees:
     date: 2022-08-26
     students:
       - Hevlla Oliveira Souza
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: David Candeia Medeiros Maia
+        role: coorientador
+        institution: IFPB
+      - name: Alysson Filgueira Milanez
+        role: coorientador
+        institution: UFERSA
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Victor André Pinho de Oliveira
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-politica-eleitoral-twitter-2022
     title: Análise de engajamento de usuários em publicações sobre política
@@ -180,6 +253,23 @@ committees:
     date: 2022-12-15
     students:
       - José Aurélio Espaminondas de Carvalho
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Marcelo José Siqueira Coutinho de Almeida
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Elmano Ramalho Cavalcanti
+        role: avaliador
+        institution: IFPB
+      - name: George Sobral Silveira
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-aprendizado-maquina-discurso-odio-twitter-2022
     title: Um estudo comparativo de algoritmos de aprendizado de máquina na detecção
@@ -188,6 +278,23 @@ committees:
     role: Membro avaliador
     students:
       - Wesley Weverton de Azevedo Palmeira
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Marcelo José Siqueira Coutinho de Almeida
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Elmano Ramalho Cavalcanti
+        role: avaliador
+        institution: IFPB
+      - name: George Sobral Silveira
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-rede-apoio-professores-2021
     title: Em tempos de ensino remoto — uma rede de apoio e colaboração entre
@@ -199,6 +306,20 @@ committees:
       - Alberto da Silva Felix
       - Filipe Fernandes Ribeiro
       - Marlon Renan Melo da Costa
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Henrique do Nascimento Cunha
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Bruno de Brito Leite
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-sentimento-sinal-voz-mlp-2021
     title: Análise da relevância dos recursos de sinal de voz para classificação de
@@ -208,6 +329,20 @@ committees:
     date: 2021-10-15
     students:
       - Lury Anderson Fernandes Coelho
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Paulo Ribeiro Lins Júnior
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Jerônimo Silva Rocha
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-indicadores-ativos-financeiros-2023
     title: Análise de indicadores técnicos para ativos financeiros — acurácia dos
@@ -217,6 +352,20 @@ committees:
     date: 2023-05-26
     students:
       - João Henrique Andrade da Silva
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Victor André Pinho de Oliveira
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Paulo Ribeiro Lins Júnior
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-sidmed-2023
     title: SIDMED — sistema de dispensação de medicamentos excepcionais
@@ -227,6 +376,20 @@ committees:
       - Allan dos Santos Batista Bastos
       - José Ramon da Silva Bezerra
       - Érica Clementino de Carvalho
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Mirna Carelli Oliveira Maia
+        role: orientadora
+        institution: IFPB
+      - name: Henrique do Nascimento Cunha
+        role: avaliador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-irrigacao-hortalicas-iot-2023
     title: Automação de irrigação de hortaliças com sistema programável IoT
@@ -237,6 +400,20 @@ committees:
       - Adriano Soares da Silva
       - João Igor Barros Rocha
       - José Domingos de Oliveira Neto
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Bruno de Brito Leite
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Fagner de Araújo Pereira
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-seguranca-iot-ambientes-residenciais-2023
     title: Visão geral sobre segurança em soluções IoT para ambientes residenciais
@@ -245,6 +422,20 @@ committees:
     date: 2023-06-29
     students:
       - Guilherme Vidal de Negreiros Lima
+    course: Tecnologia em Telemática
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Danyllo Wagner Albuquerque
+        role: orientador
+        institution: IFPB
+      - name: David Candeia Medeiros Maia
+        role: avaliador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-monitoramento-qualidade-agua-2023
     title: Monitoramento de parâmetros da qualidade da água com plataforma
@@ -254,6 +445,20 @@ committees:
     date: 2023-06-30
     students:
       - Matheus Pereira Braz da Silva
+    course: Tecnologia em Telemática
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Danyllo Wagner Albuquerque
+        role: orientador
+        institution: IFPB
+      - name: Bruno de Brito Leite
+        role: avaliador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-monitoramento-vacinas-2023
     title: Aplicação para o monitoramento de vacinas utilizando Flutter e Firebase
@@ -264,6 +469,26 @@ committees:
       - Antonio Silveira
       - Gabriel Araujo Silva
       - João Edinaldo Gomes dos Santos Junior
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Bruno Jácome Cavalcanti
+        role: orientador
+        institution: IFPB
+      - name: Petrônio Carlos Bezerra
+        role: coorientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Anderson Fabiano Batista Ferreira da Costa
+        role: avaliador
+        institution: IFPB
+      - name: George Sobral Silveira
+        role: presidente
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-avaliacao-heuristica-magazine-luiza-2023
     title: Avaliação heurística do marketplace Magazine Luiza — identificação de
@@ -273,6 +498,20 @@ committees:
     date: 2023-12-12
     students:
       - Beatriz de Araujo Farias
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Mirna Carelli Oliveira Maia
+        role: orientadora
+        institution: IFPB
+      - name: Iana Daya Cavalcante Facundo Passos
+        role: avaliadora
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-telemetria-lego-mindstorms-2023
     title: Sistema de telemetria de sensores LEGO MINDSTORMS EV3
@@ -282,6 +521,20 @@ committees:
     students:
       - Douglas Hudson Silveira
       - Antonio Carlos Albuquerque
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Henrique do Nascimento Cunha
+        role: orientador
+        institution: IFPB
+      - name: Fagner de Araújo Pereira
+        role: avaliador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-sistema-integrado-chaves-2023
     title: Concepção e desenvolvimento do Sistema Interno Integrado de Chaves
@@ -291,6 +544,20 @@ committees:
     students:
       - Pedro Henrique Guerra
       - Lucas Dantas de Araujo
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Danyllo Wagner Albuquerque
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Iana Daya Cavalcante Facundo Passos
+        role: avaliadora
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-questoespro-2023
     title: QuestoEsPro — uma plataforma de elaboração e correção de avaliações
@@ -300,6 +567,20 @@ committees:
     students:
       - Jonas Henriques Nascimento
       - Jorge Victor Leite Damasceno
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Elmano Ramalho Cavalcanti
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Danyllo Wagner Albuquerque
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-questoespro-web-mobile-2023
     title: QuestõesPro Web para o ambiente mobile — uma análise focada nas vantagens
@@ -309,15 +590,46 @@ committees:
     date: 2023-12-19
     students:
       - Rodrigo Cunha França
+    course: Tecnologia em Telemática
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Elmano Ramalho Cavalcanti
+        role: orientador
+        institution: IFPB
+      - name: Danyllo Wagner Albuquerque
+        role: avaliador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-democracia-descomplicada-pln-2024
     title: Democracia descomplicada — utilizando processamento de linguagem natural
       para classificar propostas de parlamentares na Câmara dos Deputados
     category: Banca de TCC
-    role: Membro avaliador
+    role: Presidente da sessão
     date: 2024-09-17
     students:
       - Arthur Maurício Thomaz Soares
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Marcelo José Siqueira Coutinho de Almeida
+        role: orientador
+        institution: IFPB
+      - name: Henrique do Nascimento Cunha
+        role: avaliador
+        institution: IFPB
+      - name: Iana Daya Cavalcante Facundo Passos
+        role: avaliadora
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: presidente
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-futes-analise-dados-futebol-2024
     title: FUTeS — uma plataforma para análise de dados de jogadores de futebol
@@ -326,6 +638,20 @@ committees:
     date: 2024-09-19
     students:
       - Luiz Medeiros Neto
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Emanuel Dantas Filho
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Victor André Pinho de Oliveira
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-topologia-redes-mobilidade-urbana-2024
     title: Medidas de topologia de redes de rua como indicadores complementares para
@@ -335,16 +661,47 @@ committees:
     date: 2024-09-20
     students:
       - Lilian Honorio Teixeira
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Paulo Ribeiro Lins Júnior
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: David Candeia Medeiros Maia
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-reconhecimento-facial-presenca-2024
     title: Desenvolvimento de software de reconhecimento facial para contabilizar
       presença de aluno em sala de aula
     category: Banca de TCC
-    role: Membro avaliador
+    role: Presidente da sessão
     date: 2024-09-18
     students:
       - Isaac Antônio Silva Barbosa
       - João Pedro de Sousa Correia
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Katyusco de Farias Santos
+        role: orientador
+        institution: IFPB
+      - name: Danyllo Wagner Albuquerque
+        role: avaliador
+        institution: IFPB
+      - name: Paulo Ribeiro Lins Júnior
+        role: avaliador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: presidente
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-reserva-olho-dagua-oncas-2024
     title: Uma abordagem móvel para a conscientização ambiental — o aplicativo da
@@ -355,6 +712,20 @@ committees:
     students:
       - Eduardo dos Reis Souza
       - Mateus Penna Albuquerque
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Danyllo Wagner Albuquerque
+        role: orientador
+        institution: IFPB
+      - name: Iana Daya Cavalcante Facundo Passos
+        role: avaliadora
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-analise-visual-dados-educacionais-2024
     title: Análise visual de dados educacionais — um estudo de caso sobre o
@@ -365,6 +736,23 @@ committees:
     students:
       - Daniel Victor Lemos de Morais
       - Jonatas da Silva Duarte
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Elmano Ramalho Cavalcanti
+        role: orientador
+        institution: IFPB
+      - name: Anderson Fabiano Batista Ferreira da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Iana Daya Cavalcante Facundo Passos
+        role: avaliadora
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-seguranca-nfce-2025
     title: Avaliação da segurança de acesso à Nota Fiscal de Consumidor Eletrônica —
@@ -375,6 +763,23 @@ committees:
     students:
       - Estevão Holanda Lima Junior
       - Jonathan Saturnino Pontes de Souto
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Elmano Ramalho Cavalcanti
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Danyllo Wagner Albuquerque
+        role: avaliador
+        institution: IFPB
+      - name: George Sobral Silveira
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-plataforma-visao-computacional-2025
     title: Desenvolvimento de uma plataforma automatizada baseada em visão
@@ -385,6 +790,23 @@ committees:
     students:
       - Luís Henrique Lima Santos
       - Lucas Bivar Fonsêca Tavares
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Moacy Pereira da Silva
+        role: orientador
+        institution: IFPB
+      - name: Fagner de Araújo Pereira
+        role: avaliador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: George Sobral Silveira
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-automacao-monitoramento-aquarios-2025
     title: Sistema de automação e monitoramento para aquários
@@ -393,6 +815,20 @@ committees:
     date: 2025-02-25
     students:
       - Gabriel Albino de Oliveira
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: George Sobral Silveira
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Fagner de Araújo Pereira
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-e-collect-2025
     title: E-Collect — uma plataforma educativa para o descarte consciente de
@@ -402,6 +838,23 @@ committees:
     date: 2025-08-06
     students:
       - Artur Dantas Fernandes
+    course: Tecnologia em Telemática
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Danyllo Wagner Albuquerque
+        role: orientador
+        institution: IFPB
+      - name: Victor André Pinho de Oliveira
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Elmano Ramalho Cavalcanti
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-dockeryzer-2025
     title: Dockeryzer — desenvolvimento de uma aplicação de linha de comando para
@@ -411,6 +864,20 @@ committees:
     date: 2025-12-04
     students:
       - João Marcos Amorim de Almeida
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Marcelo José Siqueira Coutinho de Almeida
+        role: orientador
+        institution: IFPB
+      - name: Bruno de Brito Leite
+        role: avaliador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-geracao-testes-llm-2025
     title: Geração automática de testes de unidade com LLMs em projetos de larga
@@ -420,6 +887,20 @@ committees:
     date: 2025-12-04
     students:
       - Maria Eduarda Pereira de Souza Melo
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Henrique do Nascimento Cunha
+        role: orientador
+        institution: IFPB
+      - name: Paulo Ribeiro Lins Júnior
+        role: avaliador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-nadia-visao-computacional-2025
     title: Nad.IA — sistema inteligente de monitoramento e correção de exercícios
@@ -430,6 +911,20 @@ committees:
     students:
       - Marília de Araujo Santos Oliveira
       - Francisco Bezerra da Silva Neto
+    course: Tecnologia em Telemática
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Elmano Ramalho Cavalcanti
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Henrique do Nascimento Cunha
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-geracao-questoes-matematica-llm-2025
     title: Uso de modelos de linguagem de larga escala na geração automática de
@@ -439,6 +934,20 @@ committees:
     date: 2025-12-11
     students:
       - Mateus Braga de Melo
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Danyllo Wagner Albuquerque
+        role: orientador
+        institution: IFPB
+      - name: Elmano Ramalho Cavalcanti
+        role: avaliador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-analise-dados-2025
     title: Análise de dados climáticos da Paraíba para identificação de padrões e
@@ -448,6 +957,20 @@ committees:
     date: 2025-12-12
     students:
       - Anderson Lucas Cordeiro Braz
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Paulo Ribeiro Lins Júnior
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Marcelo José Siqueira Coutinho de Almeida
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-controle-semaforico-redes-neurais-2026
     title: Controle semafórico adaptativo baseado em redes neurais convolucionais
@@ -458,6 +981,23 @@ committees:
     date: 2026-06-19
     students:
       - Liedson Augusto Maciel Costa
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Fagner de Araújo Pereira
+        role: orientador
+        institution: IFPB
+      - name: Elmano Ramalho Cavalcanti
+        role: coorientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Danyllo Wagner Albuquerque
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true
   - id: committee-questbook-2026
     title: QuestBook — aplicação de processamento de linguagem natural para
@@ -469,4 +1009,18 @@ committees:
       - Alisson Brener da Silva
       - Caio Livio Leite Muniz Dantas
       - Vinicius Gonzaga Cavalcante Rodrigues
+    course: Bacharelado em Engenharia de Computação
+    institution: Instituto Federal da Paraíba
+    campus: Campina Grande
+    committee:
+      - name: Elmano Ramalho Cavalcanti
+        role: orientador
+        institution: IFPB
+      - name: Anderson Fabiano Batista Ferreira da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
     evidenceVerified: true

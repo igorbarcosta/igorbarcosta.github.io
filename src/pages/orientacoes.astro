@@ -29,9 +29,13 @@ const completedGroups = toGroups(completed, 'concluida');
 <BaseLayout title="Orientações" description="Orientações acadêmicas e projetos acompanhados por Ígor Barbosa da Costa.">
   <section class="page-intro container">
     <h1>Orientações</h1>
+    <nav class="section-index" aria-label="Navegação pelas seções de orientações">
+      <a href="#em-andamento">Em andamento</a>
+      <a href="#concluidas">Concluídas</a>
+    </nav>
   </section>
 
-  <section class="section container">
+  <section class="section container" id="em-andamento">
     <SectionHeading title="Em andamento" />
     {currentGroups.length ? <div class="supervision-tabs" data-supervision-tabs>
       <div class="tab-list" role="tablist" aria-label="Categorias de orientações em andamento">
@@ -45,7 +49,7 @@ const completedGroups = toGroups(completed, 'concluida');
     </div> : <div class="empty-state"><p>Nenhuma orientação atual publicada.</p></div>}
   </section>
 
-  <section class="section section-soft">
+  <section class="section section-soft" id="concluidas">
     <div class="container">
       <SectionHeading title="Concluídas" />
       {completedGroups.length ? <div class="supervision-tabs" data-supervision-tabs>
