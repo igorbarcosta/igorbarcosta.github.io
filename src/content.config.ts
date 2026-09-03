@@ -90,6 +90,17 @@ const supervisionCollection = defineCollection({
     repository: z.url().optional(),
     advisor: z.string().min(1).optional(),
     role: z.enum(['Orientador', 'Coorientador']).optional(),
+    defense: z
+      .object({
+        date: z.coerce.date(),
+        committee: z.array(z.object({
+          name: z.string().min(1),
+          role: z.string().min(1),
+          institution: z.string().min(1).optional(),
+        })).min(2),
+        outcome: z.string().min(1),
+      })
+      .optional(),
     selection: z
       .object({
         term: z.coerce.string().regex(/^\d{4}\.[12]$/, 'Use o formato AAAA.1 ou AAAA.2.'),

@@ -6,6 +6,7 @@ import SupervisionItem from '@/components/SupervisionItem.astro';
 
 const supervisions = await getCollection('supervision');
 const mostRecentTime = (entry: typeof supervisions[number]) => {
+  if (entry.data.defense) return entry.data.defense.date.getTime();
   const date = entry.data.end ?? entry.data.start;
   if (date) return date.getTime();
   if (entry.data.semester) {

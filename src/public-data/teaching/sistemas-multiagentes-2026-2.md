@@ -7,5 +7,5 @@ status: current
 areas:
   - Agentic AI
   - Sistemas Multiagentes
-site: null
+site: https://igorbarcosta.github.io/sma/
 ---

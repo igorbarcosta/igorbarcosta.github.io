@@ -10,5 +10,18 @@ start: 2025-07-01
 end: 2025-12-02
 status: completed
 repository: https://repositorio.ifpb.edu.br/handle/177683/5144
+defense:
+  date: 2025-12-11
+  committee:
+    - name: Igor Barbosa da Costa
+      role: orientador
+      institution: IFPB
+    - name: Katyusco de Farias Santos
+      role: avaliador
+      institution: IFPB
+    - name: Bruno de Brito Leite
+      role: avaliador
+      institution: IFPB
+  outcome: aprovado
 evidenceVerified: true
 ---

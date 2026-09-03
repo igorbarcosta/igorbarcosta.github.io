@@ -4,11 +4,31 @@ interface Props { project: any; }
 const { project } = Astro.props;
 const data = project.data;
 ---
-<article class="project-item">
-  <p class="project-period-side">{formatProjectPeriod(data.start, data.end)}</p>
-  <div class="project-summary">
-    <h3><a href={withBase(`/projetos/${project.id}/`)}>{data.title}</a></h3>
-    <p>{data.description}</p>
-    <p class="item-meta">{data.role} · {formatProjectType(data.type)}</p>
+<details class="committee-entry project-entry">
+  <summary>
+    <span class="committee-summary">
+      <h3>{data.title}</h3>
+      <span class="committee-course-date">{formatProjectPeriod(data.start, data.end)}</span>
+      <span class="project-summary-description">{data.description}</span>
+    </span>
+    <span class="committee-toggle" aria-hidden="true">
+      <span class="committee-toggle-more">Ver detalhes</span>
+      <span class="committee-toggle-less">Ocultar detalhes</span>
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>
+    </span>
+  </summary>
+  <div class="project-details">
+    <dl class="project-facts">
+      <div><dt>Atuação</dt><dd>{data.role} · {formatProjectType(data.type)}</dd></div>
+      {data.areas?.length > 0 && <div><dt>Áreas</dt><dd>{data.areas.join(' · ')}</dd></div>}
+      {data.institutions?.length > 0 && <div><dt>Instituições</dt><dd>{data.institutions.join(' · ')}</dd></div>}
+      {data.partners?.length > 0 && <div><dt>Parceiros</dt><dd>{data.partners.join(' · ')}</dd></div>}
+    </dl>
+    <div class="project-links">
+      <a href={withBase(`/projetos/${project.id}/`)}>Abrir projeto</a>
+      {data.links?.project && <a href={data.links.project} target="_blank" rel="noreferrer">Site do projeto</a>}
+      {data.links?.repository && <a href={data.links.repository} target="_blank" rel="noreferrer">Repositório</a>}
+      {data.links?.demo && <a href={data.links.demo} target="_blank" rel="noreferrer">Demonstração</a>}
+    </div>
   </div>
-</article>
+</details>

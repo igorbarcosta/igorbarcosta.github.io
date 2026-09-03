@@ -11,5 +11,18 @@ start: 2023-08-01
 end: 2024-10-08
 status: completed
 repository: https://repositorio.ifpb.edu.br/handle/177683/3980
+defense:
+  date: 2024-09-18
+  committee:
+    - name: Igor Barbosa da Costa
+      role: orientador
+      institution: IFPB
+    - name: Danyllo Wagner Albuquerque
+      role: avaliador
+      institution: IFPB
+    - name: Elmano Ramalho Cavalcanti
+      role: avaliador
+      institution: IFPB
+  outcome: aprovado
 evidenceVerified: true
 ---

@@ -22,29 +22,34 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
       {committees.map((committee) => {
         const students = [...committee.students].sort((a, b) => a.localeCompare(b, 'pt-BR'));
         return <li>
-          <article class="committee-entry">
-            <h3>{committee.title}</h3>
+          <details class="committee-entry">
+            <summary>
+              <span class="committee-summary">
+                <h3>{committee.title}</h3>
+                <span class:list={{ 'committee-students': true, 'student-list-many': students.length > 2 }}>
+                  {students.map((student) => <span>{student}</span>)}
+                </span>
+                <span class="committee-course-date">
+                  {committee.course ? formatSupervisionCourse(committee.course) : 'Curso não informado'}
+                  {' · '}
+                  {committee.date ? <time datetime={committee.date.toISOString()}>{formatDate(committee.date)}</time> : 'Data não informada'}
+                </span>
+              </span>
+              <span class="committee-toggle" aria-hidden="true">
+                <span class="committee-toggle-more">Ver detalhes</span>
+                <span class="committee-toggle-less">Ocultar detalhes</span>
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>
+              </span>
+            </summary>
             <dl class="committee-details">
-              <div>
-                <dt>Estudantes</dt>
-                <dd class:list={{ 'student-list': true, 'student-list-many': students.length > 2 }}>{students.map((student) => <span>{student}</span>)}</dd>
-              </div>
               <div>
                 <dt>Orientador e banca examinadora</dt>
                 <dd>
                   {committee.committee.map((member) => <span>{member.name} ({formatCommitteeRole(member.role)})</span>)}
                 </dd>
               </div>
-              <div>
-                <dt>Curso e data</dt>
-                <dd>
-                  {committee.course ? formatSupervisionCourse(committee.course) : 'Curso não informado'}
-                  {' · '}
-                  {committee.date ? <time datetime={committee.date.toISOString()}>{formatDate(committee.date)}</time> : 'Data não informada'}
-                </dd>
-              </div>
             </dl>
-          </article>
+          </details>
         </li>;
       })}
     </ol>

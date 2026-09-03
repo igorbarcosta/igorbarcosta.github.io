@@ -6,5 +6,5 @@ semester: 2026.2
 status: current
 areas:
   - Programação Orientada a Objetos
-site: null
+site: https://igorbarcosta.github.io/poo/
 ---

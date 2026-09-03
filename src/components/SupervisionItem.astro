@@ -1,5 +1,5 @@
 ---
-import { formatSupervisionCourse, formatStatus } from '@/lib/site';
+import { formatDate, formatProjectPeriod, formatSupervisionCourse } from '@/lib/site';
 
 interface Props {
   supervision: any;
@@ -8,16 +8,52 @@ interface Props {
 const { supervision } = Astro.props;
 const data = supervision.data;
 const students = [...data.students].sort((a: string, b: string) => a.localeCompare(b, 'pt-BR'));
-const period = data.semester ?? data.end?.getFullYear() ?? data.start?.getFullYear();
+const period = data.semester
+  ?? (data.start ? formatProjectPeriod(data.start, data.end) : formatDate(data.end));
+const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('pt-BR') + role.slice(1);
+const formatDefenseDate = (date: Date) => new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(date);
 ---
 
 <li class="supervision-item">
-  <h3>{data.title}</h3>
-  <p class:list={{ 'student-list': true, 'student-list-many': students.length > 2 }}>{students.map((student: string) => <span>{student}</span>)}</p>
-  {data.advisor && <p class="item-meta">
-    {data.advisor} (Orientador)
-    {data.role === 'Coorientador' && <> · Ígor Barbosa da Costa (Coorientador)</>}
-  </p>}
-  <p class="item-meta">{formatSupervisionCourse(data.course)}{period && <> · {period}</>} · {formatStatus(data.status)}</p>
-  {data.repository && <a class="repository-link" href={data.repository} target="_blank" rel="noreferrer" aria-label={`Abrir trabalho: ${data.title}`}>Abrir trabalho <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6m-1-5-8 8M19 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5" /></svg></a>}
+  <details class="committee-entry supervision-entry">
+    <summary>
+      <span class="committee-summary">
+        <h3>{data.title}</h3>
+        <span class:list={{ 'committee-students': true, 'student-list-many': students.length > 2 }}>
+          {students.map((student: string) => <span>{student}</span>)}
+        </span>
+        <span class="committee-course-date">{formatSupervisionCourse(data.course)}</span>
+      </span>
+      <span class="committee-toggle" aria-hidden="true">
+        <span class="committee-toggle-more">Ver detalhes</span>
+        <span class="committee-toggle-less">Ocultar detalhes</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>
+      </span>
+    </summary>
+    <dl class="committee-details supervision-details">
+      {period && <div>
+        <dt>Período de orientação</dt>
+        <dd>{period}</dd>
+      </div>}
+      {data.defense && <div>
+        <dt>Banca examinadora</dt>
+        <dd>{data.defense.committee.map((member: { name: string; role: string }) => <span>{member.name} ({formatCommitteeRole(member.role)})</span>)}</dd>
+      </div>}
+      {data.defense && <div>
+        <dt>Data da defesa</dt>
+        <dd><time datetime={data.defense.date.toISOString()}>{formatDefenseDate(data.defense.date)}</time></dd>
+      </div>}
+      {!data.defense && data.advisor && <div>
+        <dt>Orientação</dt>
+        <dd>
+          <span>{data.advisor} (Orientador)</span>
+          {data.role === 'Coorientador' && <span>Ígor Barbosa da Costa (Coorientador)</span>}
+        </dd>
+      </div>}
+      {data.repository && <div>
+        <dt>Trabalho</dt>
+        <dd><a class="repository-link" href={data.repository} target="_blank" rel="noreferrer" aria-label={`Abrir trabalho: ${data.title}`}>Abrir trabalho <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6m-1-5-8 8M19 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5" /></svg></a></dd>
+      </div>}
+    </dl>
+  </details>
 </li>
