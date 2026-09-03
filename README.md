@@ -42,6 +42,8 @@ public/             arquivos estáticos
 
 ## Publicação de dados acadêmicos
 
+A integração segue uma direção única: **`academic` → site**. A base `academic` representa o domínio acadêmico de forma independente de qualquer apresentação; este repositório contém somente seleção, transformação e apresentação pública. O `academic` não conhece nem depende deste site, podendo alimentar outras projeções futuras.
+
 Os registros não são editados canonicamente neste repositório. O fluxo é:
 
 1. adicionar ou editar o registro na base acadêmica privada;
@@ -52,7 +54,7 @@ Os registros não são editados canonicamente neste repositório. O fluxo é:
 
 O exportador seleciona apenas registros públicos, usa listas explícitas de campos permitidos e remove `visibility`, IDs de evidência, caminhos, nomes de documentos e qualquer referência privada. O navegador nunca acessa a fonte privada.
 
-`src/data/site.yaml` contém somente decisões de apresentação, como navegação, foto pública e textos editoriais do site.
+Informações do domínio são modeladas no `academic` sem requisitos específicos de renderização. `src/data/site.yaml` e o restante deste repositório contêm somente decisões de apresentação, como navegação, foto pública e textos editoriais do site.
 
 ## GitHub Pages
 

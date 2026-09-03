@@ -5,7 +5,15 @@ import SectionHeading from '@/components/SectionHeading.astro';
 import SupervisionItem from '@/components/SupervisionItem.astro';
 
 const supervisions = await getCollection('supervision');
-const mostRecentTime = (entry: typeof supervisions[number]) => (entry.data.end ?? entry.data.start)?.getTime() ?? 0;
+const mostRecentTime = (entry: typeof supervisions[number]) => {
+  const date = entry.data.end ?? entry.data.start;
+  if (date) return date.getTime();
+  if (entry.data.semester) {
+    const [year, term] = entry.data.semester.split('.').map(Number);
+    return new Date(year, term === 2 ? 6 : 0).getTime();
+  }
+  return 0;
+};
 const byMostRecent = (a: typeof supervisions[number], b: typeof supervisions[number]) =>
   mostRecentTime(b) - mostRecentTime(a) || a.data.title.localeCompare(b.data.title, 'pt-BR');
 const current = supervisions.filter((entry) => entry.data.status === 'current' || entry.data.status === 'planned').sort(byMostRecent);
@@ -13,12 +21,13 @@ const completed = supervisions.filter((entry) => entry.data.status === 'complete
 const categoryFor = (entry: typeof supervisions[number]) => {
   const title = entry.data.title.toLocaleLowerCase('pt-BR');
   if (title.includes('estágio')) return 'Estágio';
+  if (entry.data.type === 'monitoria') return 'Monitoria';
   if (entry.data.type === 'mestrado') return 'Mestrado';
   if (entry.data.type === 'TCC') return 'TCC (Superior)';
   if (entry.data.type === 'outro' && entry.data.course === 'Informática') return 'TCC (Técnico)';
   return 'Pesquisa';
 };
-const categoryOrder = ['Mestrado', 'TCC (Superior)', 'TCC (Técnico)', 'Pesquisa', 'Estágio'];
+const categoryOrder = ['Mestrado', 'TCC (Superior)', 'TCC (Técnico)', 'Monitoria', 'Pesquisa', 'Estágio'];
 const toGroups = (entries: typeof supervisions, prefix: string) => categoryOrder
   .map((label) => ({ label, id: `${prefix}-${label.toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-')}`, entries: entries.filter((entry) => categoryFor(entry) === label) }))
   .filter((group) => group.entries.length > 0);

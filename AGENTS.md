@@ -2,6 +2,18 @@
 
 Este repositório é um site Astro estático. Agentes devem preservar a separação entre conteúdo, dados e apresentação.
 
+## Direção arquitetural da integração
+
+A dependência entre os repositórios é permanente e unidirecional: **`academic` → site**.
+
+- `academic` é a fonte canônica de dados e conhecimento acadêmico. Ele concentra conteúdo estruturado, referências, fontes e evidências e deve continuar útil sem este site.
+- Este site apenas seleciona, transforma e apresenta uma projeção pública sanitizada do `academic`.
+- O `academic` nunca deve importar, referenciar, depender estruturalmente nem possuir conhecimento deste site. Não crie nele estruturas cuja única justificativa seja uma necessidade de renderização do site.
+- Dados semanticamente pertencentes ao domínio acadêmico devem ser modelados primeiro no `academic`, de forma canônica e independente de apresentação. Decisões de UI, navegação, layout, componentes, rotas e apresentação pública pertencem exclusivamente ao site.
+- Documentos privados, portarias, comprovantes e outras evidências podem ser versionados no `academic` para verificação, mas isso não autoriza sua publicação. O site deve selecionar explicitamente o conteúdo público e nunca receber evidências privadas.
+- Novas projeções, como currículos, relatórios, páginas institucionais, APIs ou documentos, devem poder consumir o `academic` sem depender deste site.
+- Em toda alteração de integração, verifique explicitamente que a direção continua sendo `academic` → site. Se uma solução introduzir dependência reversa, reformule-a antes de implementar.
+
 - Este repositório contém apenas a apresentação e uma projeção pública sanitizada. Dados acadêmicos canônicos e evidências privadas pertencem ao repositório privado de origem.
 - Nunca adicione evidências, documentos comprobatórios, caminhos de arquivos privados, URLs privadas ou credenciais. Use `.private/` apenas para material local temporário; esse diretório é ignorado pelo Git.
 - `src/public-data/` é um artefato materializado. Não edite seus registros como fonte canônica; gere novamente a projeção a partir da base acadêmica privada e revise o diff.
