@@ -5,22 +5,30 @@ import ProfilePhoto from '@/components/ProfilePhoto.astro';
 import SocialLinks from '@/components/SocialLinks.astro';
 import { site } from '@/data/site';
 import { getPublications } from '@/lib/bibtex';
-import { withBase } from '@/lib/site';
+import { formatProjectType, formatSupervisionType, withBase } from '@/lib/site';
 
 const projects = await getCollection('projects');
 const teaching = await getCollection('teaching');
+const supervisions = await getCollection('supervision');
 const currentTeaching = teaching.filter((entry) => entry.data.status === 'current');
 const currentProjects = projects.filter((entry) => entry.data.status === 'active').sort((a, b) => Number(b.data.featured) - Number(a.data.featured));
+const activeSupervisions = supervisions.filter((entry) => entry.data.status === 'current');
+const typePriority: Record<string, number> = {
+  mestrado: 1,
+  TCC: 2,
+  'iniciacao-cientifica': 3,
+  'projeto-tecnologico': 4,
+  monitoria: 5,
+  outro: 6,
+};
+const currentSupervisions = [...activeSupervisions]
+  .sort((a, b) => (typePriority[a.data.type] ?? 99) - (typePriority[b.data.type] ?? 99) || a.data.title.localeCompare(b.data.title, 'pt-BR'))
+  .slice(0, 3);
 const publications = getPublications();
 const recentPublicationCutoff = new Date().getFullYear() - 1;
 const recentPublications = publications
   .filter((publication) => publication.year && Number(publication.year) >= recentPublicationCutoff)
   .slice(0, 2);
-const areas = site.description
-  .replace(/^Professor e pesquisador nas áreas de /, '')
-  .replace(/, /g, ' · ')
-  .replace(/ e /, ' · ')
-  .replace(/\.$/, '');
 const publicField = (value: string) => value.startsWith('TODO:') ? undefined : value;
 ---
 
@@ -30,50 +38,101 @@ const publicField = (value: string) => value.startsWith('TODO:') ? undefined : v
       <div class="home-copy">
         <h1>{site.name}</h1>
         <p class="home-role">Professor @ IFPB - Campus Campina Grande</p>
-        <p class="home-context">Doutor em Ciência da Computação · Pesquisador do <a href={site.profile.laboratory.url} rel="me">{site.profile.laboratory.name}</a></p>
-        <p class="home-areas">{areas}</p>
+        <p class="home-context">Doutor em Ciência da Computação · Pesquisador do <a href={site.profile.laboratory.url} target="_blank" rel="me">{site.profile.laboratory.name} ↗</a></p>
+        <p class="home-statement">“{site.intro}”</p>
+        <div class="home-areas-chips">
+          {site.profile.areas.map((area) => <span class="tag">{area}</span>)}
+        </div>
         <SocialLinks />
       </div>
       <ProfilePhoto src={withBase(site.profile.photo)} />
     </section>
 
     <section class="home-section" aria-labelledby="atuacao-title">
-      <h2 id="atuacao-title">Atuação atual</h2>
+      <h2 id="atuacao-title">Atuação em andamento</h2>
       <div class="current-grid">
         <div class="current-column">
-          <h3>Projetos</h3>
+          <div class="column-header">
+            <h3>Projetos</h3>
+            <a class="column-link" href={withBase('/projetos/')}>Ver todos ↗</a>
+          </div>
           <div class="current-list">
             {currentProjects.map((project) => (
-              <article class="current-item">
+              <article class="current-item card-preview">
                 <h4><a href={withBase(`/projetos/${project.id}/`)}>{project.data.title}</a></h4>
                 <p>{project.data.description}</p>
+                <div class="card-meta-row card-meta-bottom">
+                  <span class="tag tag-outline">{formatProjectType(project.data.type)}</span>
+                  <span class="status status-active"><span class="status-dot" aria-hidden="true"></span> Ativo</span>
+                </div>
               </article>
             ))}
           </div>
-          <a class="more-link" href={withBase('/projetos/')}>Ver projetos</a>
         </div>
 
         <div class="current-column">
-          <h3>Ensino</h3>
+          <div class="column-header">
+            <h3>Orientações</h3>
+            <a class="column-link" href={withBase('/orientacoes/')}>Ver todas ({activeSupervisions.length}) ↗</a>
+          </div>
           <div class="current-list">
-            {currentTeaching.map((entry) => (
-              <article class="current-item">
-                <h4><a href={withBase('/ensino/')}>{entry.data.title}</a></h4>
-                <p>{[publicField(entry.data.course), entry.data.semester].filter(Boolean).join(' · ')}</p>
+            {currentSupervisions.map((entry) => (
+              <article class="current-item card-preview">
+                <h4><a href={withBase('/orientacoes/')}>{entry.data.title}</a></h4>
+                <p>{entry.data.students.join(' · ')}</p>
+                <div class="card-meta-row card-meta-bottom">
+                  <span class="tag tag-outline">{formatSupervisionType(entry.data.type)}</span>
+                  {entry.data.role && <span class="badge-mono">{entry.data.role}</span>}
+                </div>
               </article>
             ))}
           </div>
-          <a class="more-link" href={withBase('/ensino/')}>Ver ensino</a>
+        </div>
+
+        <div class="current-column">
+          <div class="column-header">
+            <h3>Ensino</h3>
+            <a class="column-link" href={withBase('/ensino/')}>Ver todos ↗</a>
+          </div>
+          <div class="current-list">
+            {currentTeaching.map((entry) => (
+              <article class="current-item card-preview">
+                <h4><a href={withBase('/ensino/')}>{entry.data.title}</a></h4>
+                <p>{[publicField(entry.data.course), publicField(entry.data.institution)].filter(Boolean).join(' · ')}</p>
+                <div class="card-meta-row card-meta-bottom">
+                  <span class="badge-mono">{entry.data.semester}</span>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
-      <a class="snapshot-link" href={withBase('/agora/')}>Ver atuação atual completa</a>
+      <div class="snapshot-banner">
+        <div>
+          <strong>Acompanhe o momento acadêmico</strong>
+          <p>Veja o resumo consolidado de disciplinas, projetos e orientações ativas.</p>
+        </div>
+        <a class="button-accent" href={withBase('/agora/')}>Acessar página Agora ↗</a>
+      </div>
     </section>
 
     {recentPublications.length > 0 && <div class="home-secondary">
       <section class="summary-block" aria-labelledby="publicacoes-resumo">
-        <h2 id="publicacoes-resumo">Publicações recentes</h2>
-        <ul>{recentPublications.map((publication) => <li class="publication-summary"><span>{publication.year ?? '—'}</span><div><span class="summary-title">{publication.title}</span>{publication.venue && <span>{publication.venue}</span>}</div></li>)}</ul>
-        <a class="more-link" href={withBase('/publicacoes/')}>Ver publicações</a>
+        <div class="column-header">
+          <h2 id="publicacoes-resumo">Publicações recentes</h2>
+          <a class="column-link" href={withBase('/publicacoes/')}>Ver todas ↗</a>
+        </div>
+        <ul>
+          {recentPublications.map((publication) => (
+            <li class="publication-summary">
+              <span class="badge-mono">{publication.year ?? '—'}</span>
+              <div>
+                <span class="summary-title">{publication.title}</span>
+                {publication.venue && <span>{publication.venue}</span>}
+              </div>
+            </li>
+          ))}
+        </ul>
       </section>
     </div>}
   </div>

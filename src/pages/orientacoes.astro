@@ -39,10 +39,17 @@ const completedGroups = toGroups(completed, 'concluida');
 <BaseLayout title="Orientações" description="Orientações acadêmicas e projetos acompanhados por Ígor Barbosa da Costa.">
   <section class="page-intro container">
     <h1>Orientações</h1>
-    <nav class="section-index" aria-label="Navegação pelas seções de orientações">
-      <a href="#em-andamento">Em andamento</a>
-      <a href="#concluidas">Concluídas</a>
-    </nav>
+    <p>Orientações acadêmicas e projetos de pesquisa acompanhados em nível de pós-graduação e graduação.</p>
+    <div class="metrics-bar" aria-label="Navegação por status de orientações">
+      <a href="#em-andamento" class="metric-chip">
+        <span class="metric-number">{current.length}</span>
+        <span class="metric-label">Orientações em andamento</span>
+      </a>
+      <a href="#concluidas" class="metric-chip">
+        <span class="metric-number">{completed.length}</span>
+        <span class="metric-label">Orientações concluídas</span>
+      </a>
+    </div>
   </section>
 
   <section class="section container" id="em-andamento">

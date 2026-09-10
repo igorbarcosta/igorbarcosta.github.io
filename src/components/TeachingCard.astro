@@ -7,8 +7,13 @@ const institution = data.institution.startsWith('TODO:') ? undefined : data.inst
 const context = [course, institution].filter(Boolean).join(' · ');
 ---
 <article class="teaching-item">
-  <div class="item-heading"><h3>{data.title}</h3><span>{data.semester}</span></div>
-  {context && <p>{context}</p>}
-  <p class="item-meta">{data.areas.join(' · ')}</p>
-  {data.site && <a href={data.site} target="_blank" rel="noreferrer">Site da disciplina</a>}
+  <div class="item-heading">
+    <h3>{data.title}</h3>
+    <span class="badge-mono">{data.semester}</span>
+  </div>
+  {context && <p class="teaching-context">{context}</p>}
+  <div class="teaching-meta">
+    {data.areas.map((area: string) => <span class="tag">{area}</span>)}
+  </div>
+  {data.site && <a href={data.site} target="_blank" rel="noreferrer" class="teaching-link">Site da disciplina ↗</a>}
 </article>

@@ -15,30 +15,63 @@ const publicField = (value: string) => value.startsWith('TODO:') ? undefined : v
 
 <BaseLayout title="Agora" description="Snapshot das atividades atuais de Ígor Barbosa da Costa.">
   <section class="page-intro container">
+    <div class="hero-badge">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span>Instantâneo Acadêmico</span>
+    </div>
     <h1>Agora</h1>
+    <p class="now-intro">Um instantâneo público sobre o que concentra meu tempo acadêmico, disciplinas, projetos e orientações neste momento.</p>
     <p class="snapshot-date">Atualizado em {new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric' }).format(new Date())}</p>
   </section>
 
   <section class="section section-rule">
     <div class="container">
-      <SectionHeading title="Atuação atual" />
+      <SectionHeading title="Atuação em andamento" />
       <div class="now-layout">
         <div>
           <h2 class="subsection-title">Ensino</h2>
           <div class="now-list">
-            {teaching.map((entry) => <a class="now-item" href={withBase('/ensino/')}><strong>{entry.data.title}</strong><small>{[publicField(entry.data.course), publicField(entry.data.institution), entry.data.semester].filter(Boolean).join(' · ')}</small></a>)}
+            {teaching.map((entry) => (
+              <a class="now-item card-preview" href={withBase('/ensino/')}>
+                <strong>{entry.data.title}</strong>
+                <small>{[publicField(entry.data.course), publicField(entry.data.institution)].filter(Boolean).join(' · ')}</small>
+                <div class="card-meta-row card-meta-bottom">
+                  <span class="badge-mono">{entry.data.semester}</span>
+                </div>
+              </a>
+            ))}
           </div>
         </div>
         <div>
           <h2 class="subsection-title">Projetos</h2>
           <div class="now-list">
-            {projects.map((entry) => <a class="now-item" href={withBase(`/projetos/${entry.id}/`)}><strong>{entry.data.title}</strong><small>{entry.data.description} · {formatProjectType(entry.data.type)}</small></a>)}
+            {projects.map((entry) => (
+              <a class="now-item card-preview" href={withBase(`/projetos/${entry.id}/`)}>
+                <strong>{entry.data.title}</strong>
+                <small>{entry.data.description}</small>
+                <div class="card-meta-row card-meta-bottom">
+                  <span class="tag tag-outline">{formatProjectType(entry.data.type)}</span>
+                  <span class="status status-active"><span class="status-dot" aria-hidden="true"></span> Ativo</span>
+                </div>
+              </a>
+            ))}
           </div>
         </div>
         <div>
           <h2 class="subsection-title">Orientações</h2>
           <div class="now-list">
-            {supervisions.map((entry) => <a class="now-item" href={withBase('/orientacoes/')}><strong>{entry.data.title}</strong><small>{entry.data.students.join(' · ')}{(entry.data.semester ?? entry.data.end?.getFullYear() ?? entry.data.start?.getFullYear()) && <> · {entry.data.semester ?? entry.data.end?.getFullYear() ?? entry.data.start?.getFullYear()}</>}</small></a>)}
+            {supervisions.map((entry) => (
+              <a class="now-item card-preview" href={withBase('/orientacoes/')}>
+                <strong>{entry.data.title}</strong>
+                <small>{entry.data.students.join(' · ')}</small>
+                <div class="card-meta-row card-meta-bottom">
+                  <span class="tag tag-outline">{entry.data.type === 'mestrado' ? 'Mestrado' : 'TCC'}</span>
+                  {(entry.data.semester ?? entry.data.end?.getFullYear() ?? entry.data.start?.getFullYear()) && (
+                    <span class="badge-mono">{entry.data.semester ?? entry.data.end?.getFullYear() ?? entry.data.start?.getFullYear()}</span>
+                  )}
+                </div>
+              </a>
+            ))}
           </div>
         </div>
       </div>

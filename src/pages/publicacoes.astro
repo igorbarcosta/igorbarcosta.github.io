@@ -29,7 +29,7 @@ const availableTypes = Object.keys(typeLabels).filter((type) => (byType[type]?.l
 
   <section class="section container">
     <SectionHeading title="Selecionadas" />
-    {selected.length ? <ul class="publication-list">{selected.map((publication) => <PublicationItem publication={publication} />)}</ul> : <div class="empty-state"><p>A seleção de publicações ainda está sendo preparada.</p><p class="muted">Adicione um registro BibTeX ao arquivo indicado acima e marque-o como selecionado.</p></div>}
+    {selected.length ? <ul class="publication-list">{selected.map((publication) => <PublicationItem publication={publication} />)}</ul> : <div class="empty-state"><p>Nenhuma publicação selecionada no momento.</p></div>}
   </section>
 
   <section class="section section-soft">
@@ -41,3 +41,27 @@ const availableTypes = Object.keys(typeLabels).filter((type) => (byType[type]?.l
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy-bibtex]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const text = button.dataset.copyBibtex;
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        const label = button.querySelector<HTMLElement>('.copy-text');
+        if (label) {
+          const original = label.textContent;
+          label.textContent = 'Copiado!';
+          button.classList.add('copied');
+          setTimeout(() => {
+            label.textContent = original;
+            button.classList.remove('copied');
+          }, 2000);
+        }
+      } catch (err) {
+        console.error('Falha ao copiar citação BibTeX', err);
+      }
+    });
+  });
+</script>

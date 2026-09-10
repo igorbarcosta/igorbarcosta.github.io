@@ -29,7 +29,13 @@ const supervisions = allSupervisions.filter((supervision) =>
   <article class="detail-page container">
     <a class="back-link" href={withBase('/projetos/')}>← Todos os projetos</a>
     <header class="detail-header reading-width">
-      <div class="card-topline"><span class="tag">{formatProjectType(data.type)}</span><span class={`status status-${data.status}`}>{formatStatus(data.status)}</span></div>
+      <div class="card-topline">
+        <span class="tag tag-outline">{formatProjectType(data.type)}</span>
+        <span class={`status status-${data.status}`}>
+          {data.status === 'active' && <span class="status-dot" aria-hidden="true"></span>}
+          {formatStatus(data.status)}
+        </span>
+      </div>
       <h1>{data.title}</h1>
       <p class="detail-lede">{data.description}</p>
     </header>
@@ -43,10 +49,10 @@ const supervisions = allSupervisions.filter((supervision) =>
       <h2 id="informacoes-projeto">Informações</h2>
       <dl class="detail-facts">
         <div><dt>Papel</dt><dd>{data.role}</dd></div>
-        <div><dt>Período</dt><dd>{formatProjectPeriod(data.start, data.end)}</dd></div>
-        <div><dt>Status</dt><dd>{formatStatus(data.status)}</dd></div>
+        <div><dt>Período</dt><dd class="badge-mono">{formatProjectPeriod(data.start, data.end)}</dd></div>
+        <div><dt>Status</dt><dd><span class={`status status-${data.status}`}>{formatStatus(data.status)}</span></dd></div>
         <div><dt>Tipo</dt><dd>{formatProjectType(data.type)}</dd></div>
-        {data.participation && <div><dt>Participação</dt><dd>{formatProjectPeriod(data.participation.start, data.participation.end)}</dd></div>}
+        {data.participation && <div><dt>Participação</dt><dd class="badge-mono">{formatProjectPeriod(data.participation.start, data.participation.end)}</dd></div>}
         <div><dt>Áreas</dt><dd>{data.areas.join(' · ')}</dd></div>
         {data.institutions.length > 0 && <div><dt>Instituições</dt><dd>{data.institutions.join(' · ')}</dd></div>}
         {data.partners.length > 0 && <div><dt>Parceiros</dt><dd>{data.partners.join(' · ')}</dd></div>}

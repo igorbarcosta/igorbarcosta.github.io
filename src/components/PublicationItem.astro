@@ -2,14 +2,45 @@
 import type { Publication } from '@/lib/bibtex';
 interface Props { publication: Publication; }
 const { publication } = Astro.props;
-const typeLabels = { article: 'Artigo', conference: 'Conferência', chapter: 'Capítulo', book: 'Livro', software: 'Software', dataset: 'Dataset', preprint: 'Preprint', other: 'Outro' };
+const typeLabels: Record<string, string> = {
+  article: 'Artigo',
+  conference: 'Conferência',
+  chapter: 'Capítulo',
+  book: 'Livro',
+  software: 'Software',
+  dataset: 'Dataset',
+  preprint: 'Preprint',
+  other: 'Outro',
+};
 ---
 <li class="publication-item">
   <h3>{publication.title}</h3>
-  <p>{publication.authors}</p>
-  <p class="item-meta">{publication.venue ? `${publication.venue} · ` : ''}{publication.year ?? '—'} · {typeLabels[publication.type]}</p>
-  {(publication.doi || publication.url) && <div class="publication-links">
-    {publication.doi && <a href={`https://doi.org/${publication.doi}`} target="_blank" rel="noreferrer">DOI</a>}
-    {publication.url && <a href={publication.url} target="_blank" rel="noreferrer">Abrir</a>}
-  </div>}
+  <p class="publication-authors">{publication.authors}</p>
+  <div class="publication-meta-row">
+    <span class="tag">{typeLabels[publication.type] ?? 'Publicação'}</span>
+    {publication.venue && <span class="publication-venue">{publication.venue}</span>}
+    {publication.year && <span class="badge-mono">{publication.year}</span>}
+  </div>
+  <div class="publication-links">
+    {publication.doi && <a href={`https://doi.org/${publication.doi}`} target="_blank" rel="noreferrer" class="pub-link">DOI ↗</a>}
+    {publication.url && <a href={publication.url} target="_blank" rel="noreferrer" class="pub-link">Acessar ↗</a>}
+    {publication.rawBibtex && (
+      <details class="bibtex-toggle">
+        <summary class="bibtex-summary">BibTeX</summary>
+        <div class="bibtex-box">
+          <div class="bibtex-header">
+            <span>Citação BibTeX</span>
+            <button type="button" class="copy-bibtex-btn" data-copy-bibtex={publication.rawBibtex}>
+              <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="5" y="5" width="8" height="8" rx="1.5"></rect>
+                <path d="M3 11V3.5A1.5 1.5 0 0 1 4.5 2H11"></path>
+              </svg>
+              <span class="copy-text">Copiar</span>
+            </button>
+          </div>
+          <pre><code>{publication.rawBibtex}</code></pre>
+        </div>
+      </details>
+    )}
+  </div>
 </li>

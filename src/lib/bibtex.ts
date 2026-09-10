@@ -14,6 +14,7 @@ export type Publication = {
   url?: string;
   selected: boolean;
   project?: string;
+  rawBibtex?: string;
 };
 
 const typeMap: Record<string, PublicationType> = {
@@ -58,6 +59,7 @@ export function parseBibtex(source: string): Publication[] {
       url: fields.url,
       selected: fields.selected?.toLowerCase() === 'true',
       project: fields.project,
+      rawBibtex: match[0].trim(),
     });
   }
 

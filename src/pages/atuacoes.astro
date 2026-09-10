@@ -13,10 +13,20 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
 <BaseLayout title="Atuações" description="Atividades institucionais e acadêmicas de Ígor Barbosa da Costa.">
   <section class="page-intro container">
     <h1>Atuações</h1>
-    <p>Participações em atividades institucionais e acadêmicas.</p>
+    <p>Participações em bancas examinadoras, colegiados e comissões institucionais.</p>
+    <div class="metrics-bar">
+      <a href="#bancas" class="metric-chip">
+        <span class="metric-number">{committees.length}</span>
+        <span class="metric-label">Bancas examinadoras</span>
+      </a>
+      <a href="#institucional" class="metric-chip">
+        <span class="metric-number">{activities.length}</span>
+        <span class="metric-label">Atuações institucionais</span>
+      </a>
+    </div>
   </section>
 
-  <section class="section container">
+  <section class="section container" id="bancas">
     <SectionHeading title="Participações em Bancas" description="Participações em bancas de avaliação de trabalhos acadêmicos." />
     <ol class="activity-proof-list committee-list">
       {committees.map((committee) => {
@@ -55,7 +65,7 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
     </ol>
   </section>
 
-  <section class="section section-soft">
+  <section class="section section-soft" id="institucional">
     <div class="container">
     <SectionHeading title="Atuação institucional" description="Comissões, colegiados, gestão acadêmica e desenvolvimento institucional." />
     <ol class="activity-proof-list">

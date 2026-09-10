@@ -8,8 +8,12 @@ const data = project.data;
   <summary>
     <span class="committee-summary">
       <h3>{data.title}</h3>
-      <span class="committee-course-date">{formatProjectPeriod(data.start, data.end)}</span>
       <span class="project-summary-description">{data.description}</span>
+      <div class="card-meta-row card-meta-bottom">
+        <span class="tag tag-outline">{formatProjectType(data.type)}</span>
+        {data.status === 'active' && <span class="status status-active"><span class="status-dot" aria-hidden="true"></span> Ativo</span>}
+        <span class="badge-mono">{formatProjectPeriod(data.start, data.end)}</span>
+      </div>
     </span>
     <span class="committee-toggle" aria-hidden="true">
       <span class="committee-toggle-more">Ver detalhes</span>
