@@ -8,49 +8,116 @@ import { formatProjectPeriod, formatProjectType, formatStatus, withBase } from '
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
-  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+  const byLatest = (a: (typeof projects)[number], b: (typeof projects)[number]) => {
+    const timeA = (a.data.end ?? a.data.start).getTime();
+    const timeB = (b.data.end ?? b.data.start).getTime();
+    return timeB - timeA || a.data.title.localeCompare(b.data.title, 'pt-BR');
+  };
+  const sorted = [...projects].sort(byLatest);
+  return sorted.map((project, index) => ({
+    params: { slug: project.id },
+    props: {
+      project,
+      prevProject: sorted[index - 1] ?? null,
+      nextProject: sorted[index + 1] ?? null,
+    },
+  }));
 }
 
-const { project } = Astro.props;
+const { project, prevProject, nextProject } = Astro.props;
 const { Content } = await render(project);
 const data = project.data;
 const coordinators = data.team?.coordinators ?? [];
 const participants = data.team?.participants ?? [];
+const partnerSubtitle = data.partners.length > 0 ? data.partners.join(' · ') : data.institutions.join(' · ');
 const publications = getPublications().filter((publication) =>
-  publication.project === project.id || data.related?.publications.includes(publication.key),
+  publication.project === project.id || (data.related?.publications ?? []).includes(publication.key),
 );
 const allSupervisions = await getCollection('supervision');
 const supervisions = allSupervisions.filter((supervision) =>
-  supervision.data.project === project.id || data.related?.supervisions.includes(supervision.id),
+  supervision.data.project === project.id || (data.related?.supervisions ?? []).includes(supervision.id),
 );
+const hasContent = Boolean(project.body && project.body.trim().length > 0);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ResearchProject',
+  name: data.title,
+  description: data.description,
+  startDate: data.start.toISOString().split('T')[0],
+  ...(data.end ? { endDate: data.end.toISOString().split('T')[0] } : {}),
+  ...(data.institutions.length > 0
+    ? {
+        parentOrganization: data.institutions.map((inst) => ({
+          '@type': 'Organization',
+          name: inst,
+        })),
+      }
+    : {}),
+  ...(data.partners.length > 0
+    ? {
+        sponsor: data.partners.map((partner) => ({
+          '@type': 'Organization',
+          name: partner,
+        })),
+      }
+    : {}),
+  member: [
+    ...coordinators.map((name) => ({
+      '@type': 'Person',
+      name,
+      jobTitle: 'Coordenador',
+    })),
+    ...participants.map((name) => ({
+      '@type': 'Person',
+      name,
+      jobTitle: name === 'Ígor Barbosa da Costa' ? data.role : 'Participante',
+    })),
+  ],
+};
 ---
 
 <BaseLayout title={data.title} description={data.description}>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <article class="detail-page container">
-    <a class="back-link" href={withBase('/projetos/')}>← Todos os projetos</a>
+    <nav class="detail-nav" aria-label="Navegação estrutural">
+      <a class="back-link" href={withBase('/projetos/')}>← Todos os projetos</a>
+    </nav>
     <header class="detail-header reading-width">
       <div class="card-topline">
         <span class="tag tag-outline">{formatProjectType(data.type)}</span>
         <span class={`status status-${data.status}`}>
           {data.status === 'active' && <span class="status-dot" aria-hidden="true"></span>}
+          {data.status === 'completed' && <span class="status-dot status-dot-completed" aria-hidden="true"></span>}
           {formatStatus(data.status)}
         </span>
+        {data.evidenceVerified && (
+          <span class="verified-badge" title="Registro documental verificado">
+            <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M13.5 4.5 6.5 11.5 2.5 7.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Registro verificado
+          </span>
+        )}
       </div>
       <h1>{data.title}</h1>
+      {partnerSubtitle && <p class="project-partners-sub detail-partners">{partnerSubtitle}</p>}
       <p class="detail-lede">{data.description}</p>
     </header>
 
-    <section class="detail-section reading-width" aria-labelledby="sobre-projeto">
-      <h2 id="sobre-projeto">Sobre o projeto</h2>
-      <div class="prose"><Content /></div>
-    </section>
+    {hasContent && (
+      <section class="detail-section reading-width" aria-labelledby="sobre-projeto">
+        <h2 id="sobre-projeto">Sobre o projeto</h2>
+        <div class="prose"><Content /></div>
+      </section>
+    )}
 
     <section class="detail-section reading-width" aria-labelledby="informacoes-projeto">
       <h2 id="informacoes-projeto">Informações</h2>
       <dl class="detail-facts">
         <div><dt>Papel</dt><dd>{data.role}</dd></div>
         <div><dt>Período</dt><dd class="badge-mono">{formatProjectPeriod(data.start, data.end)}</dd></div>
-        <div><dt>Status</dt><dd><span class={`status status-${data.status}`}>{formatStatus(data.status)}</span></dd></div>
+        <div><dt>Status</dt><dd><span class={`status status-${data.status}`}>{data.status === 'active' && <span class="status-dot" aria-hidden="true"></span>}{data.status === 'completed' && <span class="status-dot status-dot-completed" aria-hidden="true"></span>}{formatStatus(data.status)}</span></dd></div>
         <div><dt>Tipo</dt><dd>{formatProjectType(data.type)}</dd></div>
         {data.participation && <div><dt>Participação</dt><dd class="badge-mono">{formatProjectPeriod(data.participation.start, data.participation.end)}</dd></div>}
         <div><dt>Áreas</dt><dd>{data.areas.join(' · ')}</dd></div>
@@ -59,28 +126,70 @@ const supervisions = allSupervisions.filter((supervision) =>
         {data.program && <div><dt>Programa</dt><dd>{data.program}</dd></div>}
         {data.funding.length > 0 && <div><dt>Fomento</dt><dd>{data.funding.join(' · ')}</dd></div>}
         {coordinators.length > 0 && <div><dt>Coordenação</dt><dd>{coordinators.join(' · ')}</dd></div>}
-        {participants.length > 0 && <div><dt>Participantes</dt><dd>{participants.join(' · ')}</dd></div>}
+        {participants.length > 0 && (
+          <div>
+            <dt>Participantes{participants.length > 8 ? ` (${participants.length})` : ''}</dt>
+            <dd>
+              {participants.length > 8 ? (
+                <details class="team-expandable">
+                  <summary>
+                    <span>{participants.slice(0, 4).join(' · ')} e outros {participants.length - 4} participantes</span>
+                    <span class="team-toggle-text">Ver todos</span>
+                  </summary>
+                  <ul class="team-full-list">
+                    {participants.map((person) => <li>{person}</li>)}
+                  </ul>
+                </details>
+              ) : (
+                participants.join(' · ')
+              )}
+            </dd>
+          </div>
+        )}
       </dl>
     </section>
 
-    {(data.links && Object.values(data.links).some(Boolean)) || data.sources.length > 0 ? <section class="detail-section reading-width" aria-labelledby="links-projeto">
-      <h2 id="links-projeto">Links relacionados</h2>
-      <ul class="detail-link-list">
-        {data.links?.project && <li><a href={data.links.project} target="_blank" rel="noreferrer">Página do projeto ↗</a></li>}
-        {data.links?.repository && <li><a href={data.links.repository} target="_blank" rel="noreferrer">Repositório ↗</a></li>}
-        {data.links?.demo && <li><a href={data.links.demo} target="_blank" rel="noreferrer">Demonstração ↗</a></li>}
-        {data.sources.map((source) => <li><a href={source.url} target="_blank" rel="noreferrer">{source.label} ↗</a></li>)}
-      </ul>
-    </section> : null}
+    {(data.links && Object.values(data.links).some(Boolean)) || data.sources.length > 0 ? (
+      <section class="detail-section reading-width" aria-labelledby="links-projeto">
+        <h2 id="links-projeto">Links relacionados</h2>
+        <ul class="detail-link-list">
+          {data.links?.project && <li><a href={data.links.project} target="_blank" rel="noreferrer">Página do projeto ↗</a></li>}
+          {data.links?.repository && <li><a href={data.links.repository} target="_blank" rel="noreferrer">Repositório ↗</a></li>}
+          {data.links?.demo && <li><a href={data.links.demo} target="_blank" rel="noreferrer">Demonstração ↗</a></li>}
+          {data.sources.map((source) => <li><a href={source.url} target="_blank" rel="noreferrer">{source.label} ↗</a></li>)}
+        </ul>
+      </section>
+    ) : null}
 
-    {publications.length > 0 && <section class="detail-section reading-width" aria-labelledby="publicacoes-projeto">
-      <h2 id="publicacoes-projeto">Publicações</h2>
-      <ul class="publication-list">{publications.map((publication) => <PublicationItem publication={publication} />)}</ul>
-    </section>}
+    {publications.length > 0 && (
+      <section class="detail-section reading-width" aria-labelledby="publicacoes-projeto">
+        <h2 id="publicacoes-projeto">Publicações</h2>
+        <ul class="publication-list">{publications.map((publication) => <PublicationItem publication={publication} />)}</ul>
+      </section>
+    )}
 
-    {supervisions.length > 0 && <section class="detail-section reading-width" aria-labelledby="orientacoes-projeto">
-      <h2 id="orientacoes-projeto">Orientações</h2>
-      <ul class="supervision-list">{supervisions.map((supervision) => <SupervisionItem supervision={supervision} />)}</ul>
-    </section>}
+    {supervisions.length > 0 && (
+      <section class="detail-section reading-width" aria-labelledby="orientacoes-projeto">
+        <h2 id="orientacoes-projeto">Orientações</h2>
+        <ul class="supervision-list">{supervisions.map((supervision) => <SupervisionItem supervision={supervision} />)}</ul>
+      </section>
+    )}
+
+    {(prevProject || nextProject) && (
+      <nav class="project-pagination reading-width" aria-label="Navegação entre projetos">
+        {prevProject ? (
+          <a href={withBase(`/projetos/${prevProject.id}/`)} class="pagination-link pagination-prev">
+            <span class="pagination-sub">← Anterior</span>
+            <span class="pagination-title">{prevProject.data.title}</span>
+          </a>
+        ) : <div />}
+        {nextProject && (
+          <a href={withBase(`/projetos/${nextProject.id}/`)} class="pagination-link pagination-next">
+            <span class="pagination-sub">Próximo →</span>
+            <span class="pagination-title">{nextProject.data.title}</span>
+          </a>
+        )}
+      </nav>
+    )}
   </article>
 </BaseLayout>

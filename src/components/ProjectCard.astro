@@ -1,23 +1,39 @@
 ---
-import { formatProjectPeriod, formatProjectType, withBase } from '@/lib/site';
-interface Props { project: any; }
+import type { CollectionEntry } from 'astro:content';
+import { formatProjectPeriod, formatProjectType, formatStatus, withBase } from '@/lib/site';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
 const { project } = Astro.props;
 const data = project.data;
+const partnerSubtitle = data.partners.length > 0 ? data.partners.join(' · ') : data.institutions.join(' · ');
 ---
-<details class="committee-entry project-entry">
+
+<details class="project-entry">
   <summary>
-    <span class="committee-summary">
+    <span class="project-summary">
       <h3>{data.title}</h3>
+      {partnerSubtitle && <span class="project-partners-sub">{partnerSubtitle}</span>}
       <span class="project-summary-description">{data.description}</span>
       <div class="card-meta-row card-meta-bottom">
         <span class="tag tag-outline">{formatProjectType(data.type)}</span>
-        {data.status === 'active' && <span class="status status-active"><span class="status-dot" aria-hidden="true"></span> Ativo</span>}
-        <span class="badge-mono">{formatProjectPeriod(data.start, data.end)}</span>
+        <div class={`status-badge-group status-badge-${data.status}`}>
+          <span class="status-badge-label">
+            {data.status === 'active' && <span class="status-dot" aria-hidden="true"></span>}
+            {data.status === 'completed' && <span class="status-dot status-dot-completed" aria-hidden="true"></span>}
+            {formatStatus(data.status)}
+          </span>
+          <span class="status-badge-date">
+            <time>{formatProjectPeriod(data.start, data.end)}</time>
+          </span>
+        </div>
       </div>
     </span>
-    <span class="committee-toggle" aria-hidden="true">
-      <span class="committee-toggle-more">Ver detalhes</span>
-      <span class="committee-toggle-less">Ocultar detalhes</span>
+    <span class="project-toggle" aria-hidden="true">
+      <span class="project-toggle-more">Ver detalhes</span>
+      <span class="project-toggle-less">Ocultar detalhes</span>
       <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>
     </span>
   </summary>
@@ -29,10 +45,12 @@ const data = project.data;
       {data.partners?.length > 0 && <div><dt>Parceiros</dt><dd>{data.partners.join(' · ')}</dd></div>}
     </dl>
     <div class="project-links">
-      <a href={withBase(`/projetos/${project.id}/`)}>Abrir projeto</a>
-      {data.links?.project && <a href={data.links.project} target="_blank" rel="noreferrer">Site do projeto</a>}
-      {data.links?.repository && <a href={data.links.repository} target="_blank" rel="noreferrer">Repositório</a>}
-      {data.links?.demo && <a href={data.links.demo} target="_blank" rel="noreferrer">Demonstração</a>}
+      <a href={withBase(`/projetos/${project.id}/`)} aria-label={`Abrir detalhes do projeto: ${data.title}`}>
+        Abrir projeto ↗
+      </a>
+      {data.links?.project && <a href={data.links.project} target="_blank" rel="noreferrer" aria-label={`Site do projeto ${data.title} (abre em nova aba)`}>Site do projeto ↗</a>}
+      {data.links?.repository && <a href={data.links.repository} target="_blank" rel="noreferrer" aria-label={`Repositório do projeto ${data.title} (abre em nova aba)`}>Repositório ↗</a>}
+      {data.links?.demo && <a href={data.links.demo} target="_blank" rel="noreferrer" aria-label={`Demonstração do projeto ${data.title} (abre em nova aba)`}>Demonstração ↗</a>}
     </div>
   </div>
 </details>

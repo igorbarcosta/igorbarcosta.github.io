@@ -4,19 +4,61 @@ export function withBase(path: string) {
   return `${base}${cleanPath}` || '/';
 }
 
+export function formatMonth(date: Date) {
+  return new Intl.DateTimeFormat('pt-BR', { month: 'short', timeZone: 'UTC' }).format(date).replace('.', '');
+}
+
 export function formatDate(date: Date | undefined) {
   if (!date) return '';
   return new Intl.DateTimeFormat('pt-BR', { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(date).replace('.', '');
 }
 
+export function formatPeriod(start?: Date, end?: Date) {
+  if (!start && !end) return '';
+  if (!start && end) return formatDate(end);
+  if (start && !end) return `${formatDate(start)} – atual`;
+
+  const startYear = start!.getUTCFullYear();
+  const endYear = end!.getUTCFullYear();
+
+  if (startYear === endYear) {
+    if (start!.getUTCMonth() === end!.getUTCMonth()) {
+      return formatDate(start);
+    }
+    return `${formatMonth(start!)} – ${formatDate(end!)}`;
+  }
+  return `${formatDate(start!)} – ${formatDate(end!)}`;
+}
+
 export function formatProjectPeriod(start: Date, end?: Date) {
-  return `${formatDate(start)} – ${end ? formatDate(end) : 'atual'}`;
+  return formatPeriod(start, end);
+}
+
+export function formatSupervisionPeriod(data: {
+  start?: Date;
+  end?: Date;
+  semester?: string;
+  defense?: { date: Date };
+}) {
+  if (data.start) {
+    return formatPeriod(data.start, data.end ?? data.defense?.date);
+  }
+  if (data.semester) {
+    return data.semester;
+  }
+  if (data.defense?.date) {
+    return formatDate(data.defense.date);
+  }
+  if (data.end) {
+    return formatDate(data.end);
+  }
+  return '';
 }
 
 export function formatStatus(status: string) {
   const labels: Record<string, string> = {
     active: 'Em andamento',
-    current: 'Atual',
+    current: 'Em andamento',
     planned: 'Planejado',
     completed: 'Concluído',
     archived: 'Arquivado',
@@ -43,6 +85,7 @@ export function formatSupervisionType(type: string) {
     'iniciacao-cientifica': 'Iniciação científica',
     'projeto-tecnologico': 'Projeto tecnológico',
     mestrado: 'Mestrado',
+    monitoria: 'Monitoria',
     outro: 'Outro',
   };
   return labels[type] ?? type;

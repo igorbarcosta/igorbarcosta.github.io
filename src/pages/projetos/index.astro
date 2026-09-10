@@ -5,29 +5,64 @@ import SectionHeading from '@/components/SectionHeading.astro';
 import ProjectCard from '@/components/ProjectCard.astro';
 
 const projects = await getCollection('projects');
-const byLatest = (a: (typeof projects)[number], b: (typeof projects)[number]) =>
-  (b.data.end ?? b.data.start).getTime() - (a.data.end ?? a.data.start).getTime();
-const current = projects.filter((entry) => entry.data.status === 'active' || entry.data.status === 'planned').sort(byLatest);
-const completed = projects.filter((entry) => entry.data.status === 'completed' || entry.data.status === 'archived').sort(byLatest);
+const byLatest = (a: (typeof projects)[number], b: (typeof projects)[number]) => {
+  if (a.data.featured !== b.data.featured) {
+    return Number(b.data.featured) - Number(a.data.featured);
+  }
+  const timeA = (a.data.end ?? a.data.start).getTime();
+  const timeB = (b.data.end ?? b.data.start).getTime();
+  return timeB - timeA || a.data.title.localeCompare(b.data.title, 'pt-BR');
+};
+
+const current = projects
+  .filter((entry) => entry.data.status === 'active' || entry.data.status === 'planned')
+  .sort(byLatest);
+
+const completed = projects
+  .filter((entry) => entry.data.status === 'completed' || entry.data.status === 'archived')
+  .sort(byLatest);
 ---
 
-<BaseLayout title="Projetos" description="Projetos de pesquisa, inovação e desenvolvimento de Ígor Barbosa da Costa.">
+<BaseLayout title="Projetos" description="Projetos de pesquisa, inovação e desenvolvimento tecnológico de Ígor Barbosa da Costa.">
   <section class="page-intro container">
     <h1>Projetos</h1>
-  </section>
-
-  <section class="section container">
-    <SectionHeading title="Em andamento" />
-    <div class="editorial-list project-list">
-      {current.map((project) => <ProjectCard project={project} />)}
+    <p>Iniciativas de pesquisa aplicada, desenvolvimento tecnológico e inovação (PD&I), desenvolvidas em colaboração com instituições de ensino, centros de pesquisa e parceiros do setor produtivo.</p>
+    <div class="metrics-bar" aria-label="Navegação por status de projetos">
+      <a href="#em-andamento" class="metric-chip">
+        <span class="metric-number">{current.length}</span>
+        <span class="metric-label">Em andamento</span>
+      </a>
+      <a href="#concluidos" class="metric-chip">
+        <span class="metric-number">{completed.length}</span>
+        <span class="metric-label">Concluídos</span>
+      </a>
     </div>
   </section>
 
-  <section class="section section-soft">
+  <section class="section container" id="em-andamento">
+    <SectionHeading title="Em andamento" description="Iniciativas ativas e em fase de execução." />
+    <div class="editorial-list project-list">
+      {current.length ? (
+        current.map((project) => <ProjectCard project={project} />)
+      ) : (
+        <div class="empty-state">
+          <p>Nenhum projeto em andamento publicado no momento.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="section section-soft" id="concluidos">
     <div class="container">
-      <SectionHeading title="Concluídos" />
+      <SectionHeading title="Concluídos" description="Projetos finalizados e resultados consolidados." />
       <div class="editorial-list project-list">
-        {completed.length ? completed.map((project) => <ProjectCard project={project} />) : <div class="empty-state"><p>Ainda não há projetos concluídos publicados.</p></div>}
+        {completed.length ? (
+          completed.map((project) => <ProjectCard project={project} />)
+        ) : (
+          <div class="empty-state">
+            <p>Ainda não há projetos concluídos publicados.</p>
+          </div>
+        )}
       </div>
     </div>
   </section>

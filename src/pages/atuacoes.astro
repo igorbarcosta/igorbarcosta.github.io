@@ -2,11 +2,12 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import { institutional } from '@/data/institutional';
-import { formatSupervisionCourse } from '@/lib/site';
+import { formatPeriod, formatSupervisionCourse } from '@/lib/site';
 
 const activities = institutional.activities.sort((a, b) => b.start.getTime() - a.start.getTime());
 const committees = institutional.committees.sort((a, b) => (b.date?.getTime() ?? 0) - (a.date?.getTime() ?? 0));
-const formatDate = (date: Date) => new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(date);
+const formatDefenseMonth = (date: Date) => new Intl.DateTimeFormat('pt-BR', { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(date).replace('.', '');
+const formatDefenseFull = (date: Date) => new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long', timeZone: 'UTC' }).format(date);
 const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('pt-BR') + role.slice(1);
 ---
 
@@ -28,7 +29,7 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
 
   <section class="section container" id="bancas">
     <SectionHeading title="Participações em Bancas" description="Participações em bancas de avaliação de trabalhos acadêmicos." />
-    <ol class="activity-proof-list committee-list">
+    <ul class="committee-list supervision-list">
       {committees.map((committee) => {
         const students = [...committee.students].sort((a, b) => a.localeCompare(b, 'pt-BR'));
         return <li>
@@ -36,14 +37,28 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
             <summary>
               <span class="committee-summary">
                 <h3>{committee.title}</h3>
-                <span class:list={{ 'committee-students': true, 'student-list-many': students.length > 2 }}>
-                  {students.map((student) => <span>{student}</span>)}
-                </span>
-                <span class="committee-course-date">
-                  {committee.course ? formatSupervisionCourse(committee.course) : 'Curso não informado'}
-                  {' · '}
-                  {committee.date ? <time datetime={committee.date.toISOString()}>{formatDate(committee.date)}</time> : 'Data não informada'}
-                </span>
+                <div class="supervision-subline">
+                  <span class:list={{ 'committee-students': true, 'student-list-many': students.length > 2 }}>
+                    {students.map((student) => <span>{student}</span>)}
+                  </span>
+                  {committee.course && (
+                    <>
+                      <span class="supervision-subline-sep" aria-hidden="true">·</span>
+                      <span class="supervision-course">{formatSupervisionCourse(committee.course)}</span>
+                    </>
+                  )}
+                </div>
+                <div class="card-meta-row card-meta-bottom">
+                  <span class="tag tag-outline">{committee.category}</span>
+                  <div class="badge-group badge-group-outline">
+                    <span class="badge-group-label">{committee.role}</span>
+                    {committee.date && (
+                      <span class="badge-group-date">
+                        <time>{formatDefenseMonth(committee.date)}</time>
+                      </span>
+                    )}
+                  </div>
+                </div>
               </span>
               <span class="committee-toggle" aria-hidden="true">
                 <span class="committee-toggle-more">Ver detalhes</span>
@@ -51,32 +66,65 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
                 <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>
               </span>
             </summary>
-            <dl class="committee-details">
+            <dl class="committee-details supervision-details">
+              {committee.course && <div>
+                <dt>Curso</dt>
+                <dd>{formatSupervisionCourse(committee.course)}</dd>
+              </div>}
+              {committee.date && <div>
+                <dt>Data da defesa</dt>
+                <dd><time datetime={committee.date.toISOString()}>{formatDefenseFull(committee.date)}</time></dd>
+              </div>}
               <div>
-                <dt>Orientador e banca examinadora</dt>
+                <dt>Atuação</dt>
+                <dd>{committee.role}</dd>
+              </div>
+              {committee.institution && <div>
+                <dt>Instituição</dt>
+                <dd>{committee.institution}{committee.campus ? ` — Campus ${committee.campus}` : ''}</dd>
+              </div>}
+              {committee.committee.length > 0 && <div>
+                <dt>Banca examinadora</dt>
                 <dd>
                   {committee.committee.map((member) => <span>{member.name} ({formatCommitteeRole(member.role)})</span>)}
                 </dd>
-              </div>
+              </div>}
             </dl>
           </details>
         </li>;
       })}
-    </ol>
+    </ul>
   </section>
 
   <section class="section section-soft" id="institucional">
     <div class="container">
-    <SectionHeading title="Atuação institucional" description="Comissões, colegiados, gestão acadêmica e desenvolvimento institucional." />
-    <ol class="activity-proof-list">
-      {activities.map((activity) => <li>
-        <div class="activity-proof-period"><time datetime={activity.start.toISOString()}>{formatDate(activity.start)}</time><span>—</span><time datetime={activity.end.toISOString()}>{formatDate(activity.end)}</time></div>
-        <div>
-          <h3>{activity.title}</h3>
-          <p>{activity.role} · {activity.category}</p>
-        </div>
-      </li>)}
-    </ol>
+      <SectionHeading title="Atuação institucional" description="Comissões, colegiados, gestão acadêmica e desenvolvimento institucional." />
+      <ul class="supervision-list">
+        {activities.map((activity) => <li>
+          <article class="committee-entry institutional-card">
+            <div class="committee-summary">
+              <h3>{activity.title}</h3>
+              <div class="supervision-subline">
+                <span class="committee-students">{activity.role}</span>
+                <span class="supervision-subline-sep" aria-hidden="true">·</span>
+                <span class="supervision-course">{activity.category}</span>
+              </div>
+              <div class="card-meta-row card-meta-bottom">
+                <span class="tag tag-outline">{activity.category}</span>
+                <div class="status-badge-group status-badge-completed">
+                  <span class="status-badge-label">
+                    <span class="status-dot status-dot-completed" aria-hidden="true"></span>
+                    Concluído
+                  </span>
+                  <span class="status-badge-date">
+                    <time>{formatPeriod(activity.start, activity.end)}</time>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </li>)}
+      </ul>
     </div>
   </section>
 </BaseLayout>

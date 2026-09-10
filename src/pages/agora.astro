@@ -3,8 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import { site } from '@/data/site';
-import { formatProjectType } from '@/lib/site';
-import { withBase } from '@/lib/site';
+import { formatProjectType, formatSupervisionPeriod, formatSupervisionType, withBase } from '@/lib/site';
 
 const projects = (await getCollection('projects')).filter((entry) => entry.data.status === 'active');
 const teaching = (await getCollection('teaching')).filter((entry) => entry.data.status === 'current');
@@ -36,7 +35,13 @@ const publicField = (value: string) => value.startsWith('TODO:') ? undefined : v
                 <strong>{entry.data.title}</strong>
                 <small>{[publicField(entry.data.course), publicField(entry.data.institution)].filter(Boolean).join(' · ')}</small>
                 <div class="card-meta-row card-meta-bottom">
-                  <span class="badge-mono">{entry.data.semester}</span>
+                  <span class="tag-date">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="2" y="3.5" width="12" height="10.5" rx="2" />
+                      <path d="M2 7h12M5 1.5v3M11 1.5v3" />
+                    </svg>
+                    <time>{entry.data.semester}</time>
+                  </span>
                 </div>
               </a>
             ))}
@@ -65,10 +70,13 @@ const publicField = (value: string) => value.startsWith('TODO:') ? undefined : v
                 <strong>{entry.data.title}</strong>
                 <small>{entry.data.students.join(' · ')}</small>
                 <div class="card-meta-row card-meta-bottom">
-                  <span class="tag tag-outline">{entry.data.type === 'mestrado' ? 'Mestrado' : 'TCC'}</span>
-                  {(entry.data.semester ?? entry.data.end?.getFullYear() ?? entry.data.start?.getFullYear()) && (
-                    <span class="badge-mono">{entry.data.semester ?? entry.data.end?.getFullYear() ?? entry.data.start?.getFullYear()}</span>
-                  )}
+                  <span class="tag tag-outline">{formatSupervisionType(entry.data.type)}</span>
+                  <div class="status-badge-group status-badge-current">
+                    <span class="status-badge-label"><span class="status-dot" aria-hidden="true"></span>Em andamento</span>
+                    {formatSupervisionPeriod(entry.data) && (
+                      <span class="status-badge-date"><time>{formatSupervisionPeriod(entry.data)}</time></span>
+                    )}
+                  </div>
                 </div>
               </a>
             ))}
