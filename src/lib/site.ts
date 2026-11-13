@@ -1,3 +1,9 @@
+import { site } from '@/data/site';
+
+export function projectRoleLabel(id: string, role: string) {
+  return site.projectRoleLabels[id] ?? role;
+}
+
 export function withBase(path: string) {
   const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   const cleanPath = path.startsWith('/') ? path : `/${path}`;

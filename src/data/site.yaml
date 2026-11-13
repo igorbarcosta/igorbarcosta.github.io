@@ -1,6 +1,37 @@
 shortName: '@igorbarcosta'
-intro: "You can learn anything."
-profilePhoto: /igor-bio5.png
+intro: "You can learn anything. Enjoy!"
+profilePhoto: /portraits/igor-traco.png
+portraitArtistic: true
+profileInstitutionLabel: IFPB
+profileInstitutionUrl: https://www.ifpb.edu.br/campus/campinagrande
+projectRoleLabels:
+  synpower: Pesquisador
+homeTeachingOrder:
+  - programacao-orientada-a-objetos-2026-2
+  - laboratorio-de-poo-2026-2
+  - sistemas-multiagentes-2026-2
+  - banco-de-dados-2026-2
+profileLogos:
+  - label: Instituto Federal da Paraíba — Campus Campina Grande
+    src: /logos/ifpb.png
+    href: https://www.ifpb.edu.br/
+    width: 3508
+    height: 2480
+    displayWidth: 122
+    viewport: [40, 750, 3420, 970]
+  - label: Laboratório IDE.IA
+    src: /logos/ideia.png
+    href: https://www.instagram.com/ide.ia_/
+    width: 520
+    height: 141
+    displayWidth: 110
+  - label: Programa de Pós-Graduação em Tecnologia da Informação (PPGTI)
+    src: /logos/ppgti-transparent.png
+    href: https://www.ifpb.edu.br/campus/joaopessoa/pos-graduacao/ppgti
+    width: 1973
+    height: 797
+    displayWidth: 84
+    viewport: [80, 55, 1815, 700]
 mainNavigation:
   - label: Início
     href: /

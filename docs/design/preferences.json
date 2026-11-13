@@ -1,0 +1,95 @@
+{
+  "updatedAt": "2026-11-13",
+  "source": "Preferências expressas pelo usuário durante a avaliação de referências",
+  "direction": {
+    "primaryReference": "https://juhokim.com/",
+    "liked": [
+      "Home com uma caixa fixa à esquerda contendo as informações principais do professor e conteúdo à direita",
+      "Organização das páginas Publications e Students do Juho Kim",
+      "Facilidade de localizar e visualizar informações no site do Fabio Kon",
+      "Retrato em traço minimalista para a identidade pessoal",
+      "Anos expandidos por padrão em todas as páginas com arquivos anuais",
+      "Bancas com o mesmo tratamento visual de Orientações: agrupamento, estudantes em destaque e detalhes recolhíveis",
+      "Logomarcas do IFPB, IDE.IA e PPGTI ao final da box",
+      "Publicações em lista contínua, sem agrupamento por ano",
+      "Projetos e Ensino com os mesmos painéis e atalhos das demais páginas",
+      "Marcas com transparência real, sem uma placa branca e com proporções visualmente equilibradas",
+      "Contatos no padrão do Juho: e-mail escrito seguido por uma linha de ícones sem rótulos visíveis",
+      "Nome completo em uma linha no desktop, seguido por Doutor em Ciência da Computação, Professor & Pesquisador e vínculo IFPB - Campus Campina Grande com link",
+      "Nome do PPGTI por extenso com quebra após Pós-Graduação em"
+    ],
+    "avoid": [
+      "Minimalismo excessivo no conjunto do site",
+      "Poluição visual como a percebida no site do Fabio Kon",
+      "Direção visual dos sites de Dylan Cashman, Dominikus Baur e Jeffrey Heer"
+    ],
+    "confirmed": true,
+    "decision": "O usuário confirmou Juho Kim como a referência principal para a evolução do site."
+  },
+  "references": [
+    {
+      "name": "Dylan Cashman",
+      "url": "https://www.cs.brandeis.edu/~dylan/",
+      "feedback": "Não gostou; considerou feio"
+    },
+    {
+      "name": "Fabio Kon",
+      "url": "https://www.ime.usp.br/~kon/index.html",
+      "feedback": "Informações mais fáceis de visualizar, mas um pouco poluído"
+    },
+    {
+      "name": "Dominikus Baur",
+      "url": "https://do.minik.us/",
+      "feedback": "Não gostou"
+    },
+    {
+      "name": "Juho Kim",
+      "url": "https://juhokim.com/",
+      "feedback": "Preferido entre os cinco; próximo ao próprio site; gostou especialmente da organização de Publications e Students e do perfil fixo à esquerda na home"
+    },
+    {
+      "name": "Jeffrey Heer",
+      "url": "https://homes.cs.washington.edu/~jheer/",
+      "feedback": "Não gostou; considerou bem ruim"
+    }
+  ],
+  "implementationStatus": "Direção aplicada localmente: perfil fixo à esquerda, nome em duas linhas, vínculos e marcas ao final da box; publicações em lista contínua; Ensino e Projetos com painéis compartilhados; arquivos anuais expandidos. Aguardando revisão visual do usuário.",
+  "layoutReview": {
+    "reference": "https://juhokim.com/",
+    "comparisonViewportPx": 1440,
+    "measuredReferenceContentPx": 1248,
+    "measuredReferenceProfileColumnPx": 394.65625,
+    "previousContentPx": 1140,
+    "previousProfilePx": 280,
+    "selectedContentPx": 1240,
+    "selectedProfilePx": 320,
+    "readingWidthPx": 720,
+    "profilePaddingPx": 32,
+    "shortViewportBehavior": "Box sticky no desktop em qualquer altura; conteúdo interno acessível por rolagem quando necessário. Em celular, segue o fluxo da página.",
+    "profileBlockSpacingPx": 24
+  },
+  "profileHierarchy": [
+    "Ígor Barbosa da Costa",
+    "Doutor em Ciência da Computação como legenda próxima ao nome",
+    "Professor — IFPB - Campus Campina Grande",
+    "Pesquisador — Laboratório ide.ia",
+    "Docente colaborador — Programa de Pós-Graduação em Tecnologia da Informação"
+  ],
+  "profileAffiliationStyle": "Professor, Pesquisador e Docente colaborador com a mesma tipografia; vínculos em negrito, sublinhados apenas no hover ou foco de teclado.",
+  "typographyReview": {
+    "interfaceFamily": "Instrument Sans",
+    "codeFamily": "JetBrains Mono (apenas BibTeX)",
+    "profileNameDesktopPx": 22,
+    "qualificationPx": 13,
+    "descriptionsPx": 15,
+    "metadataPx": 14,
+    "sectionHeadingWeight": 600,
+    "headingLetterSpacing": "-.01em; títulos de itens sem compressão",
+    "externalLinkArrows": "Espaço não separável antes da seta, para acompanhar a última palavra"
+  },
+  "homeTeachingLayout": "Disciplinas em duas colunas quando o painel possui ao menos 560 px úteis; uma coluna em espaços menores. Ordem de leitura preservada por linha.",
+  "secondaryPages": {
+    "sobre": "Atalhos e painéis compartilhados; formação acadêmica como primeira seção, três graus em cartões e doutorado com borda de destaque; biografia, áreas, experiência, cursos, idiomas e prêmios preservados.",
+    "agora": "Atalhos e painéis compartilhados; mesmos componentes de Ensino, Projetos e Orientações, alimentados pela seleção de atividades atuais usada na home."
+  }
+}

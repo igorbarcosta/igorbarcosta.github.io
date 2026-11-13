@@ -13,11 +13,11 @@ const typeLabels: Record<string, string> = {
   other: 'Outro',
 };
 ---
-<li class="publication-item">
+<li class="publication-item" id={publication.key}>
   <h3>{publication.title}</h3>
   <p class="publication-authors">{publication.authors}</p>
   <div class="publication-meta-row">
-    <span class="tag">{typeLabels[publication.type] ?? 'Publicação'}</span>
+    <span>{typeLabels[publication.type] ?? 'Publicação'}</span>
     {publication.venue && <span class="publication-venue">{publication.venue}</span>}
     {publication.year && <span class="badge-mono">{publication.year}</span>}
   </div>

@@ -1,0 +1,9 @@
+---
+import { createSatteriMarkdownProcessor } from '@astrojs/markdown-satteri';
+import { site } from '@/data/site';
+
+const processor = await createSatteriMarkdownProcessor({ syntaxHighlight: false, smartypants: false });
+const biography = await processor.render(site.profile.biography ?? site.profile.summary);
+---
+
+<div class="profile-biography" set:html={biography.code} />

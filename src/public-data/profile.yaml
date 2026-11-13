@@ -8,6 +8,41 @@ summary: Sou professor do Ensino Básico, Técnico e Tecnológico no Instituto
   entre Inteligência Artificial, Ciência de Dados e Engenharia de Software,
   buscando transformar pesquisa em sistemas que possam ser usados, avaliados e
   aprimorados em contextos reais.
+biography: >-
+  Sou paraibano, filho de Campina Grande, casado e pai coruja da pequena Isa.
+  Apaixonado por música e futebol, sou torcedor do Treze Futebol Clube, o que me
+  permite frequentemente exercitar a frustração e a perseverança.
+
+
+  Minha jornada profissional começou no desenvolvimento de software, passou pela
+  Ciência de Dados e hoje está mergulhada na **Inteligência Artificial**. Falo
+  de IA em palestras, mesas de bar e filas de padaria. Algumas vezes, a conversa
+  é mais técnica. Muito mais vezes, pseudofilosófica.
+
+
+  Sou um pouco *knowledge junkie*: gosto de aprender coisas novas todos os dias.
+  Uma resposta raramente encerra um assunto. Em geral, só aumenta a minha lista
+  de perguntas. Meu terapeuta trabalha pra evitar que eu viva apenas para
+  respondê-las.
+
+
+  No [IFPB](https://www.ifpb.edu.br/campus/campinagrande), parto do princípio de
+  que o *professor moderno* precisa ser um facilitador, ajudando cada aluno a
+  encontrar seu caminho. Ninguém deve “precisar” da minha aula. A informação
+  hoje está por todo lugar. A sala de aula deve ser apenas um ponto de encontro
+  de estudantes em movimento e um professor provocador.
+
+
+  No [Laboratório ide.ia](https://www.instagram.com/ide.ia_/) e no
+  [PPGTI](https://www.ifpb.edu.br/campus/joaopessoa/pos-graduacao/ppgti), essa
+  curiosidade ganha companhia. A gente se junta para colocar ideias à prova e
+  construir soluções. Pesquisa e inovação têm dessas coisas. A gente inventa de
+  fazer uma coisa nova e descobre outras dez que precisa aprender pelo caminho.
+  É um tipo de problema que eu gosto de ter.
+
+
+  **Tenho um pouco a ensinar; muito mais a aprender.** Isso move boa parte das
+  escolhas que eu faço.
 affiliation:
   institution: Instituto Federal de Educação, Ciência e Tecnologia da Paraíba
   campus: Campus Campina Grande
@@ -58,3 +93,13 @@ groups:
     type: laboratory
     links:
       instagram: https://www.instagram.com/ide.ia_/
+appointments:
+  - id: ppgti-ifpb-docente-colaborador
+    role: Docente colaborador
+    program: Programa de Pós-Graduação em Tecnologia da Informação
+    shortName: PPGTI
+    institution: Instituto Federal da Paraíba
+    status: current
+    researchLines:
+      - Ciência de Dados e Inteligência Artificial
+    url: https://www.ifpb.edu.br/campus/joaopessoa/pos-graduacao/ppgti/programa/corpo-docente

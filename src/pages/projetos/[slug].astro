@@ -4,7 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PublicationItem from '@/components/PublicationItem.astro';
 import SupervisionItem from '@/components/SupervisionItem.astro';
 import { getPublications } from '@/lib/bibtex';
-import { formatProjectPeriod, formatProjectType, formatStatus, withBase } from '@/lib/site';
+import { formatProjectPeriod, formatProjectType, formatStatus, projectRoleLabel, withBase } from '@/lib/site';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -27,6 +27,7 @@ export async function getStaticPaths() {
 const { project, prevProject, nextProject } = Astro.props;
 const { Content } = await render(project);
 const data = project.data;
+const roleLabel = projectRoleLabel(project.id, data.role);
 const coordinators = data.team?.coordinators ?? [];
 const participants = data.team?.participants ?? [];
 const partnerSubtitle = data.partners.length > 0 ? data.partners.join(' · ') : data.institutions.join(' · ');
@@ -71,7 +72,7 @@ const jsonLd = {
     ...participants.map((name) => ({
       '@type': 'Person',
       name,
-      jobTitle: name === 'Ígor Barbosa da Costa' ? data.role : 'Participante',
+      jobTitle: name === 'Ígor Barbosa da Costa' ? roleLabel : 'Participante',
     })),
   ],
 };
@@ -84,22 +85,7 @@ const jsonLd = {
       <a class="back-link" href={withBase('/projetos/')}>← Todos os projetos</a>
     </nav>
     <header class="detail-header reading-width">
-      <div class="card-topline">
-        <span class="tag tag-outline">{formatProjectType(data.type)}</span>
-        <span class={`status status-${data.status}`}>
-          {data.status === 'active' && <span class="status-dot" aria-hidden="true"></span>}
-          {data.status === 'completed' && <span class="status-dot status-dot-completed" aria-hidden="true"></span>}
-          {formatStatus(data.status)}
-        </span>
-        {data.evidenceVerified && (
-          <span class="verified-badge" title="Registro documental verificado">
-            <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M13.5 4.5 6.5 11.5 2.5 7.5" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            Registro verificado
-          </span>
-        )}
-      </div>
+      <p class="entry-note">{formatProjectType(data.type)} · {formatStatus(data.status)}</p>
       <h1>{data.title}</h1>
       {partnerSubtitle && <p class="project-partners-sub detail-partners">{partnerSubtitle}</p>}
       {data.description && <p class="detail-lede">{data.description}</p>}
@@ -115,9 +101,9 @@ const jsonLd = {
     <section class="detail-section reading-width" aria-labelledby="informacoes-projeto">
       <h2 id="informacoes-projeto">Informações</h2>
       <dl class="detail-facts">
-        <div><dt>Papel</dt><dd>{data.role}</dd></div>
+        <div><dt>Papel</dt><dd>{roleLabel}</dd></div>
         <div><dt>Período</dt><dd class="badge-mono">{formatProjectPeriod(data.start, data.end, data.year)}</dd></div>
-        <div><dt>Status</dt><dd><span class={`status status-${data.status}`}>{data.status === 'active' && <span class="status-dot" aria-hidden="true"></span>}{data.status === 'completed' && <span class="status-dot status-dot-completed" aria-hidden="true"></span>}{formatStatus(data.status)}</span></dd></div>
+        <div><dt>Status</dt><dd>{formatStatus(data.status)}</dd></div>
         <div><dt>Tipo</dt><dd>{formatProjectType(data.type)}</dd></div>
         {data.participation && <div><dt>Participação</dt><dd class="badge-mono">{formatProjectPeriod(data.participation.start, data.participation.end)}</dd></div>}
         {data.areas.length > 0 && <div><dt>Áreas</dt><dd>{data.areas.join(' · ')}</dd></div>}

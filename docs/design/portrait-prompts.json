@@ -1,0 +1,18 @@
+{
+  "method": "Built-in image_gen tool",
+  "reference": "public/igor-bio5.png",
+  "variants": {
+    "traco": {
+      "asset": "public/portraits/igor-traco.png",
+      "prompt": "Use case: style-transfer and identity-preserve. Edit the reference photograph into a STRICT MINIMAL LINE DRAWING of the SAME man. Preserve recognizable facial proportions, short hair and hairline, brows, beard outline, warm smile, slight turned pose, black crewneck neckline. ONE centered head-and-shoulders bust. STYLE: sparse freehand ink line portrait from an artist's sketchbook; about 40 to 70 purposeful irregular strokes TOTAL. Barely any interior shading. Hair suggested by a few loose strokes, beard suggested by silhouette and just a handful of marks. Face, neck and shirt should be mostly EMPTY transparent negative space, not shaded. No solid black filled shirt. NOT realistic pencil shading, NOT engraving, NOT crosshatching, NOT stippling, NOT a detailed tracing. Monochrome near-black ink contours, hand drawn organic lines, not vector avatar. Square canvas with generous margins. Truly transparent background AND transparent unmarked face/neck regions. No paper, no white fill, no grey fill, no text, no decorative objects. This is a small artistic portrait for an academic website, readable at 160px."
+    },
+    "gravura": {
+      "asset": "public/portraits/igor-gravura.png",
+      "prompt": "Use case: style-transfer, identity-preserve. Input image: edit target and identity reference, the professor's current portrait. Create ONE artistic head-and-shoulders portrait for his personal academic website. Preserve the same person faithfully: face shape, eyes, eyebrows, short hair, hairline, beard with grey, warm natural smile, age and proportions, slight turned pose, black crewneck shirt. Style/medium: Hand engraved editorial portrait, fine black crosshatching and woodcut-like etched strokes, face planes sculpted with restrained hatching, organic ink character, quiet and dignified. No decorative frame, no vintage props. Composition: one centered bust, square image, ample breathing room, entire hair and chin visible, shoulders taper gently; no other objects. Palette: near black ink only. Background: genuinely transparent alpha, no white paper rectangle, no checkerboard. No labels, signatures, logos or added text outside the portrait. Avoid beautification, cartoon exaggeration, stock-avatar appearance."
+    },
+    "codigo": {
+      "asset": "public/portraits/igor-codigo.png",
+      "prompt": "Use case: style-transfer, identity-preserve. Input image: edit target and identity reference, the professor's current portrait. Create ONE artistic head-and-shoulders portrait for his personal academic website. Preserve the same person faithfully: face shape, eyes, eyebrows, short hair, hairline, beard with grey, warm natural smile, age and proportions, slight turned pose, black crewneck shirt. Style/medium: Typographic code portrait made entirely of individual legible monospace programming characters, braces, semicolons, parentheses, letters and digits. Character density forms face, hair and beard with coherent recognizable facial features. Not a photograph overlaid with code. No Matrix rain, no neon, no hacker cliches. Composition: one centered bust, square image, ample breathing room, entire hair and chin visible, shoulders taper gently; no other objects. Palette: near black ink only. Background: genuinely transparent alpha, no white paper rectangle, no checkerboard. No labels, signatures, logos or added text outside the portrait. Avoid beautification, cartoon exaggeration, stock-avatar appearance."
+    }
+  }
+}

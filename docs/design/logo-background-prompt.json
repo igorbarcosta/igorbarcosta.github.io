@@ -1,0 +1,7 @@
+{
+  "asset": "public/logos/ppgti-transparent.png",
+  "original": "docs/design/sources/ppgti-original.png",
+  "tool": "image_gen",
+  "transparent_background": true,
+  "prompt": "Remove ONLY the neutral gray/white gradient background from this existing official PPGTI logo. Return the EXACT same existing mark with a genuinely transparent alpha background, closely cropped with small even padding around the complete mark. This is a strict background extraction task, not a redesign. Preserve every symbol, all shapes, original dark navy and cyan/teal colors, exact letterforms, proportions, and original typography pixel-for-pixel wherever possible. Keep the complete subtitle verbatim in TWO lines: 'Programa de Pós Graduação' and 'em Tecnologia da Informação'. Keep all six cyan ring elements and connecting lines exactly intact including their inner transparent holes. No shadows, no glow, no texture, no replacement background, no added elements, no regenerated lettering. The interior holes of all letters and symbols must also be transparent."
+}

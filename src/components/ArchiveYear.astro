@@ -1,0 +1,8 @@
+---
+interface Props { year: string; count: number; open?: boolean; id?: string; }
+const { year, count, open = true, id } = Astro.props;
+---
+<details class="archive-year" open={open} id={id}>
+  <summary><span>{year}</span><span class="archive-count">{count} {count === 1 ? 'registro' : 'registros'}</span><span class="archive-chevron" aria-hidden="true">⌄</span></summary>
+  <div class="archive-content"><slot /></div>
+</details>

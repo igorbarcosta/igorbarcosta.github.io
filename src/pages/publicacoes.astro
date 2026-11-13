@@ -1,22 +1,20 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import SectionHeading from '@/components/SectionHeading.astro';
 import PublicationItem from '@/components/PublicationItem.astro';
 import { getPublications } from '@/lib/bibtex';
 
 const publications = getPublications();
-const selected = publications.filter((publication) => publication.selected);
 ---
 
-<BaseLayout title="Publicações" description="Produção selecionada de Ígor Barbosa da Costa.">
+<BaseLayout title="Publicações" description="Produção acadêmica de Ígor Barbosa da Costa.">
   <section class="page-intro container">
     <h1>Publicações</h1>
+    <p>Artigos, trabalhos em conferências e capítulos de livros.</p>
   </section>
 
-  <section class="section container">
-    <SectionHeading title="Selecionadas" />
-    {selected.length ? <ul class="publication-list">{selected.map((publication) => <PublicationItem publication={publication} />)}</ul> : <div class="empty-state"><p>Nenhuma publicação selecionada no momento.</p></div>}
-  </section>
+  <div class="section container publication-catalog">
+    {publications.length ? <ul class="publication-list">{publications.map((publication) => <PublicationItem publication={publication} />)}</ul> : <p class="empty-state">Nenhuma publicação no momento.</p>}
+  </div>
 </BaseLayout>
 
 <script>

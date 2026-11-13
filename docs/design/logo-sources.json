@@ -1,0 +1,54 @@
+{
+  "retrievedAt": "2026-11-13",
+  "presentation": "Versão experimental em tons de cinza por CSS: grayscale no tema claro e monocromia cinza clara no tema escuro. Hover e foco aumentam a opacidade. Arquivos originais e transparência preservados.",
+  "logos": [
+    {
+      "file": "public/logos/ifpb.png",
+      "sourcePage": "https://www.ifpb.edu.br/campus/campinagrande/documentos-gerais/downloads/logo-campus-horizontal-png",
+      "assetUrl": "https://www.ifpb.edu.br/campus/campinagrande/documentos-gerais/downloads/logo-campus-horizontal-png/@@images/image-3508-851dccbab728e4bb817037744b8fe798.png",
+      "viewport": [
+        40,
+        750,
+        3420,
+        970
+      ]
+    },
+    {
+      "file": "public/logos/ideia.png",
+      "sourcePage": "https://github.com/igorbarcosta/ideia-site/blob/d4ce81ce63d7ee71cdc366e3f85cba697ab8ce12/public/brand/ideia-horizontal-positive.png",
+      "assetUrl": "https://raw.githubusercontent.com/igorbarcosta/ideia-site/d4ce81ce63d7ee71cdc366e3f85cba697ab8ce12/public/brand/ideia-horizontal-positive.png"
+    },
+    {
+      "file": "public/logos/ppgti-transparent.png",
+      "sourcePage": "https://www.ifpb.edu.br/noticias/2021/06/ppgti-lanca-pagina-do-mestrado-em-ti-na-internet",
+      "assetUrl": "https://www.ifpb.edu.br/noticias/2021/06/ppgti-lanca-pagina-do-mestrado-em-ti-na-internet/logo-1.png/@@images/image-1500-3022a07ae74ca727e160691455df4891.png",
+      "viewport": [
+        80,
+        55,
+        1815,
+        700
+      ],
+      "original": "docs/design/sources/ppgti-original.png",
+      "backgroundRemoval": "image_gen; prompt em docs/design/logo-background-prompt.json"
+    }
+  ],
+  "opticalSizing": {
+    "method": "Área preenchida ponderada pelo canal alfa, sem margens transparentes; conferência visual nos temas claro e escuro.",
+    "order": [
+      "IFPB",
+      "IDE.IA",
+      "PPGTI"
+    ],
+    "displayWidthsPx": [
+      122,
+      110,
+      84
+    ],
+    "visibleHeightsPx": [
+      32.9,
+      29.8,
+      30.5
+    ],
+    "spacingPx": 18
+  }
+}

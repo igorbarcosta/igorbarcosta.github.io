@@ -3,111 +3,62 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import SupervisionItem from '@/components/SupervisionItem.astro';
+import ArchiveYear from '@/components/ArchiveYear.astro';
+import { groupByYear } from '@/lib/archive';
 
 const supervisions = await getCollection('supervision');
 const mostRecentTime = (entry: typeof supervisions[number]) => {
-  if (entry.data.defense) return entry.data.defense.date.getTime();
-  if (entry.data.qualification) return entry.data.qualification.date.getTime();
-  const date = entry.data.end ?? entry.data.start;
+  const date = entry.data.defense?.date ?? entry.data.qualification?.date ?? entry.data.end ?? entry.data.start;
   if (date) return date.getTime();
-  if (entry.data.semester) {
-    const [year, term] = entry.data.semester.split('.').map(Number);
-    return new Date(year, term === 2 ? 6 : 0).getTime();
-  }
-  return entry.data.year ? Date.UTC(entry.data.year, 0) : 0;
+  const year = entry.data.semester?.slice(0, 4) ?? entry.data.year;
+  return year ? Date.UTC(Number(year), entry.data.semester?.endsWith('.2') ? 6 : 0) : 0;
 };
 const byMostRecent = (a: typeof supervisions[number], b: typeof supervisions[number]) =>
   mostRecentTime(b) - mostRecentTime(a) || a.data.title.localeCompare(b.data.title, 'pt-BR');
 const current = supervisions.filter((entry) => entry.data.status === 'current' || entry.data.status === 'planned').sort(byMostRecent);
 const completed = supervisions.filter((entry) => entry.data.status === 'completed' || entry.data.status === 'archived').sort(byMostRecent);
 const categoryFor = (entry: typeof supervisions[number]) => {
-  const title = entry.data.title.toLocaleLowerCase('pt-BR');
-  if (title.includes('estágio')) return 'Estágio';
+  if (entry.data.title.toLocaleLowerCase('pt-BR').includes('estágio')) return 'Estágio';
   if (entry.data.type === 'monitoria') return 'Monitoria';
   if (entry.data.type === 'mestrado') return 'Mestrado';
-  if (entry.data.type === 'TCC') return 'TCC (Superior)';
+  if (entry.data.type === 'TCC') return /técnico|^informática$/i.test(entry.data.course ?? '') ? 'TCC (Técnico)' : 'TCC (Superior)';
   if (entry.data.type === 'competicao') return 'Competições';
   if (entry.data.type === 'outro' && entry.data.course === 'Informática') return 'TCC (Técnico)';
   return 'Pesquisa';
 };
 const categoryOrder = ['Mestrado', 'TCC (Superior)', 'TCC (Técnico)', 'Monitoria', 'Pesquisa', 'Estágio', 'Competições'];
-const toGroups = (entries: typeof supervisions, prefix: string) => categoryOrder
-  .map((label) => ({ label, id: `${prefix}-${label.toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-')}`, entries: entries.filter((entry) => categoryFor(entry) === label) }))
-  .filter((group) => group.entries.length > 0);
-const currentGroups = toGroups(current, 'atual');
-const completedGroups = toGroups(completed, 'concluida');
+const currentGroups = categoryOrder.map((label) => ({ label, entries: current.filter((entry) => categoryFor(entry) === label) })).filter((group) => group.entries.length);
+const completedGroups = groupByYear(completed, (entry) => {
+  const timestamp = mostRecentTime(entry);
+  return timestamp ? new Date(timestamp).getUTCFullYear() : undefined;
+});
 ---
 
 <BaseLayout title="Orientações" description="Orientações acadêmicas e projetos acompanhados por Ígor Barbosa da Costa.">
   <section class="page-intro container">
     <h1>Orientações</h1>
-    <p>Orientações acadêmicas, estágios, monitorias e equipes acompanhadas no ensino técnico, na graduação e na pós-graduação.</p>
-    <div class="metrics-bar" aria-label="Navegação por status de orientações">
-      <a href="#em-andamento" class="metric-chip">
-        <span class="metric-number">{current.length}</span>
-        <span class="metric-label">Orientações em andamento</span>
-      </a>
-      <a href="#concluidas" class="metric-chip">
-        <span class="metric-number">{completed.length}</span>
-        <span class="metric-label">Orientações concluídas</span>
-      </a>
-    </div>
+    <p>Trabalhos acompanhados no ensino técnico, na graduação e na pós-graduação.</p>
+    <nav class="page-shortcuts" aria-label="Orientações por período">
+      <a href="#em-andamento">Em andamento <span>{current.length}</span></a>
+      <a href="#concluidas">Concluídas <span>{completed.length}</span></a>
+    </nav>
   </section>
 
-  <section class="section container" id="em-andamento">
+  <section class="section container academic-directory" id="em-andamento">
     <SectionHeading title="Em andamento" />
-    {currentGroups.length ? <div class="supervision-tabs" data-supervision-tabs>
-      <div class="tab-list" role="tablist" aria-label="Categorias de orientações em andamento">
-        {currentGroups.map((group, index) => <button type="button" role="tab" id={`tab-${group.id}`} aria-controls={`panel-${group.id}`} aria-selected={index === 0} tabindex={index === 0 ? 0 : -1} data-supervision-tab={group.id}>{group.label}<span>{group.entries.length}</span></button>)}
-      </div>
-      <div class="tab-panels">
-        {currentGroups.map((group, index) => <section class="supervision-panel" id={`panel-${group.id}`} role="tabpanel" aria-labelledby={`tab-${group.id}`} data-supervision-panel={group.id} hidden={index !== 0}>
-          <ul class="supervision-list">{group.entries.map((entry) => <SupervisionItem supervision={entry} />)}</ul>
-        </section>)}
-      </div>
-    </div> : <div class="empty-state"><p>Nenhuma orientação atual publicada.</p></div>}
+    {currentGroups.length ? currentGroups.map((group) => <section class="record-group">
+      <h3>{group.label}</h3>
+      <ul class="supervision-list">{group.entries.map((entry) => <SupervisionItem supervision={entry} peopleFirst={true} />)}</ul>
+    </section>) : <p class="empty-state">Nenhuma orientação atual publicada.</p>}
   </section>
 
-  <section class="section section-soft" id="concluidas">
-    <div class="container">
-      <SectionHeading title="Concluídas" />
-      {completedGroups.length ? <div class="supervision-tabs" data-supervision-tabs>
-        <div class="tab-list" role="tablist" aria-label="Categorias de orientações concluídas">
-          {completedGroups.map((group, index) => <button type="button" role="tab" id={`tab-${group.id}`} aria-controls={`panel-${group.id}`} aria-selected={index === 0} tabindex={index === 0 ? 0 : -1} data-supervision-tab={group.id}>{group.label}<span>{group.entries.length}</span></button>)}
-        </div>
-        <div class="tab-panels">
-          {completedGroups.map((group, index) => <section class="supervision-panel" id={`panel-${group.id}`} role="tabpanel" aria-labelledby={`tab-${group.id}`} data-supervision-panel={group.id} hidden={index !== 0}>
-            <ul class="supervision-list">{group.entries.map((entry) => <SupervisionItem supervision={entry} />)}</ul>
-          </section>)}
-        </div>
-      </div> : <div class="empty-state"><p>O histórico será adicionado com dados autorizados para publicação.</p></div>}
-    </div>
+  <section class="section container academic-directory" id="concluidas">
+    <SectionHeading title="Concluídas" />
+    {completedGroups.map(([year, entries]) => <ArchiveYear year={year} count={entries.length}>
+      {categoryOrder.map((label) => ({ label, entries: entries.filter((entry) => categoryFor(entry) === label) })).filter((group) => group.entries.length).map((group) => <section class="record-group">
+        <h3>{group.label}</h3>
+        <ul class="supervision-list">{group.entries.map((entry) => <SupervisionItem supervision={entry} peopleFirst={true} />)}</ul>
+      </section>)}
+    </ArchiveYear>)}
   </section>
 </BaseLayout>
-
-<script>
-  document.querySelectorAll<HTMLElement>('[data-supervision-tabs]').forEach((tabsRoot) => {
-    const tabs = [...tabsRoot.querySelectorAll<HTMLButtonElement>('[data-supervision-tab]')];
-    const panels = [...tabsRoot.querySelectorAll<HTMLElement>('[data-supervision-panel]')];
-    const activate = (id: string) => {
-      tabs.forEach((tab) => {
-        const active = tab.dataset.supervisionTab === id;
-        tab.setAttribute('aria-selected', String(active));
-        tab.tabIndex = active ? 0 : -1;
-      });
-      panels.forEach((panel) => { panel.hidden = panel.dataset.supervisionPanel !== id; });
-    };
-    const initial = location.hash.slice(1);
-    activate(tabs.some((tab) => tab.dataset.supervisionTab === initial) ? initial : tabs[0]?.dataset.supervisionTab ?? '');
-    tabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => { activate(tab.dataset.supervisionTab ?? ''); history.replaceState(null, '', `#${tab.dataset.supervisionTab}`); });
-      tab.addEventListener('keydown', (event) => {
-        if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
-        event.preventDefault();
-        const next = (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
-        tabs[next]?.focus();
-        tabs[next]?.click();
-      });
-    });
-  });
-</script>

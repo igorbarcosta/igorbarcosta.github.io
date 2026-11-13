@@ -27,21 +27,17 @@ const completed = projects
   <section class="page-intro container">
     <h1>Projetos</h1>
     <p>Iniciativas de pesquisa, extensão, desenvolvimento tecnológico e inovação, desenvolvidas em colaboração com instituições de ensino, centros de pesquisa e parceiros do setor produtivo.</p>
-    <div class="metrics-bar" aria-label="Navegação por status de projetos">
-      <a href="#em-andamento" class="metric-chip">
-        <span class="metric-number">{current.length}</span>
-        <span class="metric-label">Em andamento</span>
-      </a>
-      <a href="#concluidos" class="metric-chip">
-        <span class="metric-number">{completed.length}</span>
-        <span class="metric-label">Concluídos</span>
-      </a>
-    </div>
+    <nav class="page-shortcuts" aria-label="Projetos por período">
+      <span class="shortcuts-label">Projetos</span>
+      <a href="#em-andamento">Em andamento <span>{current.length}</span></a>
+      <a href="#concluidos">Concluídos <span>{completed.length}</span></a>
+    </nav>
   </section>
 
+  <div class="academic-directory">
   <section class="section container" id="em-andamento">
-    <SectionHeading title="Em andamento" description="Iniciativas ativas e em fase de execução." />
-    <div class="editorial-list project-list">
+    <SectionHeading title="Em andamento" />
+    <div class="record-group editorial-list project-list">
       {current.length ? (
         current.map((project) => <ProjectCard project={project} />)
       ) : (
@@ -54,8 +50,8 @@ const completed = projects
 
   <section class="section section-soft" id="concluidos">
     <div class="container">
-      <SectionHeading title="Concluídos" description="Projetos finalizados e resultados consolidados." />
-      <div class="editorial-list project-list">
+      <SectionHeading title="Concluídos" />
+      <div class="record-group editorial-list project-list">
         {completed.length ? (
           completed.map((project) => <ProjectCard project={project} />)
         ) : (
@@ -66,4 +62,5 @@ const completed = projects
       </div>
     </div>
   </section>
+  </div>
 </BaseLayout>

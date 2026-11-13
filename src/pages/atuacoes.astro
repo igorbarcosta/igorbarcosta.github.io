@@ -2,6 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import ActivityList from '@/components/ActivityList.astro';
+import ArchiveYear from '@/components/ArchiveYear.astro';
+import { groupByYear } from '@/lib/archive';
 import { institutional } from '@/data/institutional';
 import { events, reviews } from '@/data/activities';
 import { formatDate, formatPeriod, formatSupervisionCourse } from '@/lib/site';
@@ -10,6 +12,10 @@ const activities = institutional.activities.sort((a, b) => b.start.getTime() - a
 const committeeTime = (entry: typeof institutional.committees[number]) => entry.date?.getTime()
   ?? Date.UTC(Number(entry.semester?.slice(0, 4) ?? entry.year ?? 0), entry.semester?.endsWith('.2') ? 6 : 0);
 const committees = institutional.committees.sort((a, b) => committeeTime(b) - committeeTime(a));
+const committeeGroups = groupByYear(committees, (entry) => entry.date?.getUTCFullYear() ?? entry.year ?? entry.semester?.slice(0, 4));
+const activityGroups = groupByYear(activities, (entry) => entry.start.getUTCFullYear());
+const eventGroups = groupByYear(events, (entry) => entry.start?.getUTCFullYear() ?? entry.year);
+const reviewGroups = groupByYear(reviews, (entry) => entry.year);
 const committeePeriod = (entry: typeof committees[number]) => entry.date ? formatDefenseMonth(entry.date) : entry.semester ?? String(entry.year ?? '');
 const formatDefenseMonth = (date: Date) => new Intl.DateTimeFormat('pt-BR', { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(date).replace('.', '');
 const formatDefenseFull = (date: Date) => new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long', timeZone: 'UTC' }).format(date);
@@ -20,57 +26,36 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
   <section class="page-intro container">
     <h1>Atuações</h1>
     <p>Participações em bancas, colegiados, comissões, eventos e avaliação científica.</p>
-    <div class="metrics-bar">
-      <a href="#bancas" class="metric-chip">
-        <span class="metric-number">{committees.length}</span>
-        <span class="metric-label">Bancas examinadoras</span>
-      </a>
-      <a href="#eventos" class="metric-chip">
-        <span class="metric-number">{events.length}</span>
-        <span class="metric-label">Eventos</span>
-      </a>
-      <a href="#revisoes" class="metric-chip">
-        <span class="metric-number">{reviews.length}</span>
-        <span class="metric-label">Revisões e avaliações</span>
-      </a>
-      <a href="#institucional" class="metric-chip">
-        <span class="metric-number">{activities.length}</span>
-        <span class="metric-label">Atuações institucionais</span>
-      </a>
-    </div>
+    <nav class="section-index" aria-label="Atuações por categoria">
+      <a href="#bancas">Bancas <span>{committees.length}</span></a>
+      <a href="#institucional">Atuação institucional <span>{activities.length}</span></a>
+      <a href="#eventos">Eventos <span>{events.length}</span></a>
+      <a href="#revisoes">Revisões e avaliações <span>{reviews.length}</span></a>
+    </nav>
   </section>
 
-  <section class="section container" id="bancas">
+  <section class="section container academic-directory" id="bancas">
     <SectionHeading title="Participações em Bancas" description="Participações em bancas de avaliação de trabalhos acadêmicos." />
+    {committeeGroups.map(([year, entries]) => <ArchiveYear year={year} count={entries.length}>
+    {[...new Set(entries.map((committee) => committee.category))].map((category) => <section class="record-group">
+    <h3>{category}</h3>
     <ul class="committee-list supervision-list">
-      {committees.map((committee) => {
+      {entries.filter((committee) => committee.category === category).map((committee) => {
         const students = [...committee.students].sort((a, b) => a.localeCompare(b, 'pt-BR'));
         return <li>
           <details class="committee-entry">
             <summary>
               <span class="committee-summary">
-                <h3>{committee.title}</h3>
+                <h4>{students.length ? students.join(' · ') : committee.title}</h4>
+                {students.length > 0 && <p class="record-title">{committee.title}</p>}
                 <div class="supervision-subline">
-                  <span class:list={{ 'committee-students': true, 'student-list-many': students.length > 2 }}>
-                    {students.map((student) => <span>{student}</span>)}
-                  </span>
                   {committee.course && (
-                    <>
-                      <span class="supervision-subline-sep" aria-hidden="true">·</span>
                       <span class="supervision-course">{formatSupervisionCourse(committee.course)}</span>
-                    </>
                   )}
                 </div>
                 <div class="card-meta-row card-meta-bottom">
-                  <span class="tag tag-outline">{committee.category}</span>
-                  <div class="badge-group badge-group-outline">
-                    <span class="badge-group-label">{committee.role}</span>
-                    {committeePeriod(committee) && (
-                      <span class="badge-group-date">
-                        <time>{committeePeriod(committee)}</time>
-                      </span>
-                    )}
-                  </div>
+                  <span class="entry-note">{committee.role}</span>
+                  {committeePeriod(committee) && <time class="entry-note">{committeePeriod(committee)}</time>}
                 </div>
               </span>
               <span class="committee-toggle" aria-hidden="true">
@@ -110,13 +95,16 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
         </li>;
       })}
     </ul>
+    </section>)}
+    </ArchiveYear>)}
   </section>
 
   <section class="section section-soft" id="institucional">
     <div class="container">
       <SectionHeading title="Atuação institucional" description="Comissões, colegiados, gestão acadêmica e desenvolvimento institucional." />
+      {activityGroups.map(([year, entries]) => <ArchiveYear year={year} count={entries.length}>
       <ul class="supervision-list">
-        {activities.map((activity) => <li>
+        {entries.map((activity) => <li>
           <article class="committee-entry institutional-card">
             <div class="committee-summary">
               <h3>{activity.title}</h3>
@@ -126,7 +114,6 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
                 <span class="supervision-course">{activity.category}</span>
               </div>
               <div class="card-meta-row card-meta-bottom">
-                <span class="tag tag-outline">{activity.category}</span>
                 <span class="badge-mono">
                   {activity.end ? formatPeriod(activity.start, activity.end) : `Registro em ${formatDate(activity.start)}`}
                 </span>
@@ -135,12 +122,14 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
           </article>
         </li>)}
       </ul>
+      </ArchiveYear>)}
     </div>
   </section>
 
   <section class="section container" id="eventos">
     <SectionHeading title="Eventos" description="Participações, apresentações e capacitações ministradas." />
-    <ActivityList items={events.map((event) => ({
+    {eventGroups.map(([year, entries]) => <ArchiveYear year={year} count={entries.length}>
+    <ActivityList items={entries.map((event) => ({
       title: event.title,
       context: [event.role, event.location].filter(Boolean).join(' · '),
       period: event.start
@@ -155,16 +144,19 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
         { label: 'Carga horária', value: event.hours ? `${event.hours} horas` : '' },
       ],
     }))} />
+    </ArchiveYear>)}
   </section>
 
   <section class="section section-soft" id="revisoes">
     <div class="container">
       <SectionHeading title="Revisões e avaliações" description="Avaliação de trabalhos e projetos de pesquisa." />
-      <ActivityList items={reviews.map((review) => ({
+      {reviewGroups.map(([year, entries]) => <ArchiveYear year={year} count={entries.length}>
+      <ActivityList items={entries.map((review) => ({
         title: review.title,
         context: [review.role, review.location].filter(Boolean).join(' · '),
         period: review.date ? formatDefenseFull(review.date) : String(review.year),
       }))} />
+      </ArchiveYear>)}
     </div>
   </section>
 </BaseLayout>

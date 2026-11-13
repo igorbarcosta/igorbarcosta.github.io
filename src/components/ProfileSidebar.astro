@@ -1,0 +1,36 @@
+---
+import ProfilePhoto from './ProfilePhoto.astro';
+import SocialLinks from './SocialLinks.astro';
+import { site } from '@/data/site';
+import { withBase } from '@/lib/site';
+const doctorate = site.profile.education.find((item) => item.id === 'doctorate-computer-science');
+const programLines = (program: string) => program.split(/(?<=Pós-Graduação em)\s+/);
+const email = site.socialLinks.find((link) => link.href.startsWith('mailto:'));
+---
+
+<aside class="profile-sidebar" aria-labelledby="profile-title">
+  <ProfilePhoto src={withBase(site.profile.photo)} artistic={site.profile.portraitArtistic} />
+  <h1 id="profile-title">{site.name}</h1>
+  {doctorate && <p class="profile-qualification">{doctorate.degree.replace(/^Doutorado em/, 'Doutor em')}</p>}
+  <p class="profile-affiliation profile-position">Professor<br /><a href={site.profileInstitutionUrl} target="_blank" rel="noreferrer">{site.profile.institutionLabel} - {site.profile.affiliation.campus}{"\u00a0↗"}</a></p>
+  <p class="profile-affiliation profile-laboratory">Pesquisador<br /><a href={site.profile.laboratory.url} target="_blank" rel="me noreferrer">{site.profile.laboratory.name}{"\u00a0↗"}</a></p>
+  {site.profile.appointments.map((appointment) => <p class="profile-affiliation profile-appointment">
+    <span>{appointment.role}</span><br />
+    {appointment.url ? <a href={appointment.url} target="_blank" rel="noreferrer">{programLines(appointment.program).map((line, index) => <Fragment>{index > 0 && <br />}{line}</Fragment>)}{"\u00a0↗"}</a> : programLines(appointment.program).map((line, index) => <Fragment>{index > 0 && <br />}{line}</Fragment>)}
+  </p>)}
+  <div class="profile-contact">
+    {email && <a class="profile-email" href={email.href}>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m4 7 8 6 8-6" /></svg>
+      <span>{email.href.replace(/^mailto:/, '')}</span>
+    </a>}
+    <SocialLinks iconsOnly includeEmail={false} />
+  </div>
+  <p class="home-statement">“{site.intro}”</p>
+  <div class="profile-affiliations" aria-label="Instituição, laboratório e programa de pós-graduação">
+    {site.profileLogos.map((logo) => <a href={logo.href} aria-label={logo.label} style={`--logo-width: ${logo.displayWidth}px`} target="_blank" rel="noreferrer">
+      <svg viewBox={(logo.viewport ?? [0, 0, logo.width, logo.height]).join(' ')} aria-hidden="true" focusable="false">
+        <image href={withBase(logo.src)} width={logo.width} height={logo.height} />
+      </svg>
+    </a>)}
+  </div>
+</aside>

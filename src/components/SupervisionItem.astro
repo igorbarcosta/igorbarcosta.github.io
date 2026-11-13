@@ -1,50 +1,40 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { formatStatus, formatSupervisionCourse, formatSupervisionPeriod, formatSupervisionType } from '@/lib/site';
+import { formatSupervisionCourse, formatSupervisionPeriod } from '@/lib/site';
 
 interface Props {
   supervision: CollectionEntry<'supervision'>;
+  peopleFirst?: boolean;
 }
 
-const { supervision } = Astro.props;
+const { supervision, peopleFirst = false } = Astro.props;
 const data = supervision.data;
 const students = [...data.students].sort((a: string, b: string) => a.localeCompare(b, 'pt-BR'));
 const participants = students.length ? students : data.team ? [data.team] : [];
+const Heading = peopleFirst ? 'h4' : 'h3';
 const period = formatSupervisionPeriod(data);
 const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('pt-BR') + role.slice(1);
 const formatDefenseDate = (date: Date) => new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(date);
-const isCurrent = data.status === 'current';
-const isCompleted = data.status === 'completed';
 ---
 
 <li class="supervision-item">
-  <details class="committee-entry supervision-entry">
+  <details class="committee-entry supervision-entry" id={supervision.id}>
     <summary>
       <span class="committee-summary">
-        <h3>{data.title}</h3>
+        <Heading>{peopleFirst ? participants.join(' · ') : data.title}</Heading>
+        {peopleFirst && <p class="record-title">{data.title}</p>}
         <div class="supervision-subline">
-          <span class:list={{ 'committee-students': true, 'student-list-many': students.length > 2 }}>
+          {!peopleFirst && <span class:list={{ 'committee-students': true, 'student-list-many': students.length > 2 }}>
             {participants.map((student: string) => <span>{student}</span>)}
-          </span>
+          </span>}
           {data.course && <>
-            <span class="supervision-subline-sep" aria-hidden="true">·</span>
+            {!peopleFirst && <span class="supervision-subline-sep" aria-hidden="true">·</span>}
             <span class="supervision-course">{formatSupervisionCourse(data.course)}</span>
           </>}
         </div>
         <div class="card-meta-row card-meta-bottom">
-          <span class="tag tag-outline">{formatSupervisionType(data.type)}</span>
-          <div class={`status-badge-group status-badge-${data.status}`}>
-            <span class="status-badge-label">
-              {isCurrent && <span class="status-dot" aria-hidden="true"></span>}
-              {isCompleted && <span class="status-dot status-dot-completed" aria-hidden="true"></span>}
-              {formatStatus(data.status)}
-            </span>
-            {period && (
-              <span class="status-badge-date">
-                <time>{period}</time>
-              </span>
-            )}
-          </div>
+          {period && <time class="entry-note">{period}</time>}
+          {data.role && <span class="entry-note">{data.role}</span>}
         </div>
       </span>
       <span class="committee-toggle" aria-hidden="true">

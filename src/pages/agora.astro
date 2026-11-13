@@ -1,91 +1,58 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
+import TeachingCard from '@/components/TeachingCard.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import SupervisionItem from '@/components/SupervisionItem.astro';
 import { site } from '@/data/site';
-import { formatProjectType, formatSupervisionPeriod, formatSupervisionType, withBase } from '@/lib/site';
+import { getCurrentAcademicActivities } from '@/lib/current';
+import { formatSupervisionType, withBase } from '@/lib/site';
 
-const projects = (await getCollection('projects')).filter((entry) => entry.data.status === 'active');
-const teaching = (await getCollection('teaching')).filter((entry) => entry.data.status === 'current');
-const supervisions = (await getCollection('supervision')).filter((entry) => entry.data.status === 'current');
+const { projects, teaching, supervision } = await getCurrentAcademicActivities();
 const currentActivities = site.currentActivities.filter((activity) => activity.status === 'active');
-const publicField = (value: string | undefined) => value?.startsWith('TODO:') ? undefined : value;
+const semesters = [...new Set(teaching.map((entry) => entry.data.semester))];
+const supervisionTypes = [...new Set(supervision.map((entry) => entry.data.type))];
 ---
 
-<BaseLayout title="Agora" description="Snapshot das atividades atuais de Ígor Barbosa da Costa.">
+<BaseLayout title="Agora" description="Atividades atuais de Ígor Barbosa da Costa.">
   <section class="page-intro container">
-    <div class="hero-badge">
-      <span class="status-dot" aria-hidden="true"></span>
-      <span>Instantâneo Acadêmico</span>
-    </div>
     <h1>Agora</h1>
-    <p class="now-intro">Um instantâneo público sobre o que concentra meu tempo acadêmico, disciplinas, projetos e orientações neste momento.</p>
-    <p class="snapshot-date">Atualizado em {new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric' }).format(new Date())}</p>
+    <p>Disciplinas, projetos e orientações em andamento.</p>
+    <nav class="page-shortcuts" aria-label="Atividades atuais">
+      <a href="#ensino">Ensino <span>{teaching.length}</span></a>
+      <a href="#pesquisa">Projetos <span>{projects.length}</span></a>
+      <a href="#orientacoes">Orientações <span>{supervision.length}</span></a>
+      {currentActivities.length > 0 && <a href="#outras-atividades">Outras atividades <span>{currentActivities.length}</span></a>}
+    </nav>
   </section>
 
-  <section class="section section-rule">
-    <div class="container">
-      <SectionHeading title="Atuação em andamento" />
-      <div class="now-layout">
-        <div>
-          <h2 class="subsection-title">Ensino</h2>
-          <div class="now-list">
-            {teaching.map((entry) => (
-              <a class="now-item card-preview" href={withBase('/ensino/')}>
-                <strong>{entry.data.title}</strong>
-                <small>{[publicField(entry.data.course), publicField(entry.data.institution)].filter(Boolean).join(' · ')}</small>
-                <div class="card-meta-row card-meta-bottom">
-                  <span class="tag-date">
-                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <rect x="2" y="3.5" width="12" height="10.5" rx="2" />
-                      <path d="M2 7h12M5 1.5v3M11 1.5v3" />
-                    </svg>
-                    <time>{entry.data.semester}</time>
-                  </span>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h2 class="subsection-title">Projetos</h2>
-          <div class="now-list">
-            {projects.map((entry) => (
-              <a class="now-item card-preview" href={withBase(`/projetos/${entry.id}/`)}>
-                <strong>{entry.data.title}</strong>
-                <small>{entry.data.description}</small>
-                <div class="card-meta-row card-meta-bottom">
-                  <span class="tag tag-outline">{formatProjectType(entry.data.type)}</span>
-                  <span class="status status-active"><span class="status-dot" aria-hidden="true"></span> Ativo</span>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h2 class="subsection-title">Orientações</h2>
-          <div class="now-list">
-            {supervisions.map((entry) => (
-              <a class="now-item card-preview" href={withBase('/orientacoes/')}>
-                <strong>{entry.data.title}</strong>
-                <small>{entry.data.students.join(' · ')}</small>
-                <div class="card-meta-row card-meta-bottom">
-                  <span class="tag tag-outline">{formatSupervisionType(entry.data.type)}</span>
-                  <div class="status-badge-group status-badge-current">
-                    <span class="status-badge-label"><span class="status-dot" aria-hidden="true"></span>Em andamento</span>
-                    {formatSupervisionPeriod(entry.data) && (
-                      <span class="status-badge-date"><time>{formatSupervisionPeriod(entry.data)}</time></span>
-                    )}
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-      {currentActivities.length > 0 && <div class="activity-list">
-        {currentActivities.map((activity) => <div class="activity-item"><span>{activity.kind}</span><div><strong>{activity.title}</strong><p>{activity.description}</p></div><em>Ativa</em></div>)}
-      </div>}
-    </div>
-  </section>
+  <div class="academic-directory now-directory">
+    <section class="section container" id="ensino">
+      <SectionHeading title="Ensino" linkLabel="Disciplinas e histórico →" linkHref={withBase('/ensino/')} />
+      {teaching.length ? semesters.map((semester) => <section class="record-group semester-group">
+        <h3>{semester}</h3>
+        <div class="teaching-list">{teaching.filter((entry) => entry.data.semester === semester).map((entry) => <TeachingCard teaching={entry} showSemester={false} headingLevel="h4" />)}</div>
+      </section>) : <p class="empty-state">Nenhuma oferta atual publicada.</p>}
+    </section>
+
+    <section class="section container" id="pesquisa">
+      <SectionHeading title="Projetos" linkLabel="Todos os projetos →" linkHref={withBase('/projetos/')} />
+      {projects.length ? <div class="record-group editorial-list project-list">{projects.map((entry) => <ProjectCard project={entry} />)}</div> : <p class="empty-state">Nenhum projeto em andamento publicado.</p>}
+    </section>
+
+    <section class="section container" id="orientacoes">
+      <SectionHeading title="Orientações" linkLabel="Todas as orientações →" linkHref={withBase('/orientacoes/')} />
+      {supervision.length ? supervisionTypes.map((type) => <section class="record-group">
+        <h3>{formatSupervisionType(type)}</h3>
+        <ul class="supervision-list">{supervision.filter((entry) => entry.data.type === type).map((entry) => <SupervisionItem supervision={entry} peopleFirst={true} />)}</ul>
+      </section>) : <p class="empty-state">Nenhuma orientação atual publicada.</p>}
+    </section>
+
+    {currentActivities.length > 0 && <section class="section container" id="outras-atividades">
+      <SectionHeading title="Outras atividades" />
+      <div class="record-group"><ul class="home-list">
+        {currentActivities.map((activity) => <li><h3>{activity.title}</h3><p>{activity.description}</p></li>)}
+      </ul></div>
+    </section>}
+  </div>
 </BaseLayout>

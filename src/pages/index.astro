@@ -1,139 +1,74 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import ProfilePhoto from '@/components/ProfilePhoto.astro';
-import SocialLinks from '@/components/SocialLinks.astro';
+import ProfileSidebar from '@/components/ProfileSidebar.astro';
+import Biography from '@/components/Biography.astro';
 import { site } from '@/data/site';
 import { getPublications } from '@/lib/bibtex';
-import { formatProjectType, formatSupervisionType, withBase } from '@/lib/site';
+import { getCurrentAcademicActivities, publicField } from '@/lib/current';
+import { formatProjectType, projectRoleLabel, withBase } from '@/lib/site';
 
-const projects = await getCollection('projects');
-const teaching = await getCollection('teaching');
-const supervisions = await getCollection('supervision');
-const currentTeaching = teaching.filter((entry) => entry.data.status === 'current');
-const currentProjects = projects.filter((entry) => entry.data.status === 'active').sort((a, b) => Number(b.data.featured) - Number(a.data.featured));
-const activeSupervisions = supervisions.filter((entry) => entry.data.status === 'current');
-const typePriority: Record<string, number> = {
-  mestrado: 1,
-  TCC: 2,
-  'iniciacao-cientifica': 3,
-  'projeto-tecnologico': 4,
-  monitoria: 5,
-  outro: 6,
-};
-const currentSupervisions = [...activeSupervisions]
-  .sort((a, b) => (typePriority[a.data.type] ?? 99) - (typePriority[b.data.type] ?? 99) || a.data.title.localeCompare(b.data.title, 'pt-BR'))
-  .slice(0, 3);
-const publications = getPublications();
-const recentPublicationCutoff = new Date().getFullYear() - 1;
-const recentPublications = publications
-  .filter((publication) => publication.year && Number(publication.year) >= recentPublicationCutoff)
-  .slice(0, 2);
-const publicField = (value: string | undefined) => value?.startsWith('TODO:') ? undefined : value;
+const { projects, teaching, supervision } = await getCurrentAcademicActivities();
+const teachingOrder = new Map(site.homeTeachingOrder.map((id, index) => [id, index]));
+const homeTeaching = [...teaching].sort((a, b) =>
+  (teachingOrder.get(a.id) ?? Infinity) - (teachingOrder.get(b.id) ?? Infinity));
+const currentSupervisions = supervision.slice(0, 3);
+const recentPublications = getPublications().filter((publication) => publication.year && Number(publication.year) >= new Date().getFullYear() - 1).slice(0, 2);
+const semesters = [...new Set(teaching.map((entry) => entry.data.semester))];
 ---
 
 <BaseLayout title="Início">
   <div class="container home">
-    <section class="home-intro">
-      <div class="home-copy">
-        <h1>{site.name}</h1>
-        <p class="home-role">Professor @ IFPB - Campus Campina Grande</p>
-        <p class="home-context">Doutor em Ciência da Computação · Pesquisador do <a href={site.profile.laboratory.url} target="_blank" rel="me">{site.profile.laboratory.name} ↗</a></p>
-        <p class="home-statement">“{site.intro}”</p>
-        <div class="home-areas-chips">
-          {site.profile.areas.map((area) => <span class="tag">{area}</span>)}
+    <ProfileSidebar />
+    <div class="home-content">
+      <section class="home-panel home-about" aria-labelledby="apresentacao-title">
+        <h2 id="apresentacao-title">Sobre mim</h2>
+        <Biography />
+        <div class="home-about-links">
+          <a href={withBase('/sobre/')}>Sobre minha trajetória →</a>
+          <a href={withBase('/agora/')}>O que estou fazendo agora →</a>
         </div>
-        <SocialLinks />
-      </div>
-      <ProfilePhoto src={withBase(site.profile.photo)} />
-    </section>
+      </section>
 
-    <section class="home-section" aria-labelledby="atuacao-title">
-      <h2 id="atuacao-title">Atuação em andamento</h2>
-      <div class="current-grid">
-        <div class="current-column">
-          <div class="column-header">
-            <h3>Projetos</h3>
-            <a class="column-link" href={withBase('/projetos/')}>Ver todos ↗</a>
-          </div>
-          <div class="current-list">
-            {currentProjects.map((project) => (
-              <article class="current-item card-preview">
-                <h4><a href={withBase(`/projetos/${project.id}/`)}>{project.data.title}</a></h4>
-                <p>{project.data.description}</p>
-                <div class="card-meta-row card-meta-bottom">
-                  <span class="tag tag-outline">{formatProjectType(project.data.type)}</span>
-                  <span class="status status-active"><span class="status-dot" aria-hidden="true"></span> Ativo</span>
-                </div>
-              </article>
-            ))}
-          </div>
+      <section class="home-panel" aria-labelledby="pesquisa-title">
+        <div class="panel-heading"><h2 id="pesquisa-title">Projetos em andamento</h2><a href={withBase('/projetos/')}>Todos os projetos →</a></div>
+        <div class="home-entries">
+          {projects.map((project) => <article class="home-entry">
+            <h3><a href={withBase(`/projetos/${project.id}/`)}>{project.data.title}</a></h3>
+            {project.data.description && <p>{project.data.description}</p>}
+            <p class="entry-note">{formatProjectType(project.data.type)} · {projectRoleLabel(project.id, project.data.role)}</p>
+          </article>)}
         </div>
+      </section>
 
-        <div class="current-column">
-          <div class="column-header">
-            <h3>Orientações</h3>
-            <a class="column-link" href={withBase('/orientacoes/')}>Ver todas ({activeSupervisions.length}) ↗</a>
-          </div>
-          <div class="current-list">
-            {currentSupervisions.map((entry) => (
-              <article class="current-item card-preview">
-                <h4><a href={withBase('/orientacoes/')}>{entry.data.title}</a></h4>
-                <p>{entry.data.students.join(' · ')}</p>
-                <div class="card-meta-row card-meta-bottom">
-                  <span class="tag tag-outline">{formatSupervisionType(entry.data.type)}</span>
-                  {entry.data.role && <span class="badge-mono">{entry.data.role}</span>}
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <div class="current-column">
-          <div class="column-header">
-            <h3>Ensino</h3>
-            <a class="column-link" href={withBase('/ensino/')}>Ver todos ↗</a>
-          </div>
-          <div class="current-list">
-            {currentTeaching.map((entry) => (
-              <article class="current-item card-preview">
-                <h4><a href={withBase('/ensino/')}>{entry.data.title}</a></h4>
-                <p>{[publicField(entry.data.course), publicField(entry.data.institution)].filter(Boolean).join(' · ')}</p>
-                <div class="card-meta-row card-meta-bottom">
-                  <span class="badge-mono">{entry.data.semester}</span>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div class="snapshot-banner">
-        <div>
-          <strong>Acompanhe o momento acadêmico</strong>
-          <p>Veja o resumo consolidado de disciplinas, projetos e orientações ativas.</p>
-        </div>
-        <a class="button-accent" href={withBase('/agora/')}>Acessar página Agora ↗</a>
-      </div>
-    </section>
-
-    {recentPublications.length > 0 && <div class="home-secondary">
-      <section class="summary-block" aria-labelledby="publicacoes-resumo">
-        <div class="column-header">
-          <h2 id="publicacoes-resumo">Publicações recentes</h2>
-          <a class="column-link" href={withBase('/publicacoes/')}>Ver todas ↗</a>
-        </div>
-        <ul>
-          {recentPublications.map((publication) => (
-            <li class="publication-summary">
-              <span class="badge-mono">{publication.year ?? '—'}</span>
-              <div>
-                <span class="summary-title">{publication.title}</span>
-                {publication.venue && <span>{publication.venue}</span>}
-              </div>
-            </li>
-          ))}
+      <section class="home-panel home-teaching" aria-labelledby="ensino-title">
+        <div class="panel-heading"><h2 id="ensino-title">Ensino {semesters.length === 1 && <span class="heading-note">{semesters[0]}</span>}</h2><a href={withBase('/ensino/')}>Disciplinas e histórico →</a></div>
+        <ul class="home-list home-course-list">
+          {homeTeaching.map((entry) => <li>
+            <h3><a href={entry.data.site || withBase('/ensino/')} {...(entry.data.site ? { target: '_blank', rel: 'noreferrer' } : {})}>{entry.data.title}{entry.data.site && '\u00a0↗'}</a></h3>
+            <p>{publicField(entry.data.course)}{semesters.length > 1 && ` · ${entry.data.semester}`}</p>
+          </li>)}
         </ul>
       </section>
-    </div>}
+
+      {recentPublications.length > 0 && <section class="home-panel" aria-labelledby="publicacoes-title">
+        <div class="panel-heading"><h2 id="publicacoes-title">Publicações recentes</h2><a href={withBase('/publicacoes/')}>Ver publicações →</a></div>
+        <div class="home-entries">
+          {recentPublications.map((publication) => <article class="home-entry">
+            <h3><a href={withBase(`/publicacoes/#${publication.key}`)}>{publication.title}</a></h3>
+            <p>{[publication.venue, publication.year].filter(Boolean).join(' · ')}</p>
+          </article>)}
+        </div>
+      </section>}
+
+      {currentSupervisions.length > 0 && <section class="home-panel" aria-labelledby="orientacoes-title">
+        <div class="panel-heading"><h2 id="orientacoes-title">Orientações em andamento</h2><a href={withBase('/orientacoes/')}>Ver todas ({supervision.length}) →</a></div>
+        <ul class="home-list">
+          {currentSupervisions.map((entry) => <li>
+            <h3><a href={withBase(`/orientacoes/#${entry.id}`)}>{entry.data.students.join(' · ')}</a></h3>
+            <p>{entry.data.title}</p>
+          </li>)}
+        </ul>
+      </section>}
+    </div>
   </div>
 </BaseLayout>

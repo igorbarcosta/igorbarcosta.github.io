@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-interface Props { teaching: CollectionEntry<'teaching'>; }
-const { teaching } = Astro.props;
+interface Props { teaching: CollectionEntry<'teaching'>; showSemester?: boolean; headingLevel?: 'h3' | 'h4'; }
+const { teaching, showSemester = true, headingLevel: Heading = 'h3' } = Astro.props;
 const data = teaching.data;
 const course = data.course?.startsWith('TODO:') ? undefined : data.course;
 const institution = data.institution.startsWith('TODO:') ? undefined : data.institution;
@@ -9,15 +9,14 @@ const context = [course, institution, data.campus ? `Campus ${data.campus}` : un
 ---
 <article class="teaching-item">
   <div class="item-heading">
-    <h3>{data.title}</h3>
-    <span class="badge-mono">{data.semester}</span>
+    <Heading>{data.title}</Heading>
+    {showSemester && <span class="badge-mono">{data.semester}</span>}
   </div>
   {context && <p class="teaching-context">{context}</p>}
   {(data.areas.length > 0 || data.classLevel || data.classHours || data.classes) && <div class="teaching-meta">
-    {data.areas.map((area) => <span class="tag">{area}</span>)}
-    {data.classLevel && <span class="tag">{data.classLevel}</span>}
-    {data.classHours && <span class="tag">{data.classHours} h/a</span>}
-    {data.classes && <span class="tag">{data.classes} {data.classes === 1 ? 'turma' : 'turmas'}</span>}
+    {data.classLevel && <span>{data.classLevel}</span>}
+    {data.classHours && <span>{data.classHours} h/a</span>}
+    {data.classes && <span>{data.classes} {data.classes === 1 ? 'turma' : 'turmas'}</span>}
   </div>}
   {data.site && <a href={data.site} target="_blank" rel="noreferrer" class="teaching-link">Site da disciplina ↗</a>}
 </article>

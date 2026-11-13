@@ -2,11 +2,12 @@
 interface Props {
   src?: string;
   alt?: string;
+  artistic?: boolean;
 }
 
-const { src, alt = 'Retrato profissional de Ígor Barbosa da Costa' } = Astro.props;
+const { src, artistic = false, alt = artistic ? 'Retrato artístico de Ígor Barbosa da Costa' : 'Retrato profissional de Ígor Barbosa da Costa' } = Astro.props;
 ---
 
-<figure class:list={['profile-photo', { 'profile-photo-placeholder': !src }]}>
+<figure class:list={['profile-photo', { 'profile-photo-placeholder': !src, 'profile-portrait': artistic }]}>
   {src ? <img src={src} alt={alt} width="320" height="360" loading="eager" decoding="async" /> : <div role="img" aria-label="Espaço reservado para a foto profissional"><span>Foto profissional<br />a adicionar</span></div>}
 </figure>

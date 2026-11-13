@@ -2,78 +2,100 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import SocialLinks from '@/components/SocialLinks.astro';
+import Biography from '@/components/Biography.astro';
 import ActivityList from '@/components/ActivityList.astro';
 import { site } from '@/data/site';
 import { certifications, courses, professionalExperience } from '@/data/activities';
 import { formatDate, formatPeriod } from '@/lib/site';
 ---
 
-<BaseLayout title="Sobre" description="Apresentação e áreas de atuação de Ígor Barbosa da Costa.">
+<BaseLayout title="Sobre" description="Apresentação, formação e trajetória de Ígor Barbosa da Costa.">
   <section class="page-intro container">
     <h1>Sobre</h1>
+    <p>Formação, interesses e trajetória profissional.</p>
+    <nav class="page-shortcuts" aria-label="Nesta página">
+      <a href="#formacao">Formação <span>{site.profile.education.length}</span></a>
+      <a href="#apresentacao">Sobre mim</a>
+      <a href="#experiencia">Atuação profissional</a>
+      <a href="#cursos">Cursos e certificações <span>{courses.length + certifications.length}</span></a>
+      <a href="#reconhecimento">Prêmios e links</a>
+    </nav>
   </section>
 
-  <section class="section container about-layout">
-    <div>
-      <SectionHeading title="Professor e pesquisador" />
-      <div class="prose">
-        <p>{site.profile.summary}</p>
+  <div class="academic-directory profile-records">
+    <section class="section container" id="formacao">
+      <SectionHeading title="Formação acadêmica" />
+      <div class="education-grid">
+        {site.profile.education.map((item) => <article class:list={['record-group', 'education-entry', { 'education-doctorate': item.id === 'doctorate-computer-science' }]}>
+          <p class="education-period">{item.period}</p>
+          <h3>{item.degree}</h3>
+          <p class="education-institution">{item.institution}</p>
+          {item.detail && <p class="education-detail">{item.detail}</p>}
+        </article>)}
       </div>
-    </div>
-    <aside class="about-aside">
-      <h2>Áreas de atuação</h2>
-      <ul class="plain-list">{site.profile.areas.map((area) => <li>{area}</li>)}</ul>
-    </aside>
-  </section>
+    </section>
 
-  <section class="section section-soft">
-    <div class="container">
-      <SectionHeading title="Formação" />
-      <ol class="profile-timeline">
-        {site.profile.education.map((item) => <li><span>{item.period}</span><div><h3>{item.degree}</h3><p>{item.institution}</p>{item.detail && <p class="muted">{item.detail}</p>}</div></li>)}
-      </ol>
-    </div>
-  </section>
+    <section class="section container" id="apresentacao">
+      <SectionHeading title="Sobre mim" />
+      <div class="about-layout">
+        <div class="record-group about-biography"><Biography /></div>
+        <aside class="record-group about-aside">
+          <h3>Áreas de atuação</h3>
+          <ul class="plain-list">{site.profile.areas.map((area) => <li>{area}</li>)}</ul>
+        </aside>
+      </div>
+    </section>
 
-  <section class="section container">
-    <SectionHeading title="Cursos e certificações" />
-    <ActivityList items={[
-      ...courses.map((course) => ({
-        title: course.title, context: `${course.institution} · ${course.category}`,
-        period: formatDate(course.date), href: course.url,
-        details: [
-          { label: 'Carga horária', value: course.hours ? `${course.hours} horas` : '' },
-          { label: 'Conteúdo', value: course.syllabus.join(' · ') },
-        ],
-      })),
-      ...certifications.map((certification) => ({
-        title: certification.title, context: `${certification.institution} · ${certification.category}`,
-        period: formatDate(certification.date),
-      })),
-    ]} />
-  </section>
-
-  <section class="section container profile-grid">
-    <div>
+    <section class="section container" id="experiencia">
       <SectionHeading title="Atuação profissional" />
-      <p><strong>{site.profile.affiliation.institution}</strong><br />{site.profile.affiliation.campus} · desde {site.profile.affiliation.since}</p>
-      <ActivityList items={professionalExperience.map((experience) => ({
-        title: experience.title, context: experience.institution,
-        period: formatPeriod(experience.start, experience.end), description: experience.role,
-      }))} />
-    </div>
-    <div>
-      <SectionHeading title="Idiomas" />
-      <ul class="plain-list">{site.profile.languages.map((item) => <li><strong>{item.language}</strong><br /><span>{item.level}</span></li>)}</ul>
-    </div>
-  </section>
+      <div class="record-group">
+        <div class="profile-affiliation-record">
+          <h3>{site.profile.affiliation.institution}</h3>
+          <p>{site.profile.affiliation.campus} · desde {site.profile.affiliation.since}</p>
+        </div>
+        <ActivityList items={professionalExperience.map((experience) => ({
+          title: experience.title, context: experience.institution,
+          period: formatPeriod(experience.start, experience.end), description: experience.role,
+        }))} />
+      </div>
+    </section>
 
-  <section class="section section-soft">
-    <div class="container about-footer">
+    <section class="section container" id="cursos">
+      <SectionHeading title="Cursos e certificações" />
+      <div class="record-group">
+        <ActivityList items={[
+          ...courses.map((course) => ({
+            title: course.title, context: `${course.institution} · ${course.category}`,
+            period: formatDate(course.date), href: course.url,
+            details: [
+              { label: 'Carga horária', value: course.hours ? `${course.hours} horas` : '' },
+              { label: 'Conteúdo', value: course.syllabus.join(' · ') },
+            ],
+          })),
+          ...certifications.map((certification) => ({
+            title: certification.title, context: `${certification.institution} · ${certification.category}`,
+            period: formatDate(certification.date),
+          })),
+        ]} />
+      </div>
+    </section>
+
+    <section class="section container" id="idiomas">
+      <SectionHeading title="Idiomas" />
+      <div class="record-group">
+        <dl class="profile-languages">{site.profile.languages.map((item) => <div><dt>{item.language}</dt><dd>{item.level}</dd></div>)}</dl>
+      </div>
+    </section>
+
+    <section class="section container" id="reconhecimento">
       <SectionHeading title="Prêmios e links" />
-      <ul class="plain-list recognition-list">{site.profile.recognition.map((item) => <li><span>{item.year}</span> {item.title}</li>)}</ul>
-      <SocialLinks />
-      <p class="muted">Currículo Lattes atualizado em {new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long', timeZone: 'UTC' }).format(site.profile.lattesUpdatedAt)}.</p>
-    </div>
-  </section>
+      <div class="record-group">
+        <ul class="plain-list recognition-list">{site.profile.recognition.map((item) => <li><span>{item.year}</span> {item.title}</li>)}</ul>
+        <div class="profile-links">
+          <SocialLinks />
+          <p class="entry-note">Currículo Lattes atualizado em {new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long', timeZone: 'UTC' }).format(site.profile.lattesUpdatedAt)}.</p>
+        </div>
+      </div>
+    </section>
+  </div>
 </BaseLayout>

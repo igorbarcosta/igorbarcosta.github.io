@@ -4,7 +4,7 @@ import { withBase } from '@/lib/site';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import '@fontsource-variable/instrument-sans';
-import '@fontsource/instrument-serif';
+import '@fontsource-variable/instrument-sans/wght-italic.css';
 import '@fontsource-variable/jetbrains-mono';
 import '@/styles/global.css';
 
@@ -46,3 +46,22 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString(
     <Footer />
   </body>
 </html>
+
+<script>
+  // Reveal native archives when arriving from an item link on the home or Agora.
+  const revealFragment = () => {
+    if (!location.hash) return;
+    let id: string;
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
+    const target = document.getElementById(id);
+    if (!target) return;
+    let node: HTMLElement | null = target;
+    while (node) {
+      if (node instanceof HTMLDetailsElement) node.open = true;
+      node = node.parentElement;
+    }
+    requestAnimationFrame(() => target.scrollIntoView({ block: 'start', behavior: 'instant' }));
+  };
+  revealFragment();
+  window.addEventListener('hashchange', revealFragment);
+</script>
