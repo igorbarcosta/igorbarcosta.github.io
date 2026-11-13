@@ -125,7 +125,7 @@ h4 { margin-bottom: var(--space-xs); font-size: var(--text-base); font-weight: 6
 .profile-portrait { width: 170px; aspect-ratio: 1; border-radius: 0; background: transparent; }
 .profile-sidebar .profile-photo { width: 144px; margin-inline: auto; }
 .profile-portrait img { object-fit: contain; }
-[data-theme="dark"] .profile-portrait img { filter: invert(1); }
+[data-theme="dark"] .profile-portrait { padding: 4px; border-radius: var(--radius); background: #e6eaee; }
 .profile-photo-placeholder { padding: 1rem; border: 1px dashed var(--color-border); font-size: var(--text-sm); }
 .social-links { display: flex; flex-wrap: wrap; gap: .35rem 1rem; margin-top: .5rem; }
 .social-links a { display: inline-flex; align-items: center; gap: .4rem; min-height: 32px; color: var(--color-accent); font-size: var(--text-sm); text-decoration: none; }
