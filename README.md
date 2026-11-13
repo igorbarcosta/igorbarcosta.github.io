@@ -30,7 +30,7 @@ npm run preview
 ```text
 src/
   components/       componentes de interface reutilizáveis
-  public-data/      projeção pública gerada: perfil, projetos, ensino, orientações e publicações
+  public-data/      projeção pública gerada dos registros acadêmicos
   data/             configuração de apresentação e validadores da projeção
   layouts/          layout global e metadados
   lib/              helpers, parser BibTeX e caminhos com base do Pages
@@ -55,6 +55,8 @@ Os registros não são editados canonicamente neste repositório. O fluxo é:
 O exportador seleciona apenas registros públicos, usa listas explícitas de campos permitidos e remove `visibility`, IDs de evidência, caminhos, nomes de documentos e qualquer referência privada. O navegador nunca acessa a fonte privada.
 
 Informações do domínio são modeladas no `academic` sem requisitos específicos de renderização. `src/data/site.yaml` e o restante deste repositório contêm somente decisões de apresentação, como navegação, foto pública e textos editoriais do site.
+
+A projeção também inclui eventos, revisões e avaliações, cursos, certificações, experiência profissional e outras atividades de ensino. Esses registros YAML são validados em `src/data/activities.ts` e apresentados nas páginas Atuações, Sobre e Ensino, sem criar novas coleções ou dependências de execução com a base privada. Os schemas preservam registros com precisão parcial (ano ou semestre), projetos de extensão e orientações de equipes; qualificação e defesa são marcos distintos.
 
 ## GitHub Pages
 

@@ -1,0 +1,30 @@
+---
+interface Props {
+  items: {
+    title: string;
+    context: string;
+    period: string;
+    description?: string;
+    details?: { label: string; value: string }[];
+    href?: string;
+  }[];
+}
+const { items } = Astro.props;
+---
+
+<ul class="supervision-list">
+  {items.map((item) => <li>
+    <article class="committee-entry institutional-card">
+      <div class="committee-summary">
+        <h3>{item.title}</h3>
+        <p class="supervision-subline">{item.context}</p>
+        {item.description && <p>{item.description}</p>}
+        <span class="badge-mono">{item.period}</span>
+        {item.details && <dl class="committee-details supervision-details">
+          {item.details.filter((detail) => detail.value).map((detail) => <div><dt>{detail.label}</dt><dd>{detail.value}</dd></div>)}
+        </dl>}
+        {item.href && <p><a href={item.href} target="_blank" rel="noreferrer">Saiba mais ↗</a></p>}
+      </div>
+    </article>
+  </li>)}
+</ul>

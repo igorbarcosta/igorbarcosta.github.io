@@ -1,5 +1,6 @@
 ---
-title: Predição de probabilidade de renovação de empréstimo consignado
+title: Uma abordagem híbrida baseada em agrupamento para a priorização de
+  oportunidades de renovação em carteiras de empréstimos consignados
 students:
   - Edmagno do Nascimento Lins
 studentIds:
@@ -9,6 +10,7 @@ course: Mestrado Profissional em Tecnologia da Informação · PPGTI/IFPB
 institution: Instituto Federal da Paraíba
 start: 2025-09-02
 status: current
+publication: https://doi.org/10.5753/kdmile.2026.32136
 advisor: Paulo Ribeiro Lins Júnior
 role: Coorientador
 selection:
@@ -24,4 +26,23 @@ sources:
   - type: selection-result
     label: Resultado final do processo seletivo do MPTI — 2025.1
     url: https://estudante.ifpb.edu.br/media/Edital_37_-_Resultado_final_Selecao_20251_assinado.pdf
+qualification:
+  date: 2026-09-14
+  committee:
+    - name: Paulo Ribeiro Lins Júnior
+      role: orientador
+      institution: IFPB
+    - name: Igor Barbosa da Costa
+      role: coorientador
+      institution: IFPB
+    - name: Tiago Brasileiro Araújo
+      role: avaliador
+      institution: IFPB
+    - name: Danyllo Wagner Albuquerque
+      role: avaliador
+      institution: IFPB
+  outcome: aprovado
+evidenceVerified: true
 ---
+
+Qualificação aprovada em 14 de setembro de 2026, na linha de pesquisa Ciência de Dados e Inteligência Artificial (CDI). A ata registra Ígor Barbosa da Costa como coorientador interno e Paulo Ribeiro Lins Júnior como orientador interno. O mestrado permanece em andamento.

@@ -1,0 +1,35 @@
+- id: review-ise-2026
+  title: 5th Brazilian Workshop on Intelligent Software Engineering (ISE 2026)
+  shortTitle: ISE 2026
+  venueType: event
+  role: Revisor Destaque
+  year: 2026
+  evidenceVerified: true
+- id: review-sbsi-2018
+  title: XIV Simpósio Brasileiro de Sistemas de Informação (SBSI 2018)
+  shortTitle: SBSI 2018
+  venueType: event
+  role: Colaborador avaliador
+  year: 2018
+  date: 2018-06-08
+  location: Caxias do Sul, RS, Brasil
+  evidenceVerified: true
+- id: review-encontro-internacional-ed-prof-mostra-tec-ifpb-2015
+  title: Encontro Internacional de Educação Profissional / I Mostra Tecnológica do
+    IFPB
+  shortTitle: I Mostra Tecnológica IFPB 2015
+  venueType: event
+  role: Avaliador de trabalhos
+  year: 2015
+  date: 2015-12-11
+  location: João Pessoa, PB, Brasil
+  evidenceVerified: true
+- id: review-edital-bolsa-pesquisador-ifpb-2015
+  title: Edital 02/2015 — Bolsa Pesquisador (IFPB)
+  shortTitle: Edital 02/2015 Bolsa Pesquisador
+  venueType: grant
+  role: Avaliador de projetos de pesquisa
+  year: 2015
+  date: 2015-03-20
+  location: João Pessoa, PB, Brasil
+  evidenceVerified: true

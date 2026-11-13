@@ -7,6 +7,9 @@ type: technology
 role: Bolsista
 start: 2025-07-01
 end: 2025-12-31
+participation:
+  start: 2025-07-01
+  end: 2025-12-31
 areas:
   - Segurança de software
   - Infraestrutura
@@ -79,4 +82,4 @@ O NuFuturo (Fase II) promove a transferência de tecnologia entre a universidade
 
 Entre os resultados documentados estão o NuAppFirewall, firewall inteligente para macOS com mais de 250 mil regras customizadas; o YARA, plataforma baseada em inteligência artificial para detecção e proteção automática de dados sensíveis (PII), com modelos treinados continuamente a partir de feedback humano; e o Nufilebox, sistema de transferência segura de arquivos reportado como 54 vezes mais rápido e com 10 vezes maior capacidade que a solução anterior da empresa. O projeto também incluiu ferramentas de simulação de cache e stress testing e o Smart-charge, voltado à automação de cobranças e processamento de contratos.
 
-No registro consultado, a iniciativa envolveu 33 alunos de graduação, um aluno de mestrado acadêmico e um de doutorado, além de 11 produções de ciência, tecnologia e inovação e duas orientações. A participação de Ígor Barbosa da Costa ocorreu como bolsista, com financiamento do Nubank. O Lattes registra o projeto entre 2024 e 2026; já o período de participação apresentado nesta página — julho a dezembro de 2025 — segue o intervalo certificado na documentação da sua participação.
+No registro consultado, a iniciativa envolveu 33 alunos de graduação, um aluno de mestrado acadêmico e um de doutorado, além de 11 produções de ciência, tecnologia e inovação e duas orientações. A participação de Ígor Barbosa da Costa ocorreu como bolsista, com financiamento do Nubank, de julho a dezembro de 2025, conforme declaração institucional. O titular confirmou em 12 de novembro de 2026 que o projeto foi concluído, sem informar a data exata de seu encerramento global. O período certificado da participação não estabelece a duração total do projeto.

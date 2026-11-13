@@ -7,13 +7,14 @@ import SupervisionItem from '@/components/SupervisionItem.astro';
 const supervisions = await getCollection('supervision');
 const mostRecentTime = (entry: typeof supervisions[number]) => {
   if (entry.data.defense) return entry.data.defense.date.getTime();
+  if (entry.data.qualification) return entry.data.qualification.date.getTime();
   const date = entry.data.end ?? entry.data.start;
   if (date) return date.getTime();
   if (entry.data.semester) {
     const [year, term] = entry.data.semester.split('.').map(Number);
     return new Date(year, term === 2 ? 6 : 0).getTime();
   }
-  return 0;
+  return entry.data.year ? Date.UTC(entry.data.year, 0) : 0;
 };
 const byMostRecent = (a: typeof supervisions[number], b: typeof supervisions[number]) =>
   mostRecentTime(b) - mostRecentTime(a) || a.data.title.localeCompare(b.data.title, 'pt-BR');
@@ -25,10 +26,11 @@ const categoryFor = (entry: typeof supervisions[number]) => {
   if (entry.data.type === 'monitoria') return 'Monitoria';
   if (entry.data.type === 'mestrado') return 'Mestrado';
   if (entry.data.type === 'TCC') return 'TCC (Superior)';
+  if (entry.data.type === 'competicao') return 'Competições';
   if (entry.data.type === 'outro' && entry.data.course === 'Informática') return 'TCC (Técnico)';
   return 'Pesquisa';
 };
-const categoryOrder = ['Mestrado', 'TCC (Superior)', 'TCC (Técnico)', 'Monitoria', 'Pesquisa', 'Estágio'];
+const categoryOrder = ['Mestrado', 'TCC (Superior)', 'TCC (Técnico)', 'Monitoria', 'Pesquisa', 'Estágio', 'Competições'];
 const toGroups = (entries: typeof supervisions, prefix: string) => categoryOrder
   .map((label) => ({ label, id: `${prefix}-${label.toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-')}`, entries: entries.filter((entry) => categoryFor(entry) === label) }))
   .filter((group) => group.entries.length > 0);
@@ -39,7 +41,7 @@ const completedGroups = toGroups(completed, 'concluida');
 <BaseLayout title="Orientações" description="Orientações acadêmicas e projetos acompanhados por Ígor Barbosa da Costa.">
   <section class="page-intro container">
     <h1>Orientações</h1>
-    <p>Orientações acadêmicas e projetos de pesquisa acompanhados em nível de pós-graduação e graduação.</p>
+    <p>Orientações acadêmicas, estágios, monitorias e equipes acompanhadas no ensino técnico, na graduação e na pós-graduação.</p>
     <div class="metrics-bar" aria-label="Navegação por status de orientações">
       <a href="#em-andamento" class="metric-chip">
         <span class="metric-number">{current.length}</span>

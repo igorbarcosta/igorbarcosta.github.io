@@ -1,0 +1,12 @@
+- id: teaching-student-monitor-ufcg-2003
+  title: Monitoria bolsista em Laboratório de Programação II
+  institution: Universidade Federal de Campina Grande
+  course: Ciência da Computação
+  category: Monitoria
+  role: Monitor bolsista
+  year: 2003
+  semesters:
+    - "2003.1"
+    - "2003.2"
+  weeklyHours: 12
+  evidenceVerified: true

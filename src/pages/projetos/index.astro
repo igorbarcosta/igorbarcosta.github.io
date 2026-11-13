@@ -9,8 +9,8 @@ const byLatest = (a: (typeof projects)[number], b: (typeof projects)[number]) =>
   if (a.data.featured !== b.data.featured) {
     return Number(b.data.featured) - Number(a.data.featured);
   }
-  const timeA = (a.data.end ?? a.data.start).getTime();
-  const timeB = (b.data.end ?? b.data.start).getTime();
+  const timeA = (a.data.end ?? a.data.start)?.getTime() ?? Date.UTC(a.data.year!, 0);
+  const timeB = (b.data.end ?? b.data.start)?.getTime() ?? Date.UTC(b.data.year!, 0);
   return timeB - timeA || a.data.title.localeCompare(b.data.title, 'pt-BR');
 };
 
@@ -23,10 +23,10 @@ const completed = projects
   .sort(byLatest);
 ---
 
-<BaseLayout title="Projetos" description="Projetos de pesquisa, inovação e desenvolvimento tecnológico de Ígor Barbosa da Costa.">
+<BaseLayout title="Projetos" description="Projetos de pesquisa, extensão, inovação e desenvolvimento tecnológico de Ígor Barbosa da Costa.">
   <section class="page-intro container">
     <h1>Projetos</h1>
-    <p>Iniciativas de pesquisa aplicada, desenvolvimento tecnológico e inovação (PD&I), desenvolvidas em colaboração com instituições de ensino, centros de pesquisa e parceiros do setor produtivo.</p>
+    <p>Iniciativas de pesquisa, extensão, desenvolvimento tecnológico e inovação, desenvolvidas em colaboração com instituições de ensino, centros de pesquisa e parceiros do setor produtivo.</p>
     <div class="metrics-bar" aria-label="Navegação por status de projetos">
       <a href="#em-andamento" class="metric-chip">
         <span class="metric-number">{current.length}</span>

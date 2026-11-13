@@ -9,6 +9,7 @@ interface Props {
 const { supervision } = Astro.props;
 const data = supervision.data;
 const students = [...data.students].sort((a: string, b: string) => a.localeCompare(b, 'pt-BR'));
+const participants = students.length ? students : data.team ? [data.team] : [];
 const period = formatSupervisionPeriod(data);
 const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('pt-BR') + role.slice(1);
 const formatDefenseDate = (date: Date) => new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(date);
@@ -23,10 +24,12 @@ const isCompleted = data.status === 'completed';
         <h3>{data.title}</h3>
         <div class="supervision-subline">
           <span class:list={{ 'committee-students': true, 'student-list-many': students.length > 2 }}>
-            {students.map((student: string) => <span>{student}</span>)}
+            {participants.map((student: string) => <span>{student}</span>)}
           </span>
-          <span class="supervision-subline-sep" aria-hidden="true">·</span>
-          <span class="supervision-course">{formatSupervisionCourse(data.course)}</span>
+          {data.course && <>
+            <span class="supervision-subline-sep" aria-hidden="true">·</span>
+            <span class="supervision-course">{formatSupervisionCourse(data.course)}</span>
+          </>}
         </div>
         <div class="card-meta-row card-meta-bottom">
           <span class="tag tag-outline">{formatSupervisionType(data.type)}</span>
@@ -51,10 +54,12 @@ const isCompleted = data.status === 'completed';
       </span>
     </summary>
     <dl class="committee-details supervision-details">
-      <div>
+      {data.course && <div>
         <dt>Curso</dt>
         <dd>{formatSupervisionCourse(data.course)}</dd>
-      </div>
+      </div>}
+      {data.team && <div><dt>Equipe</dt><dd>{data.team}</dd></div>}
+      <div><dt>Instituição</dt><dd>{data.institution}</dd></div>
       {period && <div>
         <dt>Período de orientação</dt>
         <dd>{period}</dd>
@@ -63,6 +68,17 @@ const isCompleted = data.status === 'completed';
         <dt>Banca examinadora</dt>
         <dd>{data.defense.committee.map((member: { name: string; role: string }) => <span>{member.name} ({formatCommitteeRole(member.role)})</span>)}</dd>
       </div>}
+      {data.qualification && <>
+        <div>
+          <dt>Data da qualificação</dt>
+          <dd><time datetime={data.qualification.date.toISOString()}>{formatDefenseDate(data.qualification.date)}</time></dd>
+        </div>
+        <div>
+          <dt>Banca de qualificação</dt>
+          <dd>{data.qualification.committee.map((member) => <span>{member.name} ({formatCommitteeRole(member.role)})</span>)}</dd>
+        </div>
+        <div><dt>Resultado da qualificação</dt><dd>{data.qualification.outcome}</dd></div>
+      </>}
       {data.defense && <div>
         <dt>Data da defesa</dt>
         <dd><time datetime={data.defense.date.toISOString()}>{formatDefenseDate(data.defense.date)}</time></dd>
@@ -77,6 +93,10 @@ const isCompleted = data.status === 'completed';
       {data.repository && <div>
         <dt>Trabalho</dt>
         <dd><a class="repository-link" href={data.repository} target="_blank" rel="noreferrer" aria-label={`Abrir trabalho: ${data.title}`}>Abrir trabalho <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6m-1-5-8 8M19 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5" /></svg></a></dd>
+      </div>}
+      {data.publication && /^https?:\/\//.test(data.publication) && <div>
+        <dt>Publicação relacionada</dt>
+        <dd><a href={data.publication} target="_blank" rel="noreferrer">Abrir publicação ↗</a></dd>
       </div>}
     </dl>
   </details>

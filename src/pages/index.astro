@@ -29,7 +29,7 @@ const recentPublicationCutoff = new Date().getFullYear() - 1;
 const recentPublications = publications
   .filter((publication) => publication.year && Number(publication.year) >= recentPublicationCutoff)
   .slice(0, 2);
-const publicField = (value: string) => value.startsWith('TODO:') ? undefined : value;
+const publicField = (value: string | undefined) => value?.startsWith('TODO:') ? undefined : value;
 ---
 
 <BaseLayout title="Início">

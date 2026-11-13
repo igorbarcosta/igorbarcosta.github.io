@@ -38,6 +38,9 @@ languages:
   - language: Espanhol
     level: Conhecimento básico
 recognition:
+  - year: 2026
+    title: Revisor Destaque do 5th Brazilian Workshop on Intelligent Software
+      Engineering (ISE 2026)
   - year: 2017
     title: 1º lugar no “3 Minutes Thesis” da V SACC, Computação — UFCG
   - year: 2016

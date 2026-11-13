@@ -8,6 +8,7 @@ course: Telemática
 institution: Instituto Federal da Paraíba
 start: 2022-05-04
 end: 2022-09-28
+defenseDate: 2022-08-30
 status: completed
 repository: https://repositorio.ifpb.edu.br/handle/177683/2505
 defense:

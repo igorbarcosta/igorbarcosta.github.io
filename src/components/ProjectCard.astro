@@ -16,7 +16,7 @@ const partnerSubtitle = data.partners.length > 0 ? data.partners.join(' · ') : 
     <span class="project-summary">
       <h3>{data.title}</h3>
       {partnerSubtitle && <span class="project-partners-sub">{partnerSubtitle}</span>}
-      <span class="project-summary-description">{data.description}</span>
+      {data.description && <span class="project-summary-description">{data.description}</span>}
       <div class="card-meta-row card-meta-bottom">
         <span class="tag tag-outline">{formatProjectType(data.type)}</span>
         <div class={`status-badge-group status-badge-${data.status}`}>
@@ -26,7 +26,7 @@ const partnerSubtitle = data.partners.length > 0 ? data.partners.join(' · ') : 
             {formatStatus(data.status)}
           </span>
           <span class="status-badge-date">
-            <time>{formatProjectPeriod(data.start, data.end)}</time>
+            <time>{formatProjectPeriod(data.start, data.end, data.year)}</time>
           </span>
         </div>
       </div>

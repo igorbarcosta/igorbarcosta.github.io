@@ -1,11 +1,16 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
+import ActivityList from '@/components/ActivityList.astro';
 import { institutional } from '@/data/institutional';
-import { formatPeriod, formatSupervisionCourse } from '@/lib/site';
+import { events, reviews } from '@/data/activities';
+import { formatDate, formatPeriod, formatSupervisionCourse } from '@/lib/site';
 
 const activities = institutional.activities.sort((a, b) => b.start.getTime() - a.start.getTime());
-const committees = institutional.committees.sort((a, b) => (b.date?.getTime() ?? 0) - (a.date?.getTime() ?? 0));
+const committeeTime = (entry: typeof institutional.committees[number]) => entry.date?.getTime()
+  ?? Date.UTC(Number(entry.semester?.slice(0, 4) ?? entry.year ?? 0), entry.semester?.endsWith('.2') ? 6 : 0);
+const committees = institutional.committees.sort((a, b) => committeeTime(b) - committeeTime(a));
+const committeePeriod = (entry: typeof committees[number]) => entry.date ? formatDefenseMonth(entry.date) : entry.semester ?? String(entry.year ?? '');
 const formatDefenseMonth = (date: Date) => new Intl.DateTimeFormat('pt-BR', { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(date).replace('.', '');
 const formatDefenseFull = (date: Date) => new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long', timeZone: 'UTC' }).format(date);
 const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('pt-BR') + role.slice(1);
@@ -14,11 +19,19 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
 <BaseLayout title="Atuações" description="Atividades institucionais e acadêmicas de Ígor Barbosa da Costa.">
   <section class="page-intro container">
     <h1>Atuações</h1>
-    <p>Participações em bancas examinadoras, colegiados e comissões institucionais.</p>
+    <p>Participações em bancas, colegiados, comissões, eventos e avaliação científica.</p>
     <div class="metrics-bar">
       <a href="#bancas" class="metric-chip">
         <span class="metric-number">{committees.length}</span>
         <span class="metric-label">Bancas examinadoras</span>
+      </a>
+      <a href="#eventos" class="metric-chip">
+        <span class="metric-number">{events.length}</span>
+        <span class="metric-label">Eventos</span>
+      </a>
+      <a href="#revisoes" class="metric-chip">
+        <span class="metric-number">{reviews.length}</span>
+        <span class="metric-label">Revisões e avaliações</span>
       </a>
       <a href="#institucional" class="metric-chip">
         <span class="metric-number">{activities.length}</span>
@@ -52,9 +65,9 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
                   <span class="tag tag-outline">{committee.category}</span>
                   <div class="badge-group badge-group-outline">
                     <span class="badge-group-label">{committee.role}</span>
-                    {committee.date && (
+                    {committeePeriod(committee) && (
                       <span class="badge-group-date">
-                        <time>{formatDefenseMonth(committee.date)}</time>
+                        <time>{committeePeriod(committee)}</time>
                       </span>
                     )}
                   </div>
@@ -72,8 +85,11 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
                 <dd>{formatSupervisionCourse(committee.course)}</dd>
               </div>}
               {committee.date && <div>
-                <dt>Data da defesa</dt>
+                <dt>{committee.stage === 'qualificacao' ? 'Data da qualificação' : 'Data'}</dt>
                 <dd><time datetime={committee.date.toISOString()}>{formatDefenseFull(committee.date)}</time></dd>
+              </div>}
+              {!committee.date && committeePeriod(committee) && <div>
+                <dt>Período</dt><dd>{committeePeriod(committee)}</dd>
               </div>}
               <div>
                 <dt>Atuação</dt>
@@ -111,20 +127,44 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
               </div>
               <div class="card-meta-row card-meta-bottom">
                 <span class="tag tag-outline">{activity.category}</span>
-                <div class="status-badge-group status-badge-completed">
-                  <span class="status-badge-label">
-                    <span class="status-dot status-dot-completed" aria-hidden="true"></span>
-                    Concluído
-                  </span>
-                  <span class="status-badge-date">
-                    <time>{formatPeriod(activity.start, activity.end)}</time>
-                  </span>
-                </div>
+                <span class="badge-mono">
+                  {activity.end ? formatPeriod(activity.start, activity.end) : `Registro em ${formatDate(activity.start)}`}
+                </span>
               </div>
             </div>
           </article>
         </li>)}
       </ul>
+    </div>
+  </section>
+
+  <section class="section container" id="eventos">
+    <SectionHeading title="Eventos" description="Participações, apresentações e capacitações ministradas." />
+    <ActivityList items={events.map((event) => ({
+      title: event.title,
+      context: [event.role, event.location].filter(Boolean).join(' · '),
+      period: event.start
+        ? event.end && event.start.getTime() !== event.end.getTime()
+          ? `${formatDefenseFull(event.start)} – ${formatDefenseFull(event.end)}`
+          : formatDefenseFull(event.start)
+        : String(event.year),
+      description: event.contribution,
+      details: [
+        { label: 'Organização', value: event.organization.join(' · ') },
+        { label: 'Local', value: event.venue ?? '' },
+        { label: 'Carga horária', value: event.hours ? `${event.hours} horas` : '' },
+      ],
+    }))} />
+  </section>
+
+  <section class="section section-soft" id="revisoes">
+    <div class="container">
+      <SectionHeading title="Revisões e avaliações" description="Avaliação de trabalhos e projetos de pesquisa." />
+      <ActivityList items={reviews.map((review) => ({
+        title: review.title,
+        context: [review.role, review.location].filter(Boolean).join(' · '),
+        period: review.date ? formatDefenseFull(review.date) : String(review.year),
+      }))} />
     </div>
   </section>
 </BaseLayout>

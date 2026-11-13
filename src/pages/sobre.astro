@@ -2,7 +2,10 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import SocialLinks from '@/components/SocialLinks.astro';
+import ActivityList from '@/components/ActivityList.astro';
 import { site } from '@/data/site';
+import { certifications, courses, professionalExperience } from '@/data/activities';
+import { formatDate, formatPeriod } from '@/lib/site';
 ---
 
 <BaseLayout title="Sobre" description="Apresentação e áreas de atuação de Ígor Barbosa da Costa.">
@@ -32,10 +35,32 @@ import { site } from '@/data/site';
     </div>
   </section>
 
+  <section class="section container">
+    <SectionHeading title="Cursos e certificações" />
+    <ActivityList items={[
+      ...courses.map((course) => ({
+        title: course.title, context: `${course.institution} · ${course.category}`,
+        period: formatDate(course.date), href: course.url,
+        details: [
+          { label: 'Carga horária', value: course.hours ? `${course.hours} horas` : '' },
+          { label: 'Conteúdo', value: course.syllabus.join(' · ') },
+        ],
+      })),
+      ...certifications.map((certification) => ({
+        title: certification.title, context: `${certification.institution} · ${certification.category}`,
+        period: formatDate(certification.date),
+      })),
+    ]} />
+  </section>
+
   <section class="section container profile-grid">
     <div>
       <SectionHeading title="Atuação profissional" />
       <p><strong>{site.profile.affiliation.institution}</strong><br />{site.profile.affiliation.campus} · desde {site.profile.affiliation.since}</p>
+      <ActivityList items={professionalExperience.map((experience) => ({
+        title: experience.title, context: experience.institution,
+        period: formatPeriod(experience.start, experience.end), description: experience.role,
+      }))} />
     </div>
     <div>
       <SectionHeading title="Idiomas" />
@@ -48,7 +73,7 @@ import { site } from '@/data/site';
       <SectionHeading title="Prêmios e links" />
       <ul class="plain-list recognition-list">{site.profile.recognition.map((item) => <li><span>{item.year}</span> {item.title}</li>)}</ul>
       <SocialLinks />
-      <p class="muted">Dados acadêmicos conferidos no Currículo Lattes, atualizado em 20 de março de 2026.</p>
+      <p class="muted">Currículo Lattes atualizado em {new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long', timeZone: 'UTC' }).format(site.profile.lattesUpdatedAt)}.</p>
     </div>
   </section>
 </BaseLayout>

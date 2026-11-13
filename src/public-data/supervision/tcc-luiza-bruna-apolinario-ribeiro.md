@@ -1,5 +1,6 @@
 ---
-title: Título do TCC de Luiza Bruna Apolinario Ribeiro — a informar
+title: Benchmark para análise da qualidade da extração de dados de documentos
+  fiscais por meio de modelos de visão e OCR
 students:
   - Luiza Bruna Apolinario Ribeiro
 type: TCC

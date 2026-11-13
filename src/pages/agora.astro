@@ -9,7 +9,7 @@ const projects = (await getCollection('projects')).filter((entry) => entry.data.
 const teaching = (await getCollection('teaching')).filter((entry) => entry.data.status === 'current');
 const supervisions = (await getCollection('supervision')).filter((entry) => entry.data.status === 'current');
 const currentActivities = site.currentActivities.filter((activity) => activity.status === 'active');
-const publicField = (value: string) => value.startsWith('TODO:') ? undefined : value;
+const publicField = (value: string | undefined) => value?.startsWith('TODO:') ? undefined : value;
 ---
 
 <BaseLayout title="Agora" description="Snapshot das atividades atuais de Ígor Barbosa da Costa.">

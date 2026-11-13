@@ -1,0 +1,106 @@
+- id: event-obr-2014
+  title: Olimpíada Brasileira de Robótica — etapa regional da Paraíba
+  shortTitle: OBR 2014
+  category: Olimpíada
+  role: Treinador da equipe Labrinco
+  year: 2014
+  location: Paraíba, Brasil
+  evidenceVerified: true
+- id: event-snct-gestao-projetos-2014
+  title: VII Semana de Ciência e Tecnologia do IFPB Campus Campina Grande
+  shortTitle: VII SNCT — IFPB 2014
+  category: Semana de Ciência e Tecnologia
+  role: Apresentador de trabalho
+  contribution: Uma ferramenta de apoio à gestão de projetos para coordenadores de
+    pesquisa e extensão no IFPB
+  start: 2014-10-29
+  end: 2014-10-31
+  location: Campina Grande, PB, Brasil
+  organization:
+    - Instituto Federal da Paraíba
+  evidenceVerified: true
+- id: event-minicurso-robos-snct-2012
+  title: V Semana Nacional de Ciência e Tecnologia do IFPB Campus Campina Grande
+  shortTitle: V SNCT — IFPB 2012
+  category: Semana de Ciência e Tecnologia
+  role: Ministrante de minicurso
+  contribution: "Criação de Robôs: Inteligência Artificial aplicada a jogos digitais"
+  start: 2012-12-03
+  end: 2012-12-05
+  location: Campina Grande, PB, Brasil
+  organization:
+    - Instituto Federal da Paraíba
+  evidenceVerified: true
+- id: event-robocup-roboparty-2014
+  title: RoboCup 2014
+  shortTitle: RoboCup 2014
+  category: Competição de robótica
+  role: RoboParty Mentor
+  start: 2014-07-19
+  end: 2014-07-25
+  location: João Pessoa, PB, Brasil
+  evidenceVerified: true
+- id: event-robocode-java-2013
+  title: Olimpíada de Robótica Robocode — Ramo Estudantil IEEE IFPB-CG
+  shortTitle: Robocode 2013
+  category: Competição de robótica
+  role: Palestrante e ministrante de minicurso
+  contribution: Programação em Java
+  hours: 8
+  start: 2013-08-03
+  end: 2013-08-03
+  location: Campina Grande, PB, Brasil
+  organization:
+    - Ramo Estudantil IEEE IFPB-CG
+  evidenceVerified: true
+- id: event-capacitacao-agent-oriented-programming-jp-2026
+  title: Capacitação em Agent-Oriented Programming
+  shortTitle: Agent-Oriented Programming — IFPB 2026
+  category: Capacitação
+  role: Ministrante
+  start: 2026-08-14
+  end: 2026-08-14
+  location: João Pessoa, PB, Brasil
+  venue: IFPB Campus João Pessoa
+  organization:
+    - Instituto Federal da Paraíba (IFPB)
+  evidenceVerified: true
+- id: event-sbbd-kdmile-2017
+  title: 32º Simpósio Brasileiro de Bancos de Dados (SBBD) e 5th Symposium on
+    Knowledge Discovery, Mining and Learning (KDMiLe)
+  shortTitle: SBBD / KDMiLe 2017
+  category: Simpósio
+  role: Participante
+  start: 2017-10-02
+  end: 2017-10-05
+  location: Uberlândia, MG, Brasil
+  venue: Center Convention
+  organization:
+    - Sociedade Brasileira de Computação (SBC)
+    - Universidade Federal de Uberlândia (UFU)
+  evidenceVerified: true
+- id: event-fetech-2015
+  title: 13ª Feira de Tecnologia de Campina Grande (FETECh)
+  shortTitle: 13ª FETECh
+  category: Feira tecnológica
+  role: Expositor
+  year: 2015
+  start: 2015-11-28
+  location: Campina Grande, PB, Brasil
+  organization:
+    - Fundação Parque Tecnológico da Paraíba (PaqTcPB)
+    - Instituto Federal da Paraíba (IFPB)
+  evidenceVerified: true
+- id: event-competicao-robotica-ifpb-2016
+  title: 2ª Competição de Robótica do IFPB
+  shortTitle: IFPB Robótica 2016
+  category: Competição tecnológica
+  role: Competidor
+  start: 2016-02-23
+  end: 2016-02-24
+  location: Cajazeiras, PB, Brasil
+  venue: IFPB Campus Cajazeiras
+  organization:
+    - Instituto Federal da Paraíba (IFPB) — Pró-Reitoria de Pesquisa, Inovação e
+      Pós-Graduação (PRPIPG)
+  evidenceVerified: true

@@ -1,4 +1,44 @@
 activities:
+  - id: institutional-colegiado-engenharia-civil-uepb-2011
+    title: Colegiado do Curso de Engenharia Civil da UEPB Campus VIII
+    category: Colegiado de curso
+    role: Membro do colegiado
+    start: 2011-11-21
+    evidenceVerified: true
+  - id: institutional-organizacao-v-semana-telematica-2013
+    title: Organização da V Semana de Telemática do IFPB Campus Campina Grande
+    category: Eventos acadêmicos
+    role: Membro de comissão organizadora
+    start: 2013-11-27
+    evidenceVerified: true
+  - id: institutional-substituicao-coordenacao-msi-2014
+    title: Substituição na Coordenação de Manutenção e Suporte em Informática do
+      IFPB Campus Campina Grande
+    category: Gestão de curso
+    role: Coordenador substituto de Manutenção e Suporte em Informática
+    start: 2014-01-10
+    end: 2014-01-17
+    evidenceVerified: true
+  - id: institutional-organizacao-semana-telematica-2014
+    title: Organização da Semana de Telemática 2014 do IFPB Campus Campina Grande
+    category: Eventos acadêmicos
+    role: Membro de comissão organizadora
+    start: 2014-12-11
+    evidenceVerified: true
+  - id: institutional-posse-professor-ifpb-2012
+    title: Posse como professor EBTT do IFPB Campus Campina Grande
+    category: Ingresso na carreira
+    role: Professor EBTT
+    start: 2012-06-08
+    end: 2012-06-08
+    evidenceVerified: true
+  - id: institutional-designacao-substituto-coordenacao-area-informatica-cg-2026
+    title: Designação como substituto da titular da Coordenação da Área de
+      Informática do Campus Campina Grande
+    category: Gestão acadêmica
+    role: Coordenador substituto nas faltas e impedimentos legais da titular
+    start: 2026-04-16
+    evidenceVerified: true
   - id: institutional-reformulacao-do-ppc-do-bacharelado-em-engenharia-de-computacao
     title: Reformulação do PPC do Bacharelado em Engenharia de Computação
     category: Desenvolvimento curricular
@@ -128,13 +168,80 @@ activities:
     end: 2017-02-15
     evidenceVerified: true
 committees:
+  - id: committee-selection-programming-ifpb-2014
+    title: Seleção de professor substituto — Edital 29/2014, Código 05 — Programação
+      — Perfil 02
+    category: Banca de seleção docente
+    role: Avaliador de prova de desempenho
+    year: 2014
+    evidenceVerified: true
+  - id: committee-rafael-rodrigues-2015
+    title: Desenvolvimento de um sistema móvel para gerenciar as informações
+      coletadas por agentes comunitários de saúde da estratégia da saúde da
+      família
+    category: Banca de TCC
+    role: Membro avaliador
+    date: 2015-11-10
+    students:
+      - Rafael Rodrigues
+    evidenceVerified: true
+  - id: committee-mestrado-wuldson-franco-2026
+    title: "Verificação automática de conformidade normativa na multiperspectiva de
+      fluxos processuais administrativos: o modelo CAFÉ aplicado aos PADOs da
+      ANATEL"
+    category: Banca de defesa de mestrado
+    role: Examinador interno
+    date: 2026-08-31
+    students:
+      - Wuldson Franco Fernandes da Silva
+    course: Mestrado Profissional em Tecnologia da Informação
+    institution: Instituto Federal da Paraíba
+    campus: João Pessoa
+    stage: defesa-final
+    committee:
+      - name: Paulo Ribeiro Lins Júnior
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Edmar Candeia Gurjão
+        role: avaliador
+        institution: UFCG
+    outcome: aprovado
+    evidenceVerified: true
+  - id: committee-qualificacao-gustavo-lira-santos-2026
+    title: "Avaliação de desempenho e custo de agentes LLM na construção de software
+      orientado por especificação: um estudo de caso sobre uma aplicação web
+      para gestão de orientandos do PPGTI"
+    category: Banca de qualificação de mestrado
+    role: Examinador interno
+    date: 2026-09-15
+    students:
+      - Gustavo Lira Santos
+    course: Mestrado Profissional em Tecnologia da Informação
+    institution: Instituto Federal da Paraíba
+    campus: João Pessoa
+    stage: qualificacao
+    committee:
+      - name: Katyusco de Farias Santos
+        role: orientador
+        institution: IFPB
+      - name: Igor Barbosa da Costa
+        role: avaliador
+        institution: IFPB
+      - name: Francisco Petrônio Alencar de Medeiros
+        role: avaliador
+        institution: IFPB
+    outcome: aprovado
+    evidenceVerified: true
   - id: committee-sistema-ranqueamento-automoveis-2022
     title: Sistema de ranqueamento de automóveis com base na tabela FIPE
     category: Banca de TCC
     role: Membro avaliador
     date: 2022-03-18
     students:
-      - William Adriano Ullmann Klein
+      - Willian Adriano Ullmann Klein
     course: Bacharelado em Engenharia de Computação
     institution: Instituto Federal da Paraíba
     campus: Campina Grande
@@ -328,7 +435,7 @@ committees:
     role: Membro avaliador
     date: 2021-10-15
     students:
-      - Lury Anderson Fernandes Coelho
+      - Iury Anderson Fernandes Coelho
     course: Bacharelado em Engenharia de Computação
     institution: Instituto Federal da Paraíba
     campus: Campina Grande
@@ -1023,4 +1130,20 @@ committees:
         role: avaliador
         institution: IFPB
     outcome: aprovado
+    evidenceVerified: true
+  - id: committee-tcc-antonio-carlos-macedo-dantas-2016
+    title: Trabalho de Conclusão de Curso de Antonio Carlos de Macedo Dantas
+    category: Banca de TCC
+    role: Membro avaliador
+    semester: 2016.2
+    students:
+      - Antonio Carlos de Macedo Dantas
+    evidenceVerified: true
+  - id: committee-tcc-gustavo-ramos-da-silva-2016
+    title: Trabalho de Conclusão de Curso de Gustavo Ramos da Silva
+    category: Banca de TCC
+    role: Membro avaliador
+    semester: 2016.2
+    students:
+      - Gustavo Ramos da Silva
     evidenceVerified: true

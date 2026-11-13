@@ -30,14 +30,15 @@ export function formatPeriod(start?: Date, end?: Date) {
   return `${formatDate(start!)} – ${formatDate(end!)}`;
 }
 
-export function formatProjectPeriod(start: Date, end?: Date) {
-  return formatPeriod(start, end);
+export function formatProjectPeriod(start?: Date, end?: Date, year?: number) {
+  return start || end ? formatPeriod(start, end) : String(year ?? '');
 }
 
 export function formatSupervisionPeriod(data: {
   start?: Date;
   end?: Date;
   semester?: string;
+  year?: number;
   defense?: { date: Date };
 }) {
   if (data.start) {
@@ -52,7 +53,7 @@ export function formatSupervisionPeriod(data: {
   if (data.end) {
     return formatDate(data.end);
   }
-  return '';
+  return String(data.year ?? '');
 }
 
 export function formatStatus(status: string) {
@@ -71,6 +72,7 @@ export function formatProjectType(type: string) {
   const labels: Record<string, string> = {
     research: 'Pesquisa',
     innovation: 'Inovação',
+    extension: 'Extensão',
     technology: 'Desenvolvimento tecnológico',
     'open-source': 'Open source',
     institutional: 'Institucional',
@@ -86,6 +88,7 @@ export function formatSupervisionType(type: string) {
     'projeto-tecnologico': 'Projeto tecnológico',
     mestrado: 'Mestrado',
     monitoria: 'Monitoria',
+    competicao: 'Competição',
     outro: 'Outro',
   };
   return labels[type] ?? type;

@@ -9,7 +9,7 @@ const institutionalSchema = z.object({
     category: z.string().min(1),
     role: z.string().min(1),
     start: z.coerce.date(),
-    end: z.coerce.date(),
+    end: z.coerce.date().optional(),
     evidenceVerified: z.boolean(),
   })),
   committees: z.array(z.object({
@@ -18,6 +18,9 @@ const institutionalSchema = z.object({
     category: z.string().min(1),
     role: z.string().min(1),
     date: z.coerce.date().optional(),
+    year: z.number().int().optional(),
+    semester: z.coerce.string().regex(/^\d{4}\.[12]$/).optional(),
+    stage: z.enum(['qualificacao', 'defesa-final']).optional(),
     students: z.array(z.string().min(1)).default([]),
     course: z.string().min(1).optional(),
     institution: z.string().min(1).optional(),

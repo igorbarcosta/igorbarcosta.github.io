@@ -7,5 +7,8 @@ course: Telemática
 institution: Instituto Federal da Paraíba
 start: 2015-01-01
 end: 2015-12-31
+defenseDate: 2015-11-10
 status: completed
+role: Orientador
+evidenceVerified: true
 ---

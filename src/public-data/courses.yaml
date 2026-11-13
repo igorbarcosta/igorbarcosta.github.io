@@ -1,0 +1,13 @@
+- id: course-khan-academy-educadores-2024
+  title: Formação Inicial para Educadores
+  institution: Khan Academy
+  category: Formação continuada
+  hours: 10
+  date: 2024-07-24
+  url: https://pt.khanacademy.org
+  syllabus:
+    - Conhecendo a Khan Academy
+    - Usando as recomendações e relatórios da Khan Academy
+    - Dando suporte ao progresso dos estudantes com a Khan Academy
+    - Próximos passos
+  evidenceVerified: true

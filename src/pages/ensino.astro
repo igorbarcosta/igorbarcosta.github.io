@@ -3,8 +3,11 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import TeachingCard from '@/components/TeachingCard.astro';
+import ActivityList from '@/components/ActivityList.astro';
+import { teachingActivities } from '@/data/activities';
 
-const teaching = await getCollection('teaching');
+const teaching = (await getCollection('teaching')).sort((a, b) =>
+  b.data.semester.localeCompare(a.data.semester) || a.data.title.localeCompare(b.data.title, 'pt-BR'));
 const current = teaching.filter((entry) => entry.data.status === 'current' || entry.data.status === 'planned');
 const history = teaching.filter((entry) => entry.data.status === 'completed' || entry.data.status === 'archived');
 const groupedHistory = history.reduce<Record<string, typeof history>>((groups, entry) => {
@@ -38,4 +41,14 @@ const groupedHistory = history.reduce<Record<string, typeof history>>((groups, e
       )) : <div class="empty-state"><p>O histórico docente será adicionado conforme as ofertas forem documentadas.</p></div>}
     </div>
   </section>
+
+  {teachingActivities.length > 0 && <section class="section container">
+    <SectionHeading title="Outras atividades de ensino" />
+    <ActivityList items={teachingActivities.map((activity) => ({
+      title: activity.title,
+      context: [activity.institution, activity.course, activity.role].filter(Boolean).join(' · '),
+      period: activity.semesters.length ? activity.semesters.join(' · ') : String(activity.year),
+      details: activity.weeklyHours ? [{ label: 'Carga horária semanal', value: `${activity.weeklyHours} horas` }] : [],
+    }))} />
+  </section>}
 </BaseLayout>

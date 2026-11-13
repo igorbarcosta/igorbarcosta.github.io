@@ -1,5 +1,6 @@
 ---
-title: Título do TCC de Keviny Ryan Menezes Dantas — a informar
+title: Sistema Agêntico para Modelagem e Pré-Qualificação de Escrituras Públicas
+  de Compra e Venda de Imóveis
 students:
   - Keviny Ryan Menezes Dantas
 type: TCC
