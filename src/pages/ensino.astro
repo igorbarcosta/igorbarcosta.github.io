@@ -36,7 +36,7 @@ const groupedHistory = history.reduce<Record<string, typeof history>>((groups, e
     <div class="teaching-list">
       {current.length ? [...new Set(current.map((entry) => entry.data.semester))].map((semester) => <section class="record-group semester-group">
         <h3>{semester}</h3>
-        {current.filter((entry) => entry.data.semester === semester).map((entry) => <TeachingCard teaching={entry} showSemester={false} headingLevel="h4" />)}
+        <div class="teaching-course-grid">{current.filter((entry) => entry.data.semester === semester).map((entry) => <TeachingCard teaching={entry} showSemester={false} headingLevel="h4" />)}</div>
       </section>) : <div class="empty-state"><p>Nenhuma oferta atual cadastrada.</p></div>}
     </div>
   </section>
@@ -48,7 +48,7 @@ const groupedHistory = history.reduce<Record<string, typeof history>>((groups, e
         <ArchiveYear year={year} count={entries.length}>
           {[...new Set(entries.map((entry) => entry.data.semester))].map((semester) => <section class="record-group semester-group">
             <h3>{semester}</h3>
-            <div class="teaching-list">{entries.filter((entry) => entry.data.semester === semester).map((entry) => <TeachingCard teaching={entry} showSemester={false} headingLevel="h4" />)}</div>
+            <div class="teaching-course-grid">{entries.filter((entry) => entry.data.semester === semester).map((entry) => <TeachingCard teaching={entry} showSemester={false} headingLevel="h4" />)}</div>
           </section>)}
         </ArchiveYear>
       )) : <div class="empty-state"><p>O histórico docente será adicionado conforme as ofertas forem documentadas.</p></div>}

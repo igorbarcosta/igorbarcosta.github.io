@@ -2,20 +2,18 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import SocialLinks from '@/components/SocialLinks.astro';
-import Biography from '@/components/Biography.astro';
 import ActivityList from '@/components/ActivityList.astro';
 import { site } from '@/data/site';
 import { certifications, courses, professionalExperience } from '@/data/activities';
-import { formatDate, formatPeriod } from '@/lib/site';
+import { formatDate, formatPeriod, withBase } from '@/lib/site';
 ---
 
-<BaseLayout title="Sobre" description="Apresentação, formação e trajetória de Ígor Barbosa da Costa.">
+<BaseLayout title="Sobre" description="Formação e trajetória profissional de Ígor Barbosa da Costa.">
   <section class="page-intro container">
     <h1>Sobre</h1>
-    <p>Formação, interesses e trajetória profissional.</p>
+    <p>Formação e trajetória profissional.</p>
     <nav class="page-shortcuts" aria-label="Nesta página">
       <a href="#formacao">Formação <span>{site.profile.education.length}</span></a>
-      <a href="#apresentacao">Sobre mim</a>
       <a href="#experiencia">Atuação profissional</a>
       <a href="#cursos">Cursos e certificações <span>{courses.length + certifications.length}</span></a>
       <a href="#reconhecimento">Prêmios e links</a>
@@ -27,22 +25,24 @@ import { formatDate, formatPeriod } from '@/lib/site';
       <SectionHeading title="Formação acadêmica" />
       <div class="education-grid">
         {site.profile.education.map((item) => <article class:list={['record-group', 'education-entry', { 'education-doctorate': item.id === 'doctorate-computer-science' }]}>
-          <p class="education-period">{item.period}</p>
+          <div class="education-heading">
+            <p class="education-period">{item.period}</p>
+            <div class="education-crests">
+            {[item.institution, ...(site.educationAdditionalLogos[item.id] ?? [])].map((institution) => {
+              const logo = site.educationLogos[institution];
+              return logo && <div class="education-crest" title={institution} style={`--crest-scale: ${logo.scale}`}>
+                <svg viewBox={logo.viewport.join(' ')} focusable="false">
+                  <title>{institution}</title>
+                  <image class:list={{ 'education-crest-white': logo.whiteArtwork }} href={withBase(logo.src)} width={logo.width} height={logo.height} />
+                </svg>
+              </div>;
+            })}
+            </div>
+          </div>
           <h3>{item.degree}</h3>
           <p class="education-institution">{item.institution}</p>
           {item.detail && <p class="education-detail">{item.detail}</p>}
         </article>)}
-      </div>
-    </section>
-
-    <section class="section container" id="apresentacao">
-      <SectionHeading title="Sobre mim" />
-      <div class="about-layout">
-        <div class="record-group about-biography"><Biography /></div>
-        <aside class="record-group about-aside">
-          <h3>Áreas de atuação</h3>
-          <ul class="plain-list">{site.profile.areas.map((area) => <li>{area}</li>)}</ul>
-        </aside>
       </div>
     </section>
 

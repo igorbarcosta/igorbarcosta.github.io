@@ -13,6 +13,15 @@ const presentationSchema = z.object({
   homeTeachingOrder: z.array(z.string().min(1)).default([]),
   projectRoleLabels: z.record(z.string(), z.string().min(1)).default({}),
   projectListingExcluded: z.array(z.string().min(1)).default([]),
+  educationAdditionalLogos: z.record(z.string(), z.array(z.string().min(1))).default({}),
+  educationLogos: z.record(z.string(), z.object({
+    scale: z.number().positive().max(1).default(1),
+    src: z.string().startsWith('/'),
+    width: z.number().positive(),
+    height: z.number().positive(),
+    viewport: z.tuple([z.number(), z.number(), z.number().positive(), z.number().positive()]),
+    whiteArtwork: z.boolean().default(false),
+  })).default({}),
   partnerLogos: z.record(z.string(), z.object({
     label: z.string().min(1),
     src: z.string().startsWith('/'),

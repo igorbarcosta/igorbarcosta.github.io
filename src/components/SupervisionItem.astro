@@ -21,7 +21,9 @@ const formatDefenseDate = (date: Date) => new Intl.DateTimeFormat('pt-BR', { tim
   <details class="committee-entry supervision-entry" id={supervision.id}>
     <summary>
       <span class="committee-summary">
-        <Heading>{peopleFirst ? participants.join(' · ') : data.title}</Heading>
+        <Heading class:list={{ 'committee-student-names': peopleFirst && participants.length > 1 }}>
+          {peopleFirst ? participants.map((student) => <span>{student}</span>) : data.title}
+        </Heading>
         {peopleFirst && <p class="record-title">{data.title}</p>}
         <div class="supervision-subline">
           {!peopleFirst && <span class:list={{ 'committee-students': true, 'student-list-many': students.length > 2 }}>

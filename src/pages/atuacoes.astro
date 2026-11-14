@@ -22,11 +22,11 @@ const formatDefenseFull = (date: Date) => new Intl.DateTimeFormat('pt-BR', { dat
 const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('pt-BR') + role.slice(1);
 ---
 
-<BaseLayout title="Atuações" description="Atividades institucionais e acadêmicas de Ígor Barbosa da Costa.">
+<BaseLayout title="Atividades Acadêmicas" description="Atividades institucionais e acadêmicas de Ígor Barbosa da Costa.">
   <section class="page-intro container">
-    <h1>Atuações</h1>
+    <h1>Atividades Acadêmicas</h1>
     <p>Participações em bancas, colegiados, comissões, eventos e avaliação científica.</p>
-    <nav class="section-index" aria-label="Atuações por categoria">
+    <nav class="page-shortcuts" aria-label="Atividades acadêmicas por categoria">
       <a href="#bancas">Bancas <span>{committees.length}</span></a>
       <a href="#institucional">Atuação institucional <span>{activities.length}</span></a>
       <a href="#eventos">Eventos <span>{events.length}</span></a>
@@ -46,7 +46,9 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
           <details class="committee-entry">
             <summary>
               <span class="committee-summary">
-                <h4>{students.length ? students.join(' · ') : committee.title}</h4>
+                <h4 class:list={{ 'committee-student-names': students.length > 1 }}>
+                  {students.length ? students.map((student) => <span>{student}</span>) : committee.title}
+                </h4>
                 {students.length > 0 && <p class="record-title">{committee.title}</p>}
                 <div class="supervision-subline">
                   {committee.course && (
@@ -99,10 +101,11 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
     </ArchiveYear>)}
   </section>
 
-  <section class="section section-soft" id="institucional">
+  <section class="section section-soft academic-directory activity-records" id="institucional">
     <div class="container">
       <SectionHeading title="Atuação institucional" description="Comissões, colegiados, gestão acadêmica e desenvolvimento institucional." />
       {activityGroups.map(([year, entries]) => <ArchiveYear year={year} count={entries.length}>
+      <div class="record-group">
       <ul class="supervision-list">
         {entries.map((activity) => <li>
           <article class="committee-entry institutional-card">
@@ -110,25 +113,26 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
               <h3>{activity.title}</h3>
               <div class="supervision-subline">
                 <span class="committee-students">{activity.role}</span>
-                <span class="supervision-subline-sep" aria-hidden="true">·</span>
-                <span class="supervision-course">{activity.category}</span>
               </div>
               <div class="card-meta-row card-meta-bottom">
                 <span class="badge-mono">
                   {activity.end ? formatPeriod(activity.start, activity.end) : `Registro em ${formatDate(activity.start)}`}
                 </span>
+                <span class="entry-note">{activity.category}</span>
               </div>
             </div>
           </article>
         </li>)}
       </ul>
+      </div>
       </ArchiveYear>)}
     </div>
   </section>
 
-  <section class="section container" id="eventos">
+  <section class="section container academic-directory activity-records" id="eventos">
     <SectionHeading title="Eventos" description="Participações, apresentações e capacitações ministradas." />
     {eventGroups.map(([year, entries]) => <ArchiveYear year={year} count={entries.length}>
+    <div class="record-group">
     <ActivityList items={entries.map((event) => ({
       title: event.title,
       context: [event.role, event.location].filter(Boolean).join(' · '),
@@ -144,18 +148,21 @@ const formatCommitteeRole = (role: string) => role.charAt(0).toLocaleUpperCase('
         { label: 'Carga horária', value: event.hours ? `${event.hours} horas` : '' },
       ],
     }))} />
+    </div>
     </ArchiveYear>)}
   </section>
 
-  <section class="section section-soft" id="revisoes">
+  <section class="section section-soft academic-directory activity-records" id="revisoes">
     <div class="container">
       <SectionHeading title="Revisões e avaliações" description="Avaliação de trabalhos e projetos de pesquisa." />
       {reviewGroups.map(([year, entries]) => <ArchiveYear year={year} count={entries.length}>
+      <div class="record-group">
       <ActivityList items={entries.map((review) => ({
         title: review.title,
         context: [review.role, review.location].filter(Boolean).join(' · '),
         period: review.date ? formatDefenseFull(review.date) : String(review.year),
       }))} />
+      </div>
       </ArchiveYear>)}
     </div>
   </section>

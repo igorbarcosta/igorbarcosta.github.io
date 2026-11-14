@@ -6,6 +6,26 @@ profileInstitutionLabel: IFPB
 profileInstitutionUrl: https://www.ifpb.edu.br/campus/campinagrande
 projectRoleLabels:
   synpower: Pesquisador
+educationAdditionalLogos:
+  doctorate-computer-science:
+    - Universität Hildesheim
+educationLogos:
+  Universität Hildesheim:
+    scale: 0.78
+    src: /logos/hildesheim.svg
+    width: 72
+    height: 72
+    viewport: [0, 0, 72, 72]
+  Universidade Federal de Campina Grande:
+    src: /logos/ufcg-crest.png
+    width: 256
+    height: 256
+    viewport: [10, 8, 236, 240]
+  Universidade Federal de Pernambuco:
+    src: /logos/ufpe-brand.png
+    width: 257
+    height: 480
+    viewport: [38, 52, 182, 268]
 # Seleção editorial temporária: definir depois onde apresentar estes projetos.
 projectListingExcluded:
   - capacitacao-performance-esportiva-2014
@@ -75,7 +95,7 @@ mainNavigation:
     href: /publicacoes/
   - label: Orientações
     href: /orientacoes/
-  - label: Atuações
+  - label: Atividades
     href: /atuacoes/
   - label: Sobre
     href: /sobre/
