@@ -6,6 +6,38 @@ profileInstitutionLabel: IFPB
 profileInstitutionUrl: https://www.ifpb.edu.br/campus/campinagrande
 projectRoleLabels:
   synpower: Pesquisador
+# Seleção editorial temporária: definir depois onde apresentar estes projetos.
+projectListingExcluded:
+  - capacitacao-performance-esportiva-2014
+  - base-dados-obras-publicas-2013
+  - middleware-tv-digital-iecom-2005
+partnerLogos:
+  Fundação de Apoio à Pesquisa do Estado da Paraíba (FAPESQ):
+    label: Fapesq
+    src: /logos/fapesq.png
+  NU Pagamentos S.A.:
+    label: Nubank
+    src: /logos/nu.svg
+  Synchro Sistemas de Informação Ltda.:
+    label: Synchro
+    src: /logos/synchro.png
+  Data Power Solutions Consultoria e Desenvolvimento de Tecnologia em Informação Ltda.:
+    label: Data Power Solutions
+    src: /logos/data-power.webp
+  Smartiks Tecnologia da Informação Ltda.:
+    label: Smartiks
+    src: /logos/smartiks.svg
+    whiteArtwork: true
+  Huawei do Brasil Telecomunicações Ltda.:
+    label: Huawei
+    src: /logos/huawei.png
+  LiteMe Inteligência na Gestão de Consumo de Energia Elétrica Ltda.:
+    label: LiteMe
+    src: /logos/liteme.svg
+  Yamatec Indústria de Ferramentas Eletromecânicas Ltda.:
+    label: Yamatec
+    src: /logos/yamatec.svg
+    whiteArtwork: true
 homeTeachingOrder:
   - programacao-orientada-a-objetos-2026-2
   - laboratorio-de-poo-2026-2

@@ -3,8 +3,10 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import ProjectCard from '@/components/ProjectCard.astro';
+import { site } from '@/data/site';
 
-const projects = await getCollection('projects');
+const projects = (await getCollection('projects'))
+  .filter((project) => !site.projectListingExcluded.includes(project.id));
 const byLatest = (a: (typeof projects)[number], b: (typeof projects)[number]) => {
   if (a.data.featured !== b.data.featured) {
     return Number(b.data.featured) - Number(a.data.featured);

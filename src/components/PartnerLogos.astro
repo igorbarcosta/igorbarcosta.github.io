@@ -1,0 +1,14 @@
+---
+import { site } from '@/data/site';
+import { withBase } from '@/lib/site';
+interface Props { partners: string[]; }
+const logos = Astro.props.partners.flatMap((partner) => {
+  const logo = site.partnerLogos[partner];
+  return logo ? [logo] : [];
+});
+---
+{logos.length > 0 && <div class="project-logos" aria-label="Parceiros e financiadores">
+  {logos.map((logo) => <div class="project-logo">
+    <img class:list={{ 'project-logo-white-artwork': logo.whiteArtwork }} src={withBase(logo.src)} alt={logo.label} loading="lazy" decoding="async" width="112" height="56" />
+  </div>)}
+</div>}

@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ProfileSidebar from '@/components/ProfileSidebar.astro';
 import Biography from '@/components/Biography.astro';
+import PartnerLogos from '@/components/PartnerLogos.astro';
 import { site } from '@/data/site';
 import { getPublications } from '@/lib/bibtex';
 import { getCurrentAcademicActivities, publicField } from '@/lib/current';
@@ -21,21 +22,26 @@ const semesters = [...new Set(teaching.map((entry) => entry.data.semester))];
     <ProfileSidebar />
     <div class="home-content">
       <section class="home-panel home-about" aria-labelledby="apresentacao-title">
-        <h2 id="apresentacao-title">Sobre mim</h2>
-        <Biography />
-        <div class="home-about-links">
-          <a href={withBase('/sobre/')}>Sobre minha trajetória →</a>
-          <a href={withBase('/agora/')}>O que estou fazendo agora →</a>
+        <div class="panel-heading">
+          <h2 id="apresentacao-title">Sobre mim</h2>
+          <div class="home-about-links">
+            <a href={withBase('/sobre/')}>Sobre minha trajetória →</a>
+            <a href={withBase('/agora/')}>O que estou fazendo agora →</a>
+          </div>
         </div>
+        <Biography />
       </section>
 
       <section class="home-panel" aria-labelledby="pesquisa-title">
         <div class="panel-heading"><h2 id="pesquisa-title">Projetos em andamento</h2><a href={withBase('/projetos/')}>Todos os projetos →</a></div>
         <div class="home-entries">
-          {projects.map((project) => <article class="home-entry">
+          {projects.map((project) => <article class="home-entry home-project-entry">
+            <div class="project-card-body">
             <h3><a href={withBase(`/projetos/${project.id}/`)}>{project.data.title}</a></h3>
             {project.data.description && <p>{project.data.description}</p>}
             <p class="entry-note">{formatProjectType(project.data.type)} · {projectRoleLabel(project.id, project.data.role)}</p>
+            </div>
+            <PartnerLogos partners={[...new Set([...project.data.partners, ...project.data.funding])]} />
           </article>)}
         </div>
       </section>

@@ -12,6 +12,12 @@ const presentationSchema = z.object({
   profileInstitutionUrl: z.string().url(),
   homeTeachingOrder: z.array(z.string().min(1)).default([]),
   projectRoleLabels: z.record(z.string(), z.string().min(1)).default({}),
+  projectListingExcluded: z.array(z.string().min(1)).default([]),
+  partnerLogos: z.record(z.string(), z.object({
+    label: z.string().min(1),
+    src: z.string().startsWith('/'),
+    whiteArtwork: z.boolean().default(false),
+  })).default({}),
   profileLogos: z.array(z.object({
     label: z.string().min(1),
     src: z.string().startsWith('/'),
