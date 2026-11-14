@@ -6,3 +6,59 @@
   start: 2007-10
   end: 2008-04
   evidenceVerified: true
+- id: experience-pacto4-2004-2005
+  title: Engenheiro de Software — PACTO4 Tecnologia de Software
+  institution: PACTO4 Tecnologia de Software
+  category: Atuação profissional
+  role: Engenheiro de Software
+  start: 2004-07
+  end: 2005-06
+  evidenceVerified: false
+- id: experience-cast-2008-2009
+  title: Analista de Sistemas — Cast Informática
+  institution: Cast Informática
+  category: Atuação profissional
+  role: Analista de Sistemas
+  start: 2008-06
+  end: 2009-11
+  evidenceVerified: false
+- id: experience-bg-quality-2009-2010
+  title: Sócio — BG Quality
+  institution: BG QUALITY SERVIÇOS DE ENTREGA ONLINE LTDA.
+  category: Participação societária
+  role: Sócio
+  start: 2009-12
+  end: 2010-12
+  evidenceVerified: false
+- id: experience-uepb-2011-2012
+  title: Professor temporário — UEPB
+  institution: Universidade Estadual da Paraíba
+  category: Docência
+  role: Professor temporário
+  start: 2011-07
+  end: 2012-02
+  evidenceVerified: false
+- id: experience-politec-2005-2006
+  title: Engenheiro de Software — POLITEC - Campina Grande
+  institution: POLITEC - Campina Grande
+  category: Atuação profissional
+  role: Engenheiro de Software
+  start: 2005-07
+  end: 2006-06
+  evidenceVerified: false
+- id: experience-grupo-tci-2006-2007
+  title: Engenheiro de Software — GRUPO TCI
+  institution: GRUPO TCI
+  category: Atuação profissional
+  role: Engenheiro de Software
+  start: 2006-07
+  end: 2007-08
+  evidenceVerified: false
+- id: experience-accenture-2010-2011
+  title: Analista de Sistemas — Accenture
+  institution: Accenture
+  category: Atuação profissional
+  role: Analista de Sistemas
+  start: 2010-07
+  end: 2011-09
+  evidenceVerified: false
