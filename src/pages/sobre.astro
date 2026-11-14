@@ -83,7 +83,7 @@ import { formatDate, formatPeriod, withBase } from '@/lib/site';
     <section class="section container" id="idiomas">
       <SectionHeading title="Idiomas" />
       <div class="record-group">
-        <dl class="profile-languages">{site.profile.languages.map((item) => <div><dt>{item.language}</dt><dd>{item.level}</dd></div>)}</dl>
+        <dl class="profile-languages">{site.profile.languages.map((item) => <div><dt>{({ Inglês: 'gb', Alemão: 'de', Espanhol: 'es' }[item.language]) && <img class="language-flag" src={withBase(`/flags/${{ Inglês: 'gb', Alemão: 'de', Espanhol: 'es' }[item.language]}.svg`)} alt="" />} {item.language}</dt><dd>{item.level}</dd></div>)}</dl>
       </div>
     </section>
 
